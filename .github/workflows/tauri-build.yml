@@ -40,22 +40,22 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
           npm install -g typescript 
-          yarn
+          yarn && yarn build
       - name: install dependencies (macos only)
         if: matrix.platform == 'macos-latest'
         run: |
           npm install -g typescript 
-          yarn
+          yarn && yarn build
       - name: install dependencies (windows only)
         if: matrix.platform == 'windows-latest'
         run: |
           npm install -g typescript
-          yarn
+          yarn && yarn build
       - name: Build
         uses: tauri-apps/tauri-action@v0
         with:
           tagName: esp32datalogger-v__VERSION__
           releaseName: "Esp32 Data Logger v__VERSION__" # name of the release
           releaseBody: "Initial app public build. There may be bugs, please report them." # message to include in the release
-          releaseDraft: false # set to false to publish the release as a finished product
+          releaseDraft: true # set to false to publish the release as a finished product
           prerelease: false # set to true to mark the release as a pre-release

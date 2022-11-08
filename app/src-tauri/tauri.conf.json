@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "ESP32 Data Logger",
-    "version": "0.1.0"
+    "version": "0.1.1-debug"
   },
   "tauri": {
     "allowlist": {
