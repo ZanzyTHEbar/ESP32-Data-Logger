@@ -43,3 +43,11 @@ yarn tauri build
 ```
 
 This will create a folder called `target` in the `src-tauri` directory. Inside this folder, you will find the executable for your operating system, as well as an installer.
+
+To build the project as a webapp, run:
+
+```bash
+yarn build
+```
+
+This will create a folder called `dist` where the static files for the site will live. This webapp can then be hosted on any machine. 
