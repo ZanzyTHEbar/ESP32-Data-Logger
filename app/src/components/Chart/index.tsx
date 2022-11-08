@@ -12,6 +12,7 @@ import { useState, useRef, useEffect } from "react";
 import type HighchartsTypes from "highcharts-react-official";
 
 //! Docs: https://api.highcharts.com/highcharts/
+//! Docs: https://www.highcharts.com/docs/
 
 export default function Chart(props) {
     const [hoverData, setHoverData] = useState("");
@@ -96,7 +97,6 @@ export default function Chart(props) {
                         });
                     });
                 });
-            //chart.series[0].addPoint([new Date().getTime(), props.data]);
         }, props.interval);
         return () => clearInterval(interval);
     }, [props.data, props.interval]);
