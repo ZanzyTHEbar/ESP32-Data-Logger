@@ -101,7 +101,7 @@ export default function Charts() {
                                             lineColor={item["line_color"]}
                                             data={fetchFromObject(
                                                 chart.data,
-                                                item["object_id"]
+                                                item["object_id"] || ""
                                             )}
                                             interval={item["interval"]}
                                         />

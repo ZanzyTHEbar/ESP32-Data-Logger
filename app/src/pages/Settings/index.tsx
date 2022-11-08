@@ -10,7 +10,7 @@ import { useState } from "react";
 
 export default function Settings() {
     const isEmptyFirst = Object.keys(ChartData[0]).length === 0;
-    const isEmptyGlobal = ChartData.length === 0;
+    //const isEmptyGlobal = ChartData.length === 0;
     const settingsData = {
         ip: "",
         endpoint: "",
