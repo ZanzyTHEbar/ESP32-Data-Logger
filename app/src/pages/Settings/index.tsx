@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import "antd/dist/antd.css";
 import { ChartData } from "@components/ChartData";
 import Input from "@components/SettingsInputs";
 import { SettingsPageData } from "@components/SettingsPageData";

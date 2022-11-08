@@ -31,7 +31,6 @@
 
     .menu-bars {
         margin-left: 2rem;
-        font-size: 2rem;
         background: none;
     }
     .nav-menu {
@@ -70,6 +69,41 @@
 
     .nav-text:hover {
         background-color: theme("colors.blue.400");
+    }
+
+    .settings-button {
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
+            rgba(0, 0, 0, 0.23) 0px 3px 6px;
+        color: #1890ff;
+        text-decoration: none;
+        background-color: transparent;
+        outline: none;
+        cursor: pointer;
+        transition: color 0.3s;
+        -webkit-text-decoration-skip: objects;
+        touch-action: manipulation;
+    }
+    .settings-button:active,
+    .settings-button:hover {
+        text-decoration: none;
+        outline: 0;
+    }
+    .settings-button:hover {
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+            rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        color: #40a9ff;
+    }
+    .settings-button:active {
+        color: #096dd9;
+    }
+
+    .settings-button:focus {
+        text-decoration: none;
+        outline: 0;
+    }
+    .settings-button[disabled] {
+        color: rgba(0, 0, 0, 0.25);
+        cursor: not-allowed;
     }
 
     #button-row {
