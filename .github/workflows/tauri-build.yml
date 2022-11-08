@@ -1,7 +1,7 @@
 name: "tauri-build"
 on:
   push:
-    branches: [GUI]
+    branches: [main]
     paths-ignore:
       - "*.md"
 env:
