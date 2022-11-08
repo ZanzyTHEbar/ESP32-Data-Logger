@@ -1,0 +1,169 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Ubuntu:500");
+
+/* https://www.highcharts.com/docs/chart-design-and-style/style-by-css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .card {
+        background-color: theme("colors.white");
+        border-radius: theme("borderRadius.lg");
+        padding-left: theme("spacing.6");
+        padding-right: theme("spacing.6");
+        padding-bottom: theme("spacing.6");
+        padding-top: theme("spacing.8");
+        /* box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px; */
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+            rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        margin-top: 2rem;
+    }
+
+    .chart-div {
+        padding-left: theme("spacing.6");
+        padding-right: theme("spacing.6");
+        padding-bottom: theme("spacing.6");
+        padding-top: theme("spacing.8");
+    }
+
+    .menu-bars {
+        margin-left: 2rem;
+        font-size: 2rem;
+        background: none;
+    }
+    .nav-menu {
+        background: none;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        transition: 850ms;
+        top: 1.85rem;
+        opacity: 90%;
+        z-index: 20;
+        overflow-y: auto;
+    }
+
+    .nav-text {
+        list-style: none;
+        height: 60px;
+    }
+
+    .nav-text label {
+        text-decoration: none;
+        color: theme("colors.gray.700");
+        font-size: 18px;
+        width: 95%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        border-radius: 4px;
+    }
+
+    .nav-text:hover {
+        background-color: theme("colors.blue.400");
+    }
+
+    #button-row {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: right;
+        font-size: 0;
+    }
+
+    #button-row button {
+        background: #eee;
+        transition: background 150ms;
+        border: 1px solid #999;
+        display: inline-block;
+        font-size: 12pt;
+        line-height: 16pt;
+        margin-left: -1px;
+        color: #555;
+    }
+
+    #button-row button:first-child {
+        border-top-left-radius: 0.3em;
+        border-bottom-left-radius: 0.3em;
+    }
+
+    #button-row button:last-child {
+        border-top-right-radius: 0.3em;
+        border-bottom-right-radius: 0.3em;
+    }
+
+    #button-row button:focus,
+    #button-row button:hover {
+        background: #ccc;
+        outline: none;
+    }
+}
+
+#root {
+    text-align: center;
+}
+
+body {
+    margin: 0;
+    font-family: "Ubuntu", sans-serif;
+    cursor: default;
+    background-color: #ffffff;
+    color: #0b0c10;
+    text-align: center;
+}
+
+.App {
+    background-color: #ffffff;
+    color: #0b0c10;
+    text-align: center;
+    padding: 5px;
+    height: 100vh;
+}
+
+.main-div {
+    background-color: rgba(0, 0, 0, 0.73);
+}
+
+.plus-color {
+    filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(1deg)
+        brightness(119%) contrast(119%);
+}
+
+.plus-color:hover {
+    -webkit-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    transform: scale(1.12);
+    transition: all 1.3s ease;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #ae6d6d;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #b24646;
+}
+
+/* @import "@pages/Calendar/index.scss"; */
