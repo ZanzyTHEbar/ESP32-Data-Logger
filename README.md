@@ -2,6 +2,20 @@
 
 This is an app for viewing realtime data on your PC from embedded systems
 
+Currently the app only supports `REST API` endpoints using `GET` requests. 
+
+In the future I intend to add the following features:
+
+- WebSocket support
+- Serial Device support
+- MQTT support
+- Publish data to google sheets
+- capture user-determined snapshots of data and export as CSV
+- Pie Chart support
+- multiple series on one graph
+- usage of API keys in the `HTTP` requests
+- `POST` requests
+
 ## How to Setup Dev Environment
 
 This project uses NodeJS (v18+) and Yarn. You must install them before continuing.
