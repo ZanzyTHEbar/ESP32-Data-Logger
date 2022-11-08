@@ -90,8 +90,9 @@ export default function Chart(props) {
                 .querySelectorAll("#button-row button")
                 .forEach(function (button) {
                     button.addEventListener("click", function () {
+                        const type: any = button.className.split("-")[0];
                         chart.series[0].update({
-                            type: button.className.split("-")[0],
+                            type: type,
                         });
                     });
                 });
