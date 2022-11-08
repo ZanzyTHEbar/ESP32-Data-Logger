@@ -9,6 +9,8 @@ import { useState } from "react";
 //import { Color } from "highcharts";
 
 export default function Settings() {
+    const isEmptyFirst = Object.keys(ChartData[0]).length === 0;
+    const isEmptyGlobal = ChartData.length === 0;
     const settingsData = {
         ip: "",
         endpoint: "",
@@ -26,11 +28,10 @@ export default function Settings() {
     };
 
     const handleSave = () => {
-        //console.log(inputState);
-        const isEmpty = Object.keys(ChartData[0]).length === 0;
-        //console.log(isEmpty);
         // add  the inputState object to the ChartData array
-        if (ChartData.length === 1 && isEmpty) {
+        console.log(ChartData.length);
+        console.log(isEmptyFirst);
+        if (ChartData.length === 1 && isEmptyFirst) {
             ChartData.pop();
             ChartData.push(inputState);
         } else {
@@ -46,11 +47,17 @@ export default function Settings() {
         while (ChartData.length) {
             ChartData.pop();
         }
-        ChartData.push(settingsData);
+        ChartData.push({});
     };
 
     const handleDelete = () => {
-        ChartData.pop();
+        console.log(ChartData.length);
+        if (ChartData.length > 1) ChartData.pop();
+        else if (ChartData.length === 1) {
+            console.log("here");
+            ChartData.pop();
+            ChartData.push({});
+        }
     };
 
     return (
