@@ -2,7 +2,13 @@
 
 This is an app for viewing realtime data on your PC from embedded systems
 
-Currently the app only supports `REST API` endpoints using `GET` requests. 
+Currently the app only supports `REST API` endpoints using `GET` requests.
+
+## Installation
+
+Download the latest release for your OS from the [releases page](https://github.com/ZanzyTHEbar/ESP32-Data-Logger/releases)
+
+## To-Do
 
 In the future I intend to add the following features:
 
@@ -15,6 +21,15 @@ In the future I intend to add the following features:
 - multiple series on one graph
 - usage of API keys in the `HTTP` requests
 - `POST` requests
+- Save chart instances to browser local storage so that they load on page refresh
+
+## Look and Feel
+
+![homescreen](/images/homescreen.png "homescreen")
+
+![settings](/images/settings.png "settings")
+
+![charts](/images/charts.png "charts")
 
 ## How to Setup Dev Environment
 
@@ -64,4 +79,4 @@ To build the project as a webapp, run:
 yarn build
 ```
 
-This will create a folder called `dist` where the static files for the site will live. This webapp can then be hosted on any machine. 
+This will create a folder called `dist` where the static files for the site will live. This webapp can then be hosted on any machine.
