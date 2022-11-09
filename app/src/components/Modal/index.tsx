@@ -12,10 +12,17 @@ export default function Modal(props) {
             onClick={handleClose}
             className="fixed pt-8 mt-7 inset-0 bg-black bg-opacity-25 backdrop-blur-xl flex justify-center items-center content-center self-center"
         >
+            {/* 
+            
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            WebkitTransform: "translate(-50%, -50%)",
+            */}
             <div
-                className={`md:w-[${props.width}px] w[90%] mx-auto flex flex-col`}
+                className={`md:w-[${props.width}px] h-[100%] xl:mt-[65px] lg:mt-[65px] sm:mt-[55px] xs:mt-[55px] md:mt-[45px] 2xl:mt-[95px] flex flex-col pb-32`}
             >
-                <div className="container px-1 flex items-center justify-between">
+                <div className="px-1 flex items-center justify-center w-[99.50%] h-[25px]">
                     <button
                         type="button"
                         className="ml-auto place-self-end text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-400 p-1 hover:bg-gray-200 inline-flex h-6 w-6 dark:bg-gray-300 dark:text-gray-600 dark:hover:bg-gray-400"
@@ -38,7 +45,9 @@ export default function Modal(props) {
                         </svg>
                     </button>
                 </div>
-                <div className="bg-none p-2 rounded">{props.children}</div>
+                <div className="bg-none p-2 rounded h-[100%] 2xl:h-[100%] md:h-[110%]">
+                    {props.children}
+                </div>
             </div>
         </div>
     );

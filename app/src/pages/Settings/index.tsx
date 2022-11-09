@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { ChartData } from "@components/ChartData";
+import { Greeting } from "@components/Greeting";
 import Input from "@components/SettingsInputs";
 import { SettingsPageData } from "@components/SettingsPageData";
 import Tooltip from "@components/Tooltip";
@@ -9,11 +10,11 @@ import { useState } from "react";
 
 export default function Settings() {
     const isEmptyFirst = Object.keys(ChartData[0]).length === 0;
-    //const isEmptyGlobal = ChartData.length === 0;
     const settingsData = {
         ip: "",
         endpoint: "",
         title: "",
+        app_title: "",
         y_axis_title: "",
         line_color: "",
         interval: 3000,
@@ -28,8 +29,8 @@ export default function Settings() {
 
     const handleSave = () => {
         // add  the inputState object to the ChartData array
-        console.log(ChartData.length);
-        console.log(isEmptyFirst);
+        //console.log(ChartData.length);
+        //console.log(isEmptyFirst);
         if (ChartData.length === 1 && isEmptyFirst) {
             ChartData.pop();
             ChartData.push(inputState);
@@ -50,17 +51,17 @@ export default function Settings() {
     };
 
     const handleDelete = () => {
-        console.log(ChartData.length);
+        //console.log(ChartData.length);
         if (ChartData.length > 1) ChartData.pop();
         else if (ChartData.length === 1) {
-            console.log("here");
+            //console.log("here");
             ChartData.pop();
             ChartData.push({});
         }
     };
 
     return (
-        <div className="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-300 z-40">
+        <div className="overflow-auto py-4 px-3 rounded dark:bg-gray-300 z-10 h-[100%]">
             <div className="flex items-center justify-center">
                 <header
                     style={{
@@ -69,6 +70,7 @@ export default function Settings() {
                     className="text-2xl font-bold"
                 >
                     Settings
+                    <Greeting />
                 </header>
             </div>
             <div>
@@ -76,11 +78,11 @@ export default function Settings() {
                     {SettingsPageData.map((item) => (
                         <li
                             key={item.id}
-                            className={`${item.cName} pt-2.5 pr-2.5 rounded-xl self-center items-stretch content-center justify-center mr-32 flex-row`}
+                            className={`${item.cName} pt-2.5 pr-2.5 rounded-xl self-center items-stretch content-center justify-center md:mr-[2rem] flex-row`}
                         >
                             <Tooltip tooltip={item.tooltip}>
                                 <label
-                                    className="float-left space-x-2 rounded-sm whitespace-nowrap"
+                                    className="space-x-2 rounded-sm whitespace-nowrap md:mr-[8rem] sm:mr-[8rem] xs:mr-[20rem] xs:mb-[1rem] xs:flex-row md:flex-row sm:flex-row flex-col"
                                     htmlFor={item.id}
                                 >
                                     <span className="text-gray-700 dark:text-gray-600">
@@ -91,7 +93,7 @@ export default function Settings() {
                                     </span>
                                 </label>
                             </Tooltip>
-                            <div className="float-right">
+                            <div className="xs:pl-[1rem]">
                                 <Input
                                     key={item.id}
                                     type="text"
@@ -105,7 +107,7 @@ export default function Settings() {
                             </div>
                         </li>
                     ))}
-                    <div className="pl-[6rem] pt-[2rem] pb-[2rem]">
+                    <div className="pl-[3rem] pt-[4rem] pb-[1rem] md:mr-[2rem]">
                         <button
                             onClick={handleSave}
                             className="ml-auto bg-blue-700 hover:bg-blue-800 focus:outline-none text-white font-medium text-sm rounded-lg py-2.5 px-5 text-rounded mr-5 shadow-md hover:shadow-xl focus:bg-blue-600 transition duration-100 ease-in focus:shadow-inner"
@@ -126,7 +128,7 @@ export default function Settings() {
                         </button>
                         <button
                             onClick={handleReset}
-                            className="ml-auto bg-blue-700 hover:bg-blue-800 focus:outline-none text-white font-medium text-sm rounded-lg py-2.5 px-5 text-rounded mr-5 shadow-md hover:shadow-xl focus:bg-blue-600 transition duration-100 ease-in focus:shadow-inner"
+                            className="xs:mr-[1.75rem] xs:mt-[1rem] ml-auto bg-blue-700 hover:bg-blue-800 focus:outline-none text-white font-medium text-sm rounded-lg py-2.5 px-5 text-rounded mr-5 shadow-md hover:shadow-xl focus:bg-blue-600 transition duration-100 ease-in focus:shadow-inner"
                         >
                             Reset Form
                         </button>

@@ -67,14 +67,20 @@
         border-radius: 4px;
     }
 
+    @media screen and (min-width: 768px) {
+        .nav-text:hover {
+            background-color: theme("colors.blue.300");
+        }
+    }
+
     .nav-text:hover {
-        background-color: theme("colors.blue.400");
+        background-color: none;
     }
 
     .settings-button {
         box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
             rgba(0, 0, 0, 0.23) 0px 3px 6px;
-        color: #1890ff;
+        color: theme("colors.blue.300");
         text-decoration: none;
         background-color: transparent;
         outline: none;
@@ -83,6 +89,7 @@
         -webkit-text-decoration-skip: objects;
         touch-action: manipulation;
     }
+
     .settings-button:active,
     .settings-button:hover {
         text-decoration: none;
@@ -91,10 +98,10 @@
     .settings-button:hover {
         box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
             rgba(0, 0, 0, 0.23) 0px 6px 6px;
-        color: #40a9ff;
+        color: theme("colors.blue.400");
     }
     .settings-button:active {
-        color: #096dd9;
+        color: theme("colors.blue.500");
     }
 
     .settings-button:focus {

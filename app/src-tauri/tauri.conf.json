@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "ESP32 Data Logger",
-    "version": "0.1.1"
+    "version": "0.1.2"
   },
   "tauri": {
     "allowlist": {
@@ -89,8 +89,8 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 893,
-        "width": 1036,
+        "height": 600,
+        "width": 800,
         "resizable": true,
         "center": true,
         "title": "ESP32 Data Logger",
@@ -99,8 +99,8 @@
         "transparent": true
       },
       {
-        "height": 893,
-        "width": 1036,
+        "height": 600,
+        "width": 800,
         "decorations": false,
         "resizable": false,
         "center": true,

@@ -23,12 +23,20 @@ export const SettingsPageData = [
         placeholder: "/api/v1/humidity",
     },
     {
-        title: "Title",
+        title: "Chart Title",
         icon: <FaIcons.FaPencilAlt />,
         cName: "nav-text",
         id: "title",
         tooltip: "Title of the graph",
         placeholder: "Kitchen Humidity Data",
+    },
+    {
+        title: "App Title",
+        icon: <FaIcons.FaPencilAlt />,
+        cName: "nav-text",
+        id: "app_title",
+        tooltip: "Title of the app",
+        placeholder: "Humidity Sensor",
     },
     {
         title: "Y Axis Title",
@@ -39,7 +47,7 @@ export const SettingsPageData = [
         placeholder: "Humidity (%)",
     },
     {
-        title: "Line Color",
+        title: "Color",
         icon: <FaIcons.FaEyeDropper />,
         cName: "nav-text",
         id: "line_color",
@@ -47,7 +55,7 @@ export const SettingsPageData = [
         placeholder: "#FF0000",
     },
     {
-        title: "Object ID",
+        title: "JSON ID",
         icon: <FaIcons.FaIdBadge />,
         cName: "nav-text",
         id: "object_id",

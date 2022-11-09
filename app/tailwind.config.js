@@ -21,9 +21,28 @@ module.exports = {
     ],
   },
   theme: {
+    screens: {
+      // Phones
+      'xs': '480px',
+      // => @media (min-width: 640px) { ... }
+      'sm': '640px',
+      // Tablets
+      // => @media (min-width: 640px) { ... }
+      'md': '768px',
+      // => @media (min-width: 768px) { ... }
+      'xm': '992px',
+      // Desktops
+      // => @media (min-width: 768px) { ... }
+      'lg': '1024px',
+      // => @media (min-width: 1024px) { ... }
+      'xl': '1280px',
+      // => @media (min-width: 1280px) { ... }
+      '2xl': '1536px',
+      // => @media (min-width: 1536px) { ... }
+    },
     extend: {
       fontFamily: {
-        sans: ["Open Sans"]
+        sans: ["Roboto", "sans-serif"],
       },
       gridTemplateColumns: {
         "1/5": "1fr 5fr"

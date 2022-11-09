@@ -33,7 +33,7 @@ export default function Header(props) {
                 </h2>
                 <img src={logo} alt="logo" className="ml-5 mr-0 w-15 h-12" />
             </header>
-            <div className="nav-menu">
+            <div className="nav-menu z-10">
                 <Modal
                     isVisible={showSettings}
                     onClose={() => setShowSettings(false)}

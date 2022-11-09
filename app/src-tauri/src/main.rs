@@ -97,7 +97,7 @@ fn main() {
         .invoke_handler(tauri::generate_handler![get_user, close_splashscreen])
         .setup(|app| {
             let window = app.get_window("main").unwrap();
-            set_shadow(&window, true).expect("Unsupported platform!");
+            //set_shadow(&window, true).expect("Unsupported platform!");
             Ok(window.hide().unwrap())
         })
         .system_tray(tray)
