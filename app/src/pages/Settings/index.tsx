@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { ChartData } from "@components/ChartData";
-import { Greeting } from "@components/Greeting";
 import Input from "@components/SettingsInputs";
 import { SettingsPageData } from "@components/SettingsPageData";
 import Tooltip from "@components/Tooltip";
@@ -70,7 +69,6 @@ export default function Settings() {
                     className="text-2xl font-bold"
                 >
                     Settings
-                    <Greeting />
                 </header>
             </div>
             <div>

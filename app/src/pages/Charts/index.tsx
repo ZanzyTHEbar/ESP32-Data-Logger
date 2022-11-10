@@ -1,6 +1,5 @@
 import Chart from "@components/Chart";
 import { ChartData } from "@components/ChartData";
-import getData from "@src/API/getData";
 import { useState, useEffect } from "react";
 
 // recursive function to get data from API
@@ -28,6 +27,7 @@ export default function Charts() {
 
     const updateData = () => {
         ChartData.forEach((chart) => {
+            console.log(getDataTauri(chart["ip"] + chart["endpoint"]));
             //console.log(chart);
             getData(chart["ip"] + chart["endpoint"] || "").then((res) => {
                 //console.log(res);

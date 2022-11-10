@@ -26,7 +26,7 @@ export default function Header(props) {
                     </div>
                 </div>
                 <h1 className="ml-4 text-xl text-gray-500 fond-bold">
-                    <span className="text-gray-900">{props.name}</span> Data
+                    <span className="text-gray-900">Welcome</span> {props.name}
                 </h1>
                 <h2 className="ml-4 text-xl text-gray-500 font-bold">
                     <span className="text-gray-900">ESP32</span> Data Logger
