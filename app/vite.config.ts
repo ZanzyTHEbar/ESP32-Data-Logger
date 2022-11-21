@@ -14,7 +14,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@src': path.resolve(__dirname, './src'),
-      '@pages': path.resolve(__dirname, 'src/pages'),
+      '@pages': path.resolve(__dirname, './src/pages'),
       '@config': path.resolve(__dirname, './src/config'),
       '@styles': path.resolve(__dirname, './src/styles'),
       '@redux': path.resolve(__dirname, './src/redux'),
