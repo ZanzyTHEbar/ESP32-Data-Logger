@@ -162,7 +162,7 @@ body {
 
 .main-div {
     height: 100vh;
-    /* overflow: auto; */
+    overflow: auto;
     background-color: #ffffff;
     border-radius: 1rem;
 }
