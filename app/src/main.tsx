@@ -1,11 +1,11 @@
-import reportWebVitals from "@assets/js/reportWebVitals";
-import ContextWrapper from "@src/context/ContextWrapper";
-import { invoke } from "@tauri-apps/api/tauri";
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import "@src/styles/imports.css";
-import config from "../src-tauri/config/config.json";
-import App from "./App";
+import reportWebVitals from '@assets/js/reportWebVitals'
+import ContextWrapper from '@src/context/ContextWrapper'
+import { invoke } from '@tauri-apps/api/tauri'
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import '@src/styles/imports.css'
+import config from '../src-tauri/config/config.json'
+import App from './App'
 
 /**
  * @description This is the entry point of the application.
@@ -13,43 +13,40 @@ import App from "./App";
  * If it is not empty we continue.
  *
  */
-document.addEventListener("DOMContentLoaded", () => {
-    if (!config["name"]) {
-        invoke("wrapper").then((config) => {
-            console.log(config);
-        });
-    }
+document.addEventListener('DOMContentLoaded', () => {
+  if (!config['name']) {
+    invoke('wrapper').then((config) => {
+      console.log(config)
+    })
+  }
 
-    //* This will wait for the window to load, but we could
-    //* run this function on whatever trigger we want
-    //* sleep for 3 seconds to allow the window to load
-    setTimeout(() => {
-        invoke("close_splashscreen");
-    }, 15000);
-});
+  //* This will wait for the window to load, but we could
+  //* run this function on whatever trigger we want
+  //* sleep for 3 seconds to allow the window to load
+  setTimeout(() => {
+    invoke('close_splashscreen')
+  }, 15000)
+})
 
-const root = createRoot(document.getElementById("root") as HTMLElement);
+const root = createRoot(document.getElementById('root') as HTMLElement)
 
 declare global {
-    namespace JSX {
-        interface IntrinsicElements {
-            item: React.DetailedHTMLProps<
-                React.HTMLAttributes<HTMLElement>,
-                HTMLElement
-            >;
-        }
+  namespace JSX {
+    interface IntrinsicElements {
+      item: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>
     }
+  }
 }
 
 root.render(
-    <StrictMode>
-        <ContextWrapper>
-            <App />
-        </ContextWrapper>
-    </StrictMode>
-);
+  <StrictMode>
+    <ContextWrapper>
+      <App />
+    </ContextWrapper>
+  </StrictMode>
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals(console.table);
+reportWebVitals(console.table)

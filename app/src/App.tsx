@@ -1,4 +1,4 @@
-import AppRoutes from "@src/routes/app";
+import AppRoutes from '@src/routes/app'
 //import { appWindow } from "@tauri-apps/api/window";
 // TODO: Add API Key setting for fetch requests
 // TODO: Add a way to set the API Key
@@ -9,11 +9,11 @@ import AppRoutes from "@src/routes/app";
 
 // TODO: Implement a download chart data as CSV feature - needs capture time frame (30 second snapshots for example)
 function App() {
-    return (
-        <div className="App">
-            <AppRoutes />
-        </div>
-    );
+  return (
+    <div className="App">
+      <AppRoutes />
+    </div>
+  )
 }
 
-export default App;
+export default App

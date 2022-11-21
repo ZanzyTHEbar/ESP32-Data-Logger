@@ -1,4 +1,4 @@
-export const ChartData = [{}];
+export const ChartData = [{}]
 
 /* 
 
