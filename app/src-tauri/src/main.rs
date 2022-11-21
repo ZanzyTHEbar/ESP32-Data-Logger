@@ -141,7 +141,8 @@ fn main() {
         .setup(|app| {
             let window = app.get_window("main").unwrap();
             //set_shadow(&window, true).expect("Unsupported platform!");
-            Ok(window.hide().unwrap())
+            window.hide().unwrap();
+            Ok(())
         })
         .system_tray(tray)
         .on_system_tray_event(move |app, event| match event {
