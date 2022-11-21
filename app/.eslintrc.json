@@ -38,10 +38,7 @@
                 "tsx": "never"
             }
         ],
-        "arrow-body-style": [
-            "error",
-            "as-needed"
-        ],
+        "arrow-body-style": "off",
         "react/self-closing-comp": [
             "error",
             {
@@ -81,11 +78,11 @@
                     "order": "asc"
                 }
             }
-        ]//,
-        // "no-restricted-imports": [
+        ] //,
+    // "no-restricted-imports": [
         //   "error",
-        //   { 
-        //     "patterns": ["../"] 
+        //   {
+        //     "patterns": ["../"]
         //   }
         // ],
     },

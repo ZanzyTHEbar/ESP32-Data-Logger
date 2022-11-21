@@ -3,20 +3,20 @@ import ContextWrapper from "@src/context/ContextWrapper";
 import { invoke } from "@tauri-apps/api/tauri";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "@assets/css/index.css";
-import username from "../src-tauri/config/config.json";
+import "@src/styles/imports.css";
+import config from "../src-tauri/config/config.json";
 import App from "./App";
 
 /**
  * @description This is the entry point of the application.
- * We check the config file, and if it is empty we grab the username from windows.
+ * We check the config file, and if it is empty we grab the config from windows.
  * If it is not empty we continue.
  *
  */
 document.addEventListener("DOMContentLoaded", () => {
-    if (!username.name) {
-        invoke("get_user").then((username) => {
-            console.log(username);
+    if (!config["came"]) {
+        invoke("wrapper").then((config) => {
+            console.log(config);
         });
     }
 
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //* sleep for 3 seconds to allow the window to load
     setTimeout(() => {
         invoke("close_splashscreen");
-    }, 3000);
+    }, 15000);
 });
 
 const root = createRoot(document.getElementById("root") as HTMLElement);

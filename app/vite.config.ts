@@ -38,6 +38,5 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    /* ViteToml(), */
   ]
 })

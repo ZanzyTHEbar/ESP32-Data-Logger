@@ -27,14 +27,14 @@ export default function Charts() {
 
     const updateData = () => {
         ChartData.forEach((chart) => {
-            console.log(getDataTauri(chart["ip"] + chart["endpoint"]));
+            //console.log(getDataTauri(chart["ip"] + chart["endpoint"]));
             //console.log(chart);
-            getData(chart["ip"] + chart["endpoint"] || "").then((res) => {
-                //console.log(res);
-                setChart({
-                    data: { ...res },
-                });
-            });
+            //getData(chart["ip"] + chart["endpoint"] || "").then((res) => {
+            //    //console.log(res);
+            //    setChart({
+            //        data: { ...res },
+            //    });
+            //});
         });
     };
 

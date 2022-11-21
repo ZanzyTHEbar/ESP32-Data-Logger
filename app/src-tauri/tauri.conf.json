@@ -106,6 +106,7 @@
         "height": 600,
         "width": 800,
         "decorations": false,
+        "transparent": true,
         "resizable": false,
         "center": true,
         "url": "splashscreen.html",
