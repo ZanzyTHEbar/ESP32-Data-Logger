@@ -1,5 +1,5 @@
 import Chart from '@components/Chart'
-import { ChartData } from '@components/ChartData'
+import { ChartData } from '@src/static/ChartData'
 import { useState, useEffect } from 'react'
 
 // recursive function to get data from API

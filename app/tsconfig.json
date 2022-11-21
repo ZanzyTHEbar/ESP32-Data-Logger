@@ -48,6 +48,15 @@
       ],
       "@assets/*": [
         "./assets/*"
+      ],
+      "@tauri/*": [
+        "src-tauri/*"
+      ],
+      "@static/*": [
+        "src/static/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
       ]
     },
   },

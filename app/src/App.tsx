@@ -1,4 +1,5 @@
-import AppRoutes from '@src/routes/app'
+import AppRoutes from '@pages/routes/Routes'
+import { Outlet } from 'react-router-dom'
 //import { appWindow } from "@tauri-apps/api/window";
 // TODO: Add API Key setting for fetch requests
 // TODO: Add a way to set the API Key
@@ -12,6 +13,7 @@ function App() {
   return (
     <div className="App">
       <AppRoutes />
+      <Outlet />
     </div>
   )
 }

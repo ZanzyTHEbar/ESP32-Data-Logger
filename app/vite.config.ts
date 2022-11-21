@@ -21,7 +21,9 @@ export default defineConfig({
       '@interfaces': path.resolve(__dirname, './src/interfaces'),
       '@assets': path.resolve(__dirname, './assets'),
       '@components': path.resolve(__dirname, './src/components'),
-      '@public': path.resolve(__dirname, './public')
+      '@tauri': path.resolve(__dirname, './src-tauri'),
+      '@static': path.resolve(__dirname, './src/static'),
+      '@utils': path.resolve(__dirname, './src/utils'),
     },
   },
   server: {
