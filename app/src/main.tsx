@@ -14,7 +14,7 @@ import App from "./App";
  *
  */
 document.addEventListener("DOMContentLoaded", () => {
-    if (!config["came"]) {
+    if (!config["name"]) {
         invoke("wrapper").then((config) => {
             console.log(config);
         });

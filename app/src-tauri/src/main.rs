@@ -76,7 +76,7 @@ async fn generate_json(instance: &m_dnsquery::Mdns) -> Result<(), Box<dyn std::e
 async fn wrapper() {
     env_logger::init();
     info!("Wrapper function ran");
-    run_mdns_query(String::from("_openiris._tcp"), 10).await;
+    run_mdns_query(String::from("_waterchamber._tcp"), 10).await;
 }
 
 /// A function to run a mDNS query and create a new RESTClient instance for each device found
