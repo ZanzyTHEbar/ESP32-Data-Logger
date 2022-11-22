@@ -4,14 +4,12 @@ import { invoke } from '@tauri-apps/api/tauri'
 import userName from '@utils/Helpers/localStorageHandler'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-//import config from '../src-tauri/config/config.json'
 import '@src/styles/imports.css'
 import App from './App'
 
 /**
  * @description This is the entry point of the application.
- * We check the config file, and if it is empty we grab the config from windows.
- * If it is not empty we continue.
+ * We grab the users windows username.
  *
  */
 document.addEventListener('DOMContentLoaded', () => {
