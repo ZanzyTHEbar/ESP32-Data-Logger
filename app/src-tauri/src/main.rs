@@ -91,7 +91,7 @@ async fn run_mdns_query(service_type: String, scan_time: u64) {
     let thread_arc = base_url.clone();
     let mut mdns: m_dnsquery::Mdns = m_dnsquery::Mdns {
         base_url: thread_arc,
-        name: Vec::new(),
+        names: Vec::new(),
     };
     let ref_mdns = &mut mdns;
     m_dnsquery::run_query(ref_mdns, service_type, scan_time)

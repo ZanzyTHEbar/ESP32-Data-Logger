@@ -18,18 +18,7 @@ use serde::Deserialize;
 use std::collections::hash_map::HashMap;
 use std::sync::{Arc, Mutex};
 
-//use lazy_static::lazy_static;
-
-/* lazy_static! {
-    static ref ;
-} */
-
-/// A struct to hold the REST client response
-/// - `response`: a hashmap of the response
-#[derive(Deserialize, Debug)]
-pub struct Response {
-    pub response: HashMap<String, String>,
-}
+pub type Db = HashMap<String, serde_json::Value>;
 
 /// A struct to hold the REST client
 /// ## Fields
@@ -54,16 +43,48 @@ impl RESTClient {
     }
 }
 
-pub async fn request(rest_client: &RESTClient) -> Result<(), Box<dyn std::error::Error>> {
+pub async fn request(
+    rest_client: &RESTClient,
+) -> Result<HashMap<String, serde_json::Value>, Box<dyn std::error::Error>> {
     info!("Making REST request");
     let response = rest_client
         .http_client
         .get(&rest_client.base_url)
         .send()
         .await?
-        .json::<Response>()
+        .json::<HashMap<String, serde_json::Value>>()
+        //.json::<Response>()
         .await?;
-    info!("Response: {:?}", response.response);
+    Ok(response)
+}
+
+/// A function to run a mDNS query and create a new RESTClient instance for each device found
+/// ## Arguments
+/// - `service_type` The service type to query for
+/// - `scan_time` The number of seconds to query for
+pub async fn run_mdns_query(
+    service_type: String,
+    scan_time: u64,
+) -> Result<(), Box<dyn std::error::Error>> {
+    info!("Starting MDNS query to find devices");
+    let base_url = Arc::new(Mutex::new(HashMap::new()));
+    let thread_arc = base_url.clone();
+    let mut mdns: m_dnsquery::Mdns = m_dnsquery::Mdns {
+        base_url: thread_arc,
+        names: Vec::new(),
+    };
+    let ref_mdns = &mut mdns;
+
+    info!("Thread 1 acquired lock");
+    m_dnsquery::run_query(ref_mdns, service_type, scan_time)
+        .await
+        .expect("Error in mDNS query");
+    info!("MDNS query complete");
+    info!(
+        "MDNS query results: {:#?}",
+        m_dnsquery::get_urls(&*ref_mdns)
+    ); // get's an array of the base urls found
+    m_dnsquery::generate_json(&*ref_mdns).await?; // generates a json file with the base urls found
     Ok(())
 }
 
@@ -71,7 +92,39 @@ pub async fn request(rest_client: &RESTClient) -> Result<(), Box<dyn std::error:
 /// ## Arguments
 /// - `service_type` The service type to query for
 /// - `scan_time` The number of seconds to query for
-pub async fn run_rest_client() -> Result<(), Box<dyn std::error::Error>> {
+pub async fn run_rest_client(endpoint: String) -> Result<(), Box<dyn std::error::Error>> {
     info!("Starting REST client");
+    // create a new db instance
+
+    // read the json config file
+    let data = std::fs::read_to_string("config/config.json").expect("Unable to read config file");
+    // parse the json config file
+    let config: serde_json::Value =
+        serde_json::from_str(&data).expect("Unable to parse config file");
+    debug!("Urls: {:?}", config);
+
+    // create iterator for loop
+    for (i, item) in config.as_object().iter().enumerate() {
+        // create a new RESTClient instance for each url
+        let mut url = item["urls"][i].as_str();
+        let full_url_result = match url {
+            Some(url) => url,
+            None => {
+                error!("Unable to get url");
+                url = Some("http://localhost:8080");
+                url.unwrap()
+            }
+        };
+        let full_url = format!("{}{}", full_url_result, endpoint);
+        //info!("Full url: {}", full_url);
+        let rest_client = RESTClient::new(full_url);
+        let request_result = request(&rest_client).await;
+        match request_result {
+            Ok(response) => {
+                info!("Response: {:?}", response);
+            }
+            Err(e) => error!("Request failed: {}", e),
+        }
+    }
     Ok(())
 }
