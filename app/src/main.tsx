@@ -15,10 +15,12 @@ import App from './App'
  *
  */
 document.addEventListener('DOMContentLoaded', () => {
-  invoke('get_user').then((config) => {
-    console.log(config)
-    userName('name', config)
-  })
+  invoke('get_user')
+    .then((config) => {
+      console.log(config)
+      userName('name', config)
+    })
+    .catch((e) => console.error(e))
   //* This will wait for the window to load, but we could
   //* run this function on whatever trigger we want
   //* sleep for 3 seconds to allow the window to load
