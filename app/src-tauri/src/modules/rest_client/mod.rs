@@ -18,8 +18,6 @@ use serde::Deserialize;
 use std::collections::hash_map::HashMap;
 use std::sync::{Arc, Mutex};
 
-pub type Db = HashMap<String, serde_json::Value>;
-
 /// A struct to hold the REST client
 /// ## Fields
 /// - `client`: a reqwest client
@@ -56,36 +54,6 @@ pub async fn request(
         //.json::<Response>()
         .await?;
     Ok(response)
-}
-
-/// A function to run a mDNS query and create a new RESTClient instance for each device found
-/// ## Arguments
-/// - `service_type` The service type to query for
-/// - `scan_time` The number of seconds to query for
-pub async fn run_mdns_query(
-    service_type: String,
-    scan_time: u64,
-) -> Result<(), Box<dyn std::error::Error>> {
-    info!("Starting MDNS query to find devices");
-    let base_url = Arc::new(Mutex::new(HashMap::new()));
-    let thread_arc = base_url.clone();
-    let mut mdns: m_dnsquery::Mdns = m_dnsquery::Mdns {
-        base_url: thread_arc,
-        names: Vec::new(),
-    };
-    let ref_mdns = &mut mdns;
-
-    info!("Thread 1 acquired lock");
-    m_dnsquery::run_query(ref_mdns, service_type, scan_time)
-        .await
-        .expect("Error in mDNS query");
-    info!("MDNS query complete");
-    info!(
-        "MDNS query results: {:#?}",
-        m_dnsquery::get_urls(&*ref_mdns)
-    ); // get's an array of the base urls found
-    m_dnsquery::generate_json(&*ref_mdns).await?; // generates a json file with the base urls found
-    Ok(())
 }
 
 /// A function to run a REST Client and create a new RESTClient instance for each device found

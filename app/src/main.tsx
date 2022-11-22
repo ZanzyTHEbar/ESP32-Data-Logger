@@ -1,10 +1,11 @@
 import reportWebVitals from '@assets/js/reportWebVitals'
 import ContextWrapper from '@src/context/ContextWrapper'
 import { invoke } from '@tauri-apps/api/tauri'
+import userName from '@utils/Helpers/localStorageHandler'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+//import config from '../src-tauri/config/config.json'
 import '@src/styles/imports.css'
-import config from '../src-tauri/config/config.json'
 import App from './App'
 
 /**
@@ -14,18 +15,16 @@ import App from './App'
  *
  */
 document.addEventListener('DOMContentLoaded', () => {
-  if (!config['name']) {
-    invoke('wrapper').then((config) => {
-      console.log(config)
-    })
-  }
-
+  invoke('get_user').then((config) => {
+    console.log(config)
+    userName('name', config)
+  })
   //* This will wait for the window to load, but we could
   //* run this function on whatever trigger we want
   //* sleep for 3 seconds to allow the window to load
   setTimeout(() => {
     invoke('close_splashscreen')
-  }, 15000)
+  }, 500)
 })
 
 const root = createRoot(document.getElementById('root') as HTMLElement)
