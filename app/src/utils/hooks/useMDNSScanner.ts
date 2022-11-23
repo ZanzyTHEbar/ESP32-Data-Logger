@@ -1,5 +1,5 @@
 import { invoke } from '@tauri-apps/api/tauri'
-import { /* useEffect,  */useState } from 'react'
+import { /* useEffect,  */ useState } from 'react'
 
 export const useMDNSScanner = (serviceType: string, scanTime: number) => {
   const [res, setRes] = useState(null)
@@ -29,7 +29,7 @@ export const useMDNSScanner = (serviceType: string, scanTime: number) => {
     setLoading(true)
     invoke('run_mdns_query', {
       serviceType,
-      scanTime
+      scanTime,
     })
       .then((response) => {
         if (typeof response === 'string') {
@@ -39,7 +39,8 @@ export const useMDNSScanner = (serviceType: string, scanTime: number) => {
       })
       .catch((err) => {
         setError(err)
-      }).finally(() => {
+      })
+      .finally(() => {
         setLoading(false)
       })
   }

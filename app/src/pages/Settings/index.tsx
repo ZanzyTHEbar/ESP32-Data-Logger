@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { ChartData } from '@src/static/ChartData'
 import Input from '@components/Inputs'
-import { SettingsPageData } from '@src/static/SettingsPageData'
 import Tooltip from '@components/Tooltip'
+import { ChartData } from '@src/static/ChartData'
+import { SettingsPageData } from '@src/static/SettingsPageData'
 //import { Button, Col, Form, Row, Select, Typography } from "antd";
 import { useState } from 'react'
 //import { Color } from "highcharts";

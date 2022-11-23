@@ -87,29 +87,28 @@ pub async fn request(rest_client: &RESTClient) -> Result<String, String> {
 /// - `device_name` The name of the device to query
 pub async fn run_rest_client(
     endpoint: String,
-    device_name: String,
+    //device_name: String,
     method: String,
 ) -> Result<String, String> {
     info!("Starting REST client");
     // read the json config file
-    let data = std::fs::read_to_string("config/config.json").expect("Unable to read config file");
+    //let data = std::fs::read_to_string("config/config.json").expect("Unable to read config file");
     // parse the json config file
-    let config: serde_json::Value =
-        serde_json::from_str(&data).expect("Unable to parse config file");
-    debug!("Current Config: {:?}", config);
+    //let config: serde_json::Value = serde_json::from_str(&data).expect("Unable to parse config file");
+    //debug!("Current Config: {:?}", config);
     let mut request_response: String = String::new();
-    let mut url = config["urls"][device_name].as_str();
-    let full_url_result = match url {
-        Some(url) => url,
-        None => {
-            error!("Unable to get url");
-            url = Some("");
-            url.expect("Unable to get url")
-        }
-    };
-    let full_url = format!("{}{}", full_url_result, endpoint);
+    //let mut url = config["urls"][device_name].as_str();
+    //let full_url_result = match url {
+    //    Some(url) => url,
+    //    None => {
+    //        error!("Unable to get url");
+    //        url = Some("");
+    //        url.expect("Unable to get url")
+    //    }
+    //};
+    //let full_url = format!("{}{}", full_url_result, endpoint);
     //info!("Full url: {}", full_url);
-    let rest_client = RESTClient::new(full_url, method);
+    let rest_client = RESTClient::new(endpoint, method);
     let request_result = request(&rest_client).await;
     match request_result {
         Ok(response) => {

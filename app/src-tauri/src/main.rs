@@ -12,7 +12,7 @@ use tauri::Manager;
 use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
 
 // Various imports
-use log::{error, info};
+use log::info;
 use serde::{Deserialize, Serialize};
 use whoami::username;
 //use window_shadows::set_shadow;
@@ -72,11 +72,11 @@ async fn run_mdns_query(service_type: String, scan_time: u64) -> Result<(), Stri
 #[tauri::command]
 async fn do_rest_request(
     endpoint: String,
-    device_name: String,
+    //device_name: String,
     method: String,
 ) -> Result<String, String> {
     info!("Starting REST request");
-    let response = rest_client::run_rest_client(endpoint, device_name, method)
+    let response = rest_client::run_rest_client(endpoint, /* device_name, */ method)
         .await
         .expect("Error in REST request");
     Ok(response)
