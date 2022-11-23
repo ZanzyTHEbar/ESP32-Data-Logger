@@ -24,7 +24,7 @@ use std::sync::{Arc, Mutex};
 
 // use custom modules
 mod modules;
-use modules::m_dnsquery;
+use modules::{m_dnsquery, rest_client};
 
 #[derive(Debug, Deserialize, Serialize)]
 struct Config {
@@ -52,9 +52,9 @@ async fn run_mdns_query(service_type: String, scan_time: u64) -> Result<(), Stri
         base_url: thread_arc,
         names: Vec::new(),
     };
-    let ref_mdns = &mut mdns;
 
-    info!("MDNS Sercice Thread acquired lock");
+    let ref_mdns = &mut mdns;
+    info!("MDNS Service Thread acquired lock");
     m_dnsquery::run_query(ref_mdns, service_type, scan_time)
         .await
         .expect("Error in mDNS query");
@@ -67,6 +67,19 @@ async fn run_mdns_query(service_type: String, scan_time: u64) -> Result<(), Stri
         .await
         .expect("Failed to generate JSON file"); // generates a json file with the base urls found
     Ok(())
+}
+
+#[tauri::command]
+async fn do_rest_request(
+    endpoint: String,
+    device_name: String,
+    method: String,
+) -> Result<String, String> {
+    info!("Starting REST request");
+    let response = rest_client::run_rest_client(endpoint, device_name, method)
+        .await
+        .expect("Error in REST request");
+    Ok(response)
 }
 
 // This command must be async so that it doesn't run on the main thread.
@@ -99,6 +112,7 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             close_splashscreen,
             run_mdns_query,
+            do_rest_request,
             get_user
         ])
         .setup(|app| {
