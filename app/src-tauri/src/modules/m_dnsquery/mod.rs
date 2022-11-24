@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 //! A mdns query client.
 
 use log::{error, info};

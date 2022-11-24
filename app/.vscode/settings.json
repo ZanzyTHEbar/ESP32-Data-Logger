@@ -3,5 +3,8 @@
         "source.fixAll.eslint": true // ESLint auto format on save
     },
     "editor.formatOnSave": true, // Prettier auto format on save
-    "editor.defaultFormatter": "esbenp.prettier-vscode", // Prettier as default formatter
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[toml]": {
+        "editor.defaultFormatter": "tamasfe.even-better-toml"
+    }, // Prettier as default formatter
 }

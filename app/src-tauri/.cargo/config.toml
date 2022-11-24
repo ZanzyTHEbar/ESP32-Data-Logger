@@ -1,0 +1,2 @@
+RUSTBACKTRACE = 1  # Enable backtraces
+RUST_LOG = "debug" # Set to "debug" for more verbose output, debug, info, warn, error
