@@ -169,16 +169,6 @@ body {
   border-radius: 1rem;
 }
 
-.plus-color {
-  filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(1deg) brightness(119%) contrast(119%);
-}
-
-.plus-color:hover {
-  -webkit-transform: scale(0.8);
-  -ms-transform: scale(0.8);
-  transform: scale(1.12);
-  transition: all 1.3s ease;
-}
 
 /* width */
 ::-webkit-scrollbar {

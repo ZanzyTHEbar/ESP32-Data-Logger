@@ -11,10 +11,10 @@ import { Outlet } from 'react-router-dom'
 // TODO: Implement a download chart data as CSV feature - needs capture time frame (30 second snapshots for example)
 function App() {
   return (
-    <div className="App">
+    <main className="App">
       <AppRoutes />
       <Outlet />
-    </div>
+    </main>
   )
 }
 
