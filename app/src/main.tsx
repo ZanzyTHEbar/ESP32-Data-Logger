@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   //* sleep for 3 seconds to allow the window to load
   setTimeout(() => {
     invoke('close_splashscreen')
-  }, 500)
+  }, 15000)
 })
 
 const root = createRoot(document.getElementById('root') as HTMLElement)
