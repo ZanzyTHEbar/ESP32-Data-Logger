@@ -44,7 +44,7 @@ async fn get_user() -> Result<String, String> {
 /// - `service_type` The service type to query for
 /// - `scan_time` The number of seconds to query for
 #[tauri::command]
-async fn run_mdns_query(service_type: String, scan_time: u64) -> Result<(), String> {
+async fn run_mdns_query(service_type: String, scan_time: u64) -> Result<String, String> {
     info!("Starting MDNS query to find devices");
     let base_url = Arc::new(Mutex::new(HashMap::new()));
     let thread_arc = base_url.clone();
@@ -57,7 +57,7 @@ async fn run_mdns_query(service_type: String, scan_time: u64) -> Result<(), Stri
     info!("MDNS Service Thread acquired lock");
     m_dnsquery::run_query(ref_mdns, service_type, scan_time)
         .await
-        .expect("Error in mDNS query");
+        .map_err(|e| e.to_string())?;
     info!("MDNS query complete");
     info!(
         "MDNS query results: {:#?}",
@@ -65,8 +65,8 @@ async fn run_mdns_query(service_type: String, scan_time: u64) -> Result<(), Stri
     ); // get's an array of the base urls found
     m_dnsquery::generate_json(&*ref_mdns)
         .await
-        .expect("Failed to generate JSON file"); // generates a json file with the base urls found
-    Ok(())
+        .map_err(|e| e.to_string())?; // generates a json file with the base urls found
+    Ok("MDNS query complete".to_string())
 }
 
 #[tauri::command]
@@ -77,8 +77,7 @@ async fn do_rest_request(
 ) -> Result<String, String> {
     info!("Starting REST request");
     let response = rest_client::run_rest_client(endpoint, /* device_name, */ method)
-        .await
-        .expect("Error in REST request");
+        .await?;
     Ok(response)
 }
 

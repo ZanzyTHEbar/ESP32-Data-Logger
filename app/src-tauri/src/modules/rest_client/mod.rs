@@ -35,7 +35,6 @@ impl RESTClient {
 
 pub async fn request(rest_client: &RESTClient) -> Result<String, String> {
     info!("Making REST request");
-
     let response: String;
     let response = match rest_client.method.as_str() {
         "GET" => {
@@ -44,10 +43,10 @@ pub async fn request(rest_client: &RESTClient) -> Result<String, String> {
                 .get(&rest_client.base_url)
                 .send()
                 .await
-                .expect("Error in sending GET request")
+                .map_err(|e| e.to_string())?
                 .text()
                 .await
-                .expect("Error in parsing GET request response");
+                .map_err(|e| e.to_string())?;
             response
         }
         "POST" => {
@@ -56,10 +55,10 @@ pub async fn request(rest_client: &RESTClient) -> Result<String, String> {
                 .post(&rest_client.base_url)
                 .send()
                 .await
-                .expect("Error in Sending POST request")
+                .map_err(|e| e.to_string())?
                 .text()
                 .await
-                .expect("Error in parsing POST request response");
+                .map_err(|e| e.to_string())?;
             response
         }
         _ => {
