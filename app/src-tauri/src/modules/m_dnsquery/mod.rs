@@ -1,14 +1,7 @@
 //! A mdns query client.
 
-#![allow(dead_code, unused_imports, unused_variables)]
-#![cfg_attr(
-    all(not(debug_assertions), target_os = "windows"),
-    windows_subsystem = "windows"
-)]
-
 use log::{error, info};
 use mdns_sd::{ServiceDaemon, ServiceEvent};
-use serde::{Deserialize, Serialize};
 use serde_json;
 use std::collections::hash_map::HashMap;
 use std::sync::{Arc, Mutex};
@@ -22,7 +15,6 @@ pub struct Mdns {
     pub base_url: MdnsMap,
     pub names: Vec<String>,
 }
-
 /// Runs a mDNS query for X seconds
 /// ## Arguments
 /// - `mdns` A mutable reference to the Mdns struct
@@ -99,7 +91,6 @@ pub async fn run_query(
     }
     Ok(())
 }
-
 /// Returns a map of the base urls found
 /// ## Arguments
 /// - `mdns` A mutable reference to the Mdns struct
@@ -121,7 +112,6 @@ pub async fn run_query(
 pub fn get_url_map(instance: &mut Mdns) -> &mut MdnsMap {
     &mut instance.base_url
 }
-
 /// Returns a vector of the base urls found
 /// ## Arguments
 /// - `mdns` A mutable reference to the Mdns struct
@@ -160,7 +150,6 @@ pub fn get_urls(instance: &Mdns) -> Vec<String> {
     }
     urls
 }
-
 pub async fn generate_json(instance: &Mdns) -> Result<(), Box<dyn std::error::Error>> {
     let data = get_urls(instance);
     //let mut json: serde_json::Value = serde_json::from_str("{}").unwrap();

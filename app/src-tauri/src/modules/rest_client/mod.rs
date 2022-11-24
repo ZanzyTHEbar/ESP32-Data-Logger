@@ -1,9 +1,3 @@
-#![allow(dead_code, unused_imports, unused_variables)]
-#![cfg_attr(
-    all(not(debug_assertions), target_os = "windows"),
-    windows_subsystem = "windows"
-)]
-
 // 1. Grab the mDNS address of the device(s) you want to query
 // 2. Create a new RESTClient instance for each device
 // 3. Start a new thread for each RESTClient instance
@@ -11,12 +5,8 @@
 // 5. Each thread will send the new data to the main thread
 // 6. The main thread will update the UI with the new data
 
-use crate::modules::m_dnsquery;
-use log::{debug, error, info, warn};
+use log::{error, info};
 use reqwest::Client;
-use serde::Deserialize;
-use std::collections::hash_map::HashMap;
-use std::sync::{Arc, Mutex};
 
 /// A struct to hold the REST client
 /// ## Fields
