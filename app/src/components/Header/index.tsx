@@ -8,7 +8,7 @@ import Modal from '@components/Modal'
 export default function Header(props) {
   const [showSettings, setShowSettings] = useState(false)
   return (
-    <>
+    <div className="flex-initial">
       <header className="container px-4 py-2 pt-[20px] flex items-center justify-between mx-auto">
         <div className="navbar">
           <div className="menu-bars">
@@ -32,6 +32,6 @@ export default function Header(props) {
           <Settings />
         </Modal>
       </div>
-    </>
+    </div>
   )
 }
