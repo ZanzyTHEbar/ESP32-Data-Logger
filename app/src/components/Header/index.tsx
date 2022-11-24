@@ -23,7 +23,7 @@ export default function Header(props) {
           <span className="text-gray-900">Welcome</span> {props.name}
         </h1>
         <h2 className="ml-4 text-xl text-gray-500 font-bold">
-          <span className="text-gray-900">ESP32</span> Data Logger
+          <span className="text-gray-900">Data</span> Logger
         </h2>
         <img src={logo} alt="logo" className="ml-5 mr-0 w-15 h-12" />
       </header>
