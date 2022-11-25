@@ -13,7 +13,6 @@ import HighchartsReact from 'highcharts-react-official'
 //import Highcharts from "highcharts/highmaps";
 import { useState, useRef, useEffect } from 'react'
 import type HighchartsTypes from 'highcharts-react-official'
-import { FaSave } from 'react-icons/fa'
 
 //! Docs: https://api.highcharts.com/highcharts/
 //! Docs: https://www.highcharts.com/docs/
