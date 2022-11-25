@@ -39,31 +39,37 @@ function NoCharts() {
 
 function ChartList({ chartData }) {
   return (
-    <ul className="flow-root items-center content-center justify-center flex-col">
-      {ChartData.map((item, index) => (
-        <li key={index} className={item['cName']}>
-          {item['interval'] === 0 ? (item['interval'] = 3000) : null}
-          <Chart
-            title={item['title']}
-            yAxis={item['y_axis_title']}
-            lineColor={item['line_color']}
-            object_id={item['object_id']}
-            data={fetchFromObject(chartData[item['object_id']], item['object_id'] || '')}
-            interval={item['interval']}
-          />
-        </li>
-      ))}
-    </ul>
+    <>
+      {chartData !== null ? (
+        <ul className="flow-root items-center content-center justify-center flex-col">
+          {ChartData.map((item, index) => (
+            <li key={index} className={item['cName']}>
+              {item['interval'] === 0 ? (item['interval'] = 3000) : null}
+              <Chart
+                title={item['title']}
+                yAxis={item['y_axis_title']}
+                lineColor={item['line_color']}
+                object_id={item['object_id']}
+                data={fetchFromObject(chartData[item['object_id']], item['object_id'] || '')}
+                interval={item['interval']}
+              />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <NoCharts />
+      )}
+    </>
   )
 }
 
-/* function LoadingScreen() {
+function LoadingScreen() {
   return <div>LoadingScreen</div>
-} */
+}
 
 function ChartContent() {
   const [data, setData] = useState<object | null>(null)
-  //const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const id = setInterval(async () => {
@@ -73,17 +79,20 @@ function ChartContent() {
         if (data instanceof Error) {
           // Do error
           setData(null)
-          //setLoading(true)
+          setLoading(true)
         } else {
           setData(data)
-          //setLoading(false)
+          setLoading(false)
         }
       }
-    }, 1000)
+    }, 300)
     return () => clearInterval(id)
   })
 
-  return <>{data !== null ? <NoCharts /> : <ChartList chartData={data} />}</>
+  if (loading) {
+    return <LoadingScreen />
+  }
+  return <ChartList chartData={data} />
 }
 
 export default function Charts() {
