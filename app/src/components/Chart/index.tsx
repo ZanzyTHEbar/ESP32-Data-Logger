@@ -84,18 +84,20 @@ export default function Chart(props) {
     return () => clearInterval(interval)
   }, [props.data, props.interval])
 
-  const updateChartType = (e: any) => {
-    if (!chartRef || !chartRef.current) {
-      return
+  const updateChartType = (e: React.MouseEvent) => {
+    if (e.target !== null) {
+      if (!chartRef || !chartRef.current) {
+        return
+      }
+      const dataType: DOMStringMap = e.target['dataset']
+      const type: any = dataType['user']
+      //console.log(dataType)
+      //console.log(type)
+      const chart = chartRef.current.chart
+      chart.series[0].update({
+        type: type,
+      })
     }
-    const dataType: string = e.target.dataset
-    const type: any = dataType['user']
-    //console.log(dataType)
-    //console.log(type)
-    const chart = chartRef.current.chart
-    chart.series[0].update({
-      type: type,
-    })
   }
   const handleDelete = () => {
     if (ChartData.length >= 1) {
