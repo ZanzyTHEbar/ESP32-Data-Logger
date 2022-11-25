@@ -7,6 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ChartData } from '@src/static/ChartData'
+import localStorageHandler from '@src/utils/Helpers/localStorageHandler'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 //import Highcharts from "highcharts/highmaps";
@@ -148,9 +149,16 @@ export default function Chart(props) {
   }
   const handleSave = () => {
     if (ChartData.length >= 1) {
-      const charts = ChartData.filter((item) => item['object_id'] !== props.object_id)
-      ChartData.splice(0, ChartData.length, ...charts)
-      //console.log(ChartData)
+      //const charts = ChartData.filter((item) => item['object_id'] !== props.object_id)
+      // save chart to local storage
+      const chart = {
+        object_id: props.object_id,
+        title: props.title,
+        yAxis: props.yAxis,
+        lineColor: props.lineColor,
+        interval: props.interval,
+      }
+      localStorageHandler(props.object_id, chart)
     }
   }
 
