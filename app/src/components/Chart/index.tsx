@@ -104,6 +104,8 @@ export default function Chart(props) {
       const charts = ChartData.filter((item) => item['object_id'] !== props.object_id)
       ChartData.splice(0, ChartData.length, ...charts)
       //console.log(ChartData)
+    } else {
+      ChartData.splice(0, ChartData.length)
     }
   }
 

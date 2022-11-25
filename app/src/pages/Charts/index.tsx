@@ -37,10 +37,10 @@ function NoCharts() {
   )
 }
 
-function ChartList({ chartData }) {
+function ChartList({ chartData, empty }) {
   return (
     <>
-      {chartData !== null ? (
+      {chartData !== null || !empty ? (
         <ul className="flow-root items-center content-center justify-center flex-col">
           {ChartData.map((item, index) => (
             <li key={index} className={item['cName']}>
@@ -50,7 +50,7 @@ function ChartList({ chartData }) {
                 yAxis={item['y_axis_title']}
                 lineColor={item['line_color']}
                 object_id={item['object_id']}
-                data={fetchFromObject(chartData[item['object_id']], item['object_id'] || '')}
+                data={fetchFromObject(item['object_id'], item['object_id'] || '')}
                 interval={item['interval']}
               />
             </li>
@@ -70,10 +70,12 @@ function LoadingScreen() {
 function ChartContent() {
   const [data, setData] = useState<object | null>(null)
   const [loading, setLoading] = useState(false)
+  const [empty, setEmpty] = useState(false)
 
   useEffect(() => {
     const id = setInterval(async () => {
       const empty: boolean = Object.keys(ChartData).length === 0
+      setEmpty(empty)
       if (!empty) {
         const data = await getChartRequest()
         if (data instanceof Error) {
@@ -87,12 +89,12 @@ function ChartContent() {
       }
     }, 300)
     return () => clearInterval(id)
-  })
+  }, [])
 
   if (loading) {
     return <LoadingScreen />
   }
-  return <ChartList chartData={data} />
+  return <ChartList chartData={data} empty={empty} />
 }
 
 export default function Charts() {

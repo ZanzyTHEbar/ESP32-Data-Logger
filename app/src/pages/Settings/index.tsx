@@ -8,7 +8,6 @@ import { useState } from 'react'
 //import { Color } from "highcharts";
 
 export default function Settings() {
-  const isEmptyFirst = Object.keys(ChartData).length === 0
   const settingsData = {
     ip: '',
     endpoint: '',
@@ -29,13 +28,8 @@ export default function Settings() {
   const handleSave = () => {
     // add  the inputState object to the ChartData array
     //console.log(ChartData.length)
-    //console.log(ChartData)
-    if (ChartData.length === 1 && isEmptyFirst) {
-      ChartData.pop()
-      ChartData.push(inputState)
-    } else {
-      ChartData.push(inputState)
-    }
+    ChartData.push(inputState)
+    console.log(ChartData)
   }
 
   const handleReset = () => {
@@ -43,10 +37,7 @@ export default function Settings() {
   }
 
   const handleDeleteAll = () => {
-    while (ChartData.length) {
-      ChartData.pop()
-    }
-    ChartData.push({})
+    ChartData.splice(0, ChartData.length)
   }
 
   return (
