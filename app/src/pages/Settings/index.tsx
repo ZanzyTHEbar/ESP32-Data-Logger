@@ -8,7 +8,7 @@ import { useState } from 'react'
 //import { Color } from "highcharts";
 
 export default function Settings() {
-  const isEmptyFirst = Object.keys(ChartData[0]).length === 0
+  const isEmptyFirst = Object.keys(ChartData).length === 0
   const settingsData = {
     ip: '',
     endpoint: '',
@@ -28,8 +28,8 @@ export default function Settings() {
 
   const handleSave = () => {
     // add  the inputState object to the ChartData array
-    //console.log(ChartData.length);
-    //console.log(isEmptyFirst);
+    console.log(ChartData.length)
+    console.log(ChartData)
     if (ChartData.length === 1 && isEmptyFirst) {
       ChartData.pop()
       ChartData.push(inputState)
@@ -47,16 +47,6 @@ export default function Settings() {
       ChartData.pop()
     }
     ChartData.push({})
-  }
-
-  const handleDelete = () => {
-    //console.log(ChartData.length);
-    if (ChartData.length > 1) ChartData.pop()
-    else if (ChartData.length === 1) {
-      //console.log("here");
-      ChartData.pop()
-      ChartData.push({})
-    }
   }
 
   return (
@@ -107,12 +97,7 @@ export default function Settings() {
             <button
               onClick={handleDeleteAll}
               className="ml-auto bg-blue-700 hover:bg-blue-800 focus:outline-none text-white font-medium text-sm rounded-lg py-2.5 px-5 text-rounded mr-5 shadow-md hover:shadow-xl focus:bg-blue-600 transition duration-100 ease-in focus:shadow-inner">
-              Clear All
-            </button>
-            <button
-              onClick={handleDelete}
-              className="ml-auto bg-blue-700 hover:bg-blue-800 focus:outline-none text-white font-medium text-sm rounded-lg py-2.5 px-5 text-rounded mr-5 shadow-md hover:shadow-xl focus:bg-blue-600 transition duration-100 ease-in focus:shadow-inner">
-              Delete Last
+              Clear All Charts
             </button>
             <button
               onClick={handleReset}

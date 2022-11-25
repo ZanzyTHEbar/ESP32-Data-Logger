@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { faLineChart, faBarChart, faAreaChart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { ChartData } from '@src/static/ChartData'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 //import Highcharts from "highcharts/highmaps";
@@ -85,6 +86,16 @@ export default function Chart(props) {
     return () => clearInterval(interval)
   }, [props.data, props.interval])
 
+  const handleDelete = () => {
+    //console.log(ChartData.length);
+    if (ChartData.length > 1) ChartData.pop()
+    else if (ChartData.length === 1) {
+      //console.log("here");
+      ChartData.pop()
+      ChartData.push({})
+    }
+  }
+
   return (
     <div className="card">
       <div className="container mx-auto">
@@ -97,6 +108,11 @@ export default function Chart(props) {
           </button>
           <button className="area-chart">
             <FontAwesomeIcon icon={faAreaChart} />
+          </button>
+          <button
+            onClick={handleDelete}
+            className="ml-auto bg-blue-700 hover:bg-blue-800 focus:outline-none text-white font-medium text-sm rounded-lg py-2.5 px-5 text-rounded mr-5 shadow-md hover:shadow-xl focus:bg-blue-600 transition duration-100 ease-in focus:shadow-inner">
+            Delete Last
           </button>
           {/* <button className="pie-chart">
                         <FontAwesomeIcon icon={faPieChart} />
