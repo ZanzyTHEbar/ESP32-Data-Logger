@@ -4,7 +4,7 @@ import Tooltip from '@components/Tooltip'
 import { ChartData } from '@src/static/ChartData'
 import { SettingsPageData } from '@src/static/SettingsPageData'
 //import { Button, Col, Form, Row, Select, Typography } from "antd";
-import { useState } from 'react'
+import React, { useState } from 'react'
 //import { Color } from "highcharts";
 
 export default function Settings() {
@@ -21,8 +21,8 @@ export default function Settings() {
   }
   const [inputState, setInputState] = useState(settingsData)
 
-  const handleChange = (event, id) => {
-    setInputState({ ...inputState, [id]: event.target.value })
+  const handleChange = (event: React.MouseEvent, id: string) => {
+    if (event.target !== null) setInputState({ ...inputState, [id]: event.target['value'] })
   }
 
   const handleSave = () => {
@@ -74,7 +74,7 @@ export default function Settings() {
                   id={item.id}
                   placeholder={item.placeholder}
                   value={inputState[item.id] || ''}
-                  setValue={(event) => handleChange(event, item.id)}
+                  setValue={(event: React.MouseEvent) => handleChange(event, item.id)}
                 />
               </div>
             </li>
