@@ -71,7 +71,6 @@ function ChartList({ chartData }) {
 function ChartContent() {
   const [data, setData] = useState<object | null>(null)
   //const [loading, setLoading] = useState(false)
-
   useEffect(() => {
     const id = setInterval(async () => {
       const empty: boolean = Object.keys(ChartData).length === 0
@@ -80,14 +79,12 @@ function ChartContent() {
         const data = await getChartRequest()
         setData(data)
         //setLoading(false)
-      }
-      if (data instanceof Error || empty) {
-        // Do error
+      } else if (data instanceof Error || empty) {
         setData(null)
-        //console.log(data)
-        //setLoading(true)
+      } else {
+        setData(null)
       }
-    }, 300)
+    }, 1000)
     return () => clearInterval(id)
   }, [data])
 

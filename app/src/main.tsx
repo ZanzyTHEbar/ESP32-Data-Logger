@@ -1,5 +1,4 @@
 import reportWebVitals from '@assets/js/reportWebVitals'
-import ContextWrapper from '@src/context/ContextWrapper'
 import { invoke } from '@tauri-apps/api/tauri'
 import userName from '@utils/Helpers/localStorageHandler'
 import { StrictMode } from 'react'
@@ -39,9 +38,7 @@ declare global {
 
 root.render(
   <StrictMode>
-    <ContextWrapper>
-      <App />
-    </ContextWrapper>
+    <App />
   </StrictMode>
 )
 
