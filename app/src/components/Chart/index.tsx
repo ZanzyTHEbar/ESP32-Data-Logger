@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   faLineChart,
   faBarChart,
@@ -11,12 +10,57 @@ import { ChartData } from '@src/static/ChartData'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 //import Highcharts from "highcharts/highmaps";
-import { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import type HighchartsTypes from 'highcharts-react-official'
 
 //! Docs: https://api.highcharts.com/highcharts/
 //! Docs: https://www.highcharts.com/docs/
 
+interface Ibuttongroup {
+  handleSave: () => void
+  handleDelete: () => void
+  // eslint-disable-next-line autofix/no-unused-vars
+  updateChartType: (value: string) => void
+}
+function ButtonGroup({ handleDelete, handleSave, updateChartType }: Ibuttongroup) {
+  return (
+    <div id="button-row" className="flex justify-end py-[2px]">
+      <div id="chart-types">
+        <button
+          data-user="line"
+          onClick={(event) => updateChartType(event.currentTarget.dataset['user'] ?? '')}
+          className="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
+          <FontAwesomeIcon data-user="line" icon={faLineChart} />
+        </button>
+        <button
+          data-user="bar"
+          onClick={(event) => updateChartType(event.currentTarget.dataset['user'] ?? '')}
+          className="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
+          <FontAwesomeIcon data-user="bar" icon={faBarChart} />
+        </button>
+        <button
+          data-user="area"
+          onClick={(event) => updateChartType(event.currentTarget.dataset['user'] ?? '')}
+          className="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
+          <FontAwesomeIcon data-user="area" icon={faAreaChart} />
+        </button>
+      </div>
+      <button
+        onClick={handleSave}
+        className="py-1 px-2 mx-[1px] bg-blue-400 hover:bg-blue-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-blue-700 transition duration-100 ease-in focus:shadow-inner">
+        <FontAwesomeIcon icon={faSave} />
+      </button>
+      <button
+        onClick={handleDelete}
+        className="py-1 px-2 mx-[1px] bg-red-400 hover:bg-red-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-red-700 transition duration-100 ease-in focus:shadow-inner">
+        <FontAwesomeIcon icon={faTrashCan} />
+      </button>
+      {/* <button className="pie-chart">
+                        <FontAwesomeIcon icon={faPieChart} />
+                    </button> */}
+    </div>
+  )
+}
 export default function Chart(props) {
   const [hoverData, setHoverData] = useState('')
   const chartRef = useRef<HighchartsTypes.RefObject>(null)
@@ -60,7 +104,7 @@ export default function Chart(props) {
         color: props.lineColor,
         point: {
           events: {
-            mouseOver: (e) => {
+            mouseOver: (e: { target: { category: React.SetStateAction<string> } }) => {
               setHoverData(e.target.category)
             },
           },
@@ -68,7 +112,6 @@ export default function Chart(props) {
       },
     },
   })
-
   useEffect(() => {
     const interval = setInterval(() => {
       if (!chartRef || !chartRef.current) {
@@ -83,23 +126,27 @@ export default function Chart(props) {
     }, props.interval)
     return () => clearInterval(interval)
   }, [props.data, props.interval])
-
-  const updateChartType = (e: React.MouseEvent) => {
-    if (e.target !== null) {
-      if (!chartRef || !chartRef.current) {
-        return
-      }
-      const dataType: DOMStringMap = e.target['dataset']
-      const type: any = dataType['user']
-      //console.log(dataType)
-      //console.log(type)
-      const chart = chartRef.current.chart
-      chart.series[0].update({
-        type: type,
-      })
+  const updateChartType = (value: string) => {
+    if (!chartRef || !chartRef.current) {
+      return
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const type: any = value ?? ''
+    //console.log(dataType)
+    //console.log(type)
+    const chart = chartRef.current.chart
+    chart.series[0].update({
+      type: type,
+    })
   }
   const handleDelete = () => {
+    if (ChartData.length >= 1) {
+      const charts = ChartData.filter((item) => item['object_id'] !== props.object_id)
+      ChartData.splice(0, ChartData.length, ...charts)
+      //console.log(ChartData)
+    }
+  }
+  const handleSave = () => {
     if (ChartData.length >= 1) {
       const charts = ChartData.filter((item) => item['object_id'] !== props.object_id)
       ChartData.splice(0, ChartData.length, ...charts)
@@ -109,41 +156,11 @@ export default function Chart(props) {
 
   return (
     <div className="card">
-      <div id="button-row" className="flex justify-end py-[2px]">
-        <div id="chart-types">
-          <button
-            data-user="line"
-            onClick={updateChartType}
-            className="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
-            <FontAwesomeIcon data-user="line" icon={faLineChart} />
-          </button>
-          <button
-            data-user="bar"
-            onClick={updateChartType}
-            className="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
-            <FontAwesomeIcon data-user="bar" icon={faBarChart} />
-          </button>
-          <button
-            data-user="area"
-            onClick={updateChartType}
-            className="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
-            <FontAwesomeIcon data-user="area" icon={faAreaChart} />
-          </button>
-        </div>
-        <button
-          onClick={handleDelete}
-          className="py-1 px-2 mx-[1px] bg-blue-400 hover:bg-blue-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-blue-700 transition duration-100 ease-in focus:shadow-inner">
-          <FontAwesomeIcon icon={faSave} />
-        </button>
-        <button
-          onClick={handleDelete}
-          className="py-1 px-2 mx-[1px] bg-red-400 hover:bg-red-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-red-700 transition duration-100 ease-in focus:shadow-inner">
-          <FontAwesomeIcon icon={faTrashCan} />
-        </button>
-        {/* <button className="pie-chart">
-                        <FontAwesomeIcon icon={faPieChart} />
-                    </button> */}
-      </div>
+      <ButtonGroup
+        handleDelete={handleDelete}
+        handleSave={handleSave}
+        updateChartType={updateChartType}
+      />
       <HighchartsReact
         highcharts={Highcharts}
         options={chartOptions}
