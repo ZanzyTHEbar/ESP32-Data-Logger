@@ -80,18 +80,23 @@ export default function Chart(props) {
       } else {
         chart.series[0].addPoint([new Date().getTime(), props.data], true, false, true)
       }
-      document.querySelectorAll('#button-row #chart-types button').forEach(function (button) {
-        button.addEventListener('click', function () {
-          const type: any = button.className.split('-')[0]
-          chart.series[0].update({
-            type: type,
-          })
-        })
-      })
     }, props.interval)
     return () => clearInterval(interval)
   }, [props.data, props.interval])
 
+  const updateChartType = (e: any) => {
+    if (!chartRef || !chartRef.current) {
+      return
+    }
+    const dataType: string = e.target.dataset
+    const type: any = dataType['user']
+    //console.log(dataType)
+    //console.log(type)
+    const chart = chartRef.current.chart
+    chart.series[0].update({
+      type: type,
+    })
+  }
   const handleDelete = () => {
     if (ChartData.length >= 1) {
       const charts = ChartData.filter((item) => item['object_id'] !== props.object_id)
@@ -104,14 +109,23 @@ export default function Chart(props) {
     <div className="card">
       <div id="button-row" className="flex justify-end py-[2px]">
         <div id="chart-types">
-          <button className="line-chart py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
-            <FontAwesomeIcon icon={faLineChart} />
+          <button
+            data-user="line"
+            onClick={updateChartType}
+            className="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
+            <FontAwesomeIcon data-user="line" icon={faLineChart} />
           </button>
-          <button className="bar-chart py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
-            <FontAwesomeIcon icon={faBarChart} />
+          <button
+            data-user="bar"
+            onClick={updateChartType}
+            className="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
+            <FontAwesomeIcon data-user="bar" icon={faBarChart} />
           </button>
-          <button className="area-chart py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
-            <FontAwesomeIcon icon={faAreaChart} />
+          <button
+            data-user="area"
+            onClick={updateChartType}
+            className="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
+            <FontAwesomeIcon data-user="area" icon={faAreaChart} />
           </button>
         </div>
         <button
