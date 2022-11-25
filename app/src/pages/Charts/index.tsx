@@ -57,13 +57,13 @@ function ChartList({ chartData }) {
   )
 }
 
-function LoadingScreen() {
+/* function LoadingScreen() {
   return <div>LoadingScreen</div>
-}
+} */
 
 function ChartContent() {
   const [data, setData] = useState<object | null>(null)
-  const [loading, setLoading] = useState(false)
+  //const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const id = setInterval(async () => {
@@ -73,23 +73,17 @@ function ChartContent() {
         if (data instanceof Error) {
           // Do error
           setData(null)
-          setLoading(true)
+          //setLoading(true)
         } else {
           setData(data)
-          setLoading(false)
+          //setLoading(false)
         }
       }
     }, 1000)
     return () => clearInterval(id)
   })
 
-  if (loading) {
-    return <LoadingScreen />
-  }
-  if (data !== null || Object.keys(ChartData).length !== 0) {
-    return <ChartList chartData={data} />
-  }
-  return <NoCharts />
+  return <>{data !== null ? <NoCharts /> : <ChartList chartData={data} />}</>
 }
 
 export default function Charts() {

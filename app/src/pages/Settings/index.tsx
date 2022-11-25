@@ -28,8 +28,8 @@ export default function Settings() {
 
   const handleSave = () => {
     // add  the inputState object to the ChartData array
-    console.log(ChartData.length)
-    console.log(ChartData)
+    //console.log(ChartData.length)
+    //console.log(ChartData)
     if (ChartData.length === 1 && isEmptyFirst) {
       ChartData.pop()
       ChartData.push(inputState)
