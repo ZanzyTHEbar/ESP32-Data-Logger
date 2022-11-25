@@ -3,9 +3,13 @@ import { faGear } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Settings from '@pages/Settings'
 import { useState } from 'react'
-import Modal from '@components/Modal'
+import { Modal } from '@components/Modal'
 
-export default function Header(props) {
+export interface Iprops {
+  name: string
+}
+
+export default function Header({ name }: Iprops): JSX.Element {
   const [showSettings, setShowSettings] = useState(false)
   return (
     <div className="flex-initial">
@@ -20,7 +24,7 @@ export default function Header(props) {
           </div>
         </div>
         <h1 className="ml-4 text-xl text-gray-500 fond-bold">
-          <span className="text-gray-900">Welcome</span> {props.name}
+          <span className="text-gray-900">Welcome</span> {name}
         </h1>
         <h2 className="ml-4 text-xl text-gray-500 font-bold">
           <span className="text-gray-900">Data</span> Logger

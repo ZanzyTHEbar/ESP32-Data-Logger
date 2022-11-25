@@ -1,5 +1,5 @@
 import Input from '@components/Inputs'
-import Tooltip from '@components/Tooltip'
+import { Tooltip } from '@components/Tooltip'
 import { ChartData } from '@src/static/ChartData'
 import { SettingsPageData } from '@src/static/SettingsPageData'
 import React, { useState } from 'react'
