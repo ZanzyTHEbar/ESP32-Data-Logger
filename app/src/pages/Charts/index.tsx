@@ -2,6 +2,7 @@ import Chart from '@components/Chart'
 import { ChartData } from '@src/static/ChartData'
 import { getChartRequest } from '@src/utils/Helpers/chartRequest'
 import { useState, useEffect } from 'react'
+
 function fetchFromObject(obj: object, prop: string) {
   if (typeof obj === 'undefined' || obj === null) {
     return false
@@ -46,6 +47,7 @@ function ChartList({ chartData }) {
             title={item['title']}
             yAxis={item['y_axis_title']}
             lineColor={item['line_color']}
+            object_id={item['object_id']}
             data={fetchFromObject(chartData[item['object_id']], item['object_id'] || '')}
             interval={item['interval']}
           />
@@ -59,7 +61,7 @@ function LoadingScreen() {
   return <div>LoadingScreen</div>
 }
 
-function ChartConetent() {
+function ChartContent() {
   const [data, setData] = useState<object | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -84,7 +86,7 @@ function ChartConetent() {
   if (loading) {
     return <LoadingScreen />
   }
-  if (data !== null) {
+  if (data !== null || Object.keys(ChartData).length !== 0) {
     return <ChartList chartData={data} />
   }
   return <NoCharts />
@@ -93,7 +95,7 @@ function ChartConetent() {
 export default function Charts() {
   return (
     <div className="chart-div pb-[20px]">
-      <ChartConetent />
+      <ChartContent />
     </div>
   )
 }

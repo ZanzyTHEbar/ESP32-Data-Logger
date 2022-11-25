@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { faLineChart, faBarChart, faAreaChart } from '@fortawesome/free-solid-svg-icons'
+import {
+  faLineChart,
+  faBarChart,
+  faAreaChart,
+  faTrashCan,
+  faSave,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ChartData } from '@src/static/ChartData'
 import Highcharts from 'highcharts'
@@ -7,6 +13,7 @@ import HighchartsReact from 'highcharts-react-official'
 //import Highcharts from "highcharts/highmaps";
 import { useState, useRef, useEffect } from 'react'
 import type HighchartsTypes from 'highcharts-react-official'
+import { FaSave } from 'react-icons/fa'
 
 //! Docs: https://api.highcharts.com/highcharts/
 //! Docs: https://www.highcharts.com/docs/
@@ -74,7 +81,7 @@ export default function Chart(props) {
       } else {
         chart.series[0].addPoint([new Date().getTime(), props.data], true, false, true)
       }
-      document.querySelectorAll('#button-row button').forEach(function (button) {
+      document.querySelectorAll('#button-row #chart-types button').forEach(function (button) {
         button.addEventListener('click', function () {
           const type: any = button.className.split('-')[0]
           chart.series[0].update({
@@ -87,37 +94,40 @@ export default function Chart(props) {
   }, [props.data, props.interval])
 
   const handleDelete = () => {
-    //console.log(ChartData.length);
-    if (ChartData.length > 1) ChartData.pop()
-    else if (ChartData.length === 1) {
-      //console.log("here");
-      ChartData.pop()
-      ChartData.push({})
+    if (ChartData.length >= 1) {
+      const charts = ChartData.filter((item) => item['object_id'] !== props.object_id)
+      ChartData.splice(0, ChartData.length, ...charts)
+      console.log(ChartData)
     }
   }
 
   return (
     <div className="card">
-      <div className="container mx-auto">
-        <div id="button-row">
-          <button className="line-chart">
+      <div id="button-row" className="flex justify-end py-[2px]">
+        <div id="chart-types">
+          <button className="line-chart py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
             <FontAwesomeIcon icon={faLineChart} />
           </button>
-          <button className="column-chart">
+          <button className="bar-chart py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
             <FontAwesomeIcon icon={faBarChart} />
           </button>
-          <button className="area-chart">
+          <button className="area-chart py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
             <FontAwesomeIcon icon={faAreaChart} />
           </button>
-          <button
-            onClick={handleDelete}
-            className="ml-auto bg-blue-700 hover:bg-blue-800 focus:outline-none text-white font-medium text-sm rounded-lg py-2.5 px-5 text-rounded mr-5 shadow-md hover:shadow-xl focus:bg-blue-600 transition duration-100 ease-in focus:shadow-inner">
-            Delete Last
-          </button>
-          {/* <button className="pie-chart">
+        </div>
+        <button
+          onClick={handleDelete}
+          className="py-1 px-2 mx-[1px] bg-blue-400 hover:bg-blue-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-blue-700 transition duration-100 ease-in focus:shadow-inner">
+          <FontAwesomeIcon icon={faSave} />
+        </button>
+        <button
+          onClick={handleDelete}
+          className="py-1 px-2 mx-[1px] bg-red-400 hover:bg-red-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-red-700 transition duration-100 ease-in focus:shadow-inner">
+          <FontAwesomeIcon icon={faTrashCan} />
+        </button>
+        {/* <button className="pie-chart">
                         <FontAwesomeIcon icon={faPieChart} />
                     </button> */}
-        </div>
       </div>
       <HighchartsReact
         highcharts={Highcharts}
