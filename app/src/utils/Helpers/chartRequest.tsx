@@ -33,7 +33,7 @@ export async function getChartRequest(): Promise<object | Error> {
 
 //       await invoke ('get_chart_data', chartData)
 
-//       /* invoke('do_rest_request', {
+//       invoke('do_rest_request', {
 //         endpoint: chartData['ip'] + chartData['endpoint'],
 //         //deviceName: chartData['deviceName'],
 //         method: 'GET',
@@ -53,7 +53,7 @@ export async function getChartRequest(): Promise<object | Error> {
 //         })
 //         .finally(() => {
 //           setLoading(false)
-//         }) */
+//         })
 //     })
 //   }
 //   return { data, loading, error, doRequest }
