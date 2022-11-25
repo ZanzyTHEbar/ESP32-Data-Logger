@@ -29,7 +29,7 @@ export default function Settings() {
     // add  the inputState object to the ChartData array
     //console.log(ChartData.length)
     ChartData.push(inputState)
-    console.log(ChartData)
+    //console.log(ChartData)
   }
 
   const handleReset = () => {

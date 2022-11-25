@@ -4,6 +4,7 @@ import { getChartRequest } from '@src/utils/Helpers/chartRequest'
 import { useState, useEffect } from 'react'
 
 function fetchFromObject(obj: object, prop: string) {
+  //console.log(obj)
   if (typeof obj === 'undefined' || obj === null) {
     return false
   }
@@ -37,10 +38,10 @@ function NoCharts() {
   )
 }
 
-function ChartList({ chartData, empty }) {
+function ChartList({ chartData }) {
   return (
     <>
-      {chartData !== null || !empty ? (
+      {chartData !== null ? (
         <ul className="flow-root items-center content-center justify-center flex-col">
           {ChartData.map((item, index) => (
             <li key={index} className={item['cName']}>
@@ -50,7 +51,7 @@ function ChartList({ chartData, empty }) {
                 yAxis={item['y_axis_title']}
                 lineColor={item['line_color']}
                 object_id={item['object_id']}
-                data={fetchFromObject(item['object_id'], item['object_id'] || '')}
+                data={fetchFromObject(chartData[item['object_id']], item['object_id'] || '')}
                 interval={item['interval']}
               />
             </li>
@@ -63,38 +64,37 @@ function ChartList({ chartData, empty }) {
   )
 }
 
-function LoadingScreen() {
+/* function LoadingScreen() {
   return <div>LoadingScreen</div>
-}
+} */
 
 function ChartContent() {
   const [data, setData] = useState<object | null>(null)
-  const [loading, setLoading] = useState(false)
-  const [empty, setEmpty] = useState(false)
+  //const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const id = setInterval(async () => {
       const empty: boolean = Object.keys(ChartData).length === 0
-      setEmpty(empty)
+      //console.log(empty)
       if (!empty) {
         const data = await getChartRequest()
-        if (data instanceof Error) {
-          // Do error
-          setData(null)
-          setLoading(true)
-        } else {
-          setData(data)
-          setLoading(false)
-        }
+        setData(data)
+        //setLoading(false)
+      }
+      if (data instanceof Error || empty) {
+        // Do error
+        setData(null)
+        //console.log(data)
+        //setLoading(true)
       }
     }, 300)
     return () => clearInterval(id)
-  }, [])
+  }, [data])
 
-  if (loading) {
+  /*  if (loading) {
     return <LoadingScreen />
-  }
-  return <ChartList chartData={data} empty={empty} />
+  } */
+  return <ChartList chartData={data} />
 }
 
 export default function Charts() {
