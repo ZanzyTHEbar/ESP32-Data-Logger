@@ -1,7 +1,7 @@
 import Input from '@components/Inputs'
 import { Tooltip } from '@components/Tooltip'
-import { ChartData } from '@src/static/ChartData'
 import { SettingsPageData } from '@src/static/SettingsPageData'
+import { useChartContext, useChartContextUpdate } from '@src/utils/hooks/chartData'
 import React, { useState } from 'react'
 
 interface Isettings {
@@ -148,20 +148,24 @@ const Settings = () => {
     line_color: '',
     interval: 3000,
     object_id: '',
+    chart_id: '',
     cName: 'graphContainer',
   }
   const [inputState, setInputState] = useState(settingsData)
+  const chartContext = useChartContext()
+  const chartContextUpdate = useChartContextUpdate()
   const handleChange = (value: string, id: string) => {
     setInputState({ ...inputState, [id]: value })
   }
   const handleSave = () => {
-    ChartData.push(inputState)
+    //chartContext.push(inputState)
+    chartContextUpdate(inputState)
   }
   const handleReset = () => {
     setInputState(settingsData)
   }
   const handleDeleteAll = () => {
-    ChartData.splice(0, ChartData.length)
+    chartContext.splice(0, chartContext.length)
   }
 
   return (

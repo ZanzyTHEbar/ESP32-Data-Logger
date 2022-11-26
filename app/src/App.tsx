@@ -1,4 +1,5 @@
 import AppRoutes from '@pages/routes/Routes'
+import { ChartProvider } from '@utils/hooks/chartData'
 import { Outlet } from 'react-router-dom'
 //import { appWindow } from "@tauri-apps/api/window";
 // TODO: Add API Key setting for fetch requests
@@ -11,10 +12,12 @@ import { Outlet } from 'react-router-dom'
 // TODO: Implement a download chart data as CSV feature - needs capture time frame (30 second snapshots for example)
 function App() {
   return (
-    <main className="App">
-      <AppRoutes />
-      <Outlet />
-    </main>
+    <ChartProvider>
+      <main className="App">
+        <AppRoutes />
+        <Outlet />
+      </main>
+    </ChartProvider>
   )
 }
 

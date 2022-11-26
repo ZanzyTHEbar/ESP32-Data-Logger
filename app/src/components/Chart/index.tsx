@@ -6,8 +6,8 @@ import {
   faSave,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ChartData } from '@src/static/ChartData'
 import localStorageHandler from '@src/utils/Helpers/localStorageHandler'
+import { useChartContext } from '@src/utils/hooks/chartData'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 //import Highcharts from "highcharts/highmaps";
@@ -63,6 +63,7 @@ function ButtonGroup({ handleDelete, handleSave, updateChartType }: Ibuttongroup
   )
 }
 export default function Chart(props) {
+  const chartContext = useChartContext()
   const [hoverData, setHoverData] = useState('')
   const chartRef = useRef<HighchartsTypes.RefObject>(null)
   const [chartOptions] = useState({
@@ -133,26 +134,23 @@ export default function Chart(props) {
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const type: any = value ?? ''
-    //console.log(dataType)
-    //console.log(type)
     const chart = chartRef.current.chart
     chart.series[0].update({
       type: type,
     })
   }
   const handleDelete = () => {
-    if (ChartData.length >= 1) {
-      const charts = ChartData.filter((item) => item['object_id'] !== props.object_id)
-      ChartData.splice(0, ChartData.length, ...charts)
-      //console.log(ChartData)
+    if (chartContext.length >= 1) {
+      const charts = chartContext.filter((item) => item['object_id'] !== props.object_id)
+      chartContext.splice(0, chartContext.length, ...charts)
+      //console.log(chartContext)
     }
   }
   const handleSave = () => {
-    if (ChartData.length >= 1) {
-      //const charts = ChartData.filter((item) => item['object_id'] !== props.object_id)
-      // save chart to local storage
+    if (chartContext.length >= 1) {
       const chart = {
         object_id: props.object_id,
+        chart_id: props.chart_id,
         title: props.title,
         yAxis: props.yAxis,
         lineColor: props.lineColor,

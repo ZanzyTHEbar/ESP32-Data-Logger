@@ -1,7 +1,7 @@
 import Chart from '@components/Chart'
-import { ChartData } from '@src/static/ChartData'
-//import { getChartRequest } from '@src/utils/Helpers/chartRequest'
 import { useChartRequestHook } from '@src/utils/Helpers/chartRequest'
+import { useChartContext } from '@src/utils/hooks/chartData'
+
 import { useState, useEffect } from 'react'
 
 function fetchFromObject(obj: object, prop: string) {
@@ -39,12 +39,12 @@ function NoCharts() {
   )
 }
 
-function ChartList({ chartData }) {
+function ChartList({ chartData, chartContext }) {
   return (
     <>
       {chartData !== null ? (
         <ul className="flow-root items-center content-center justify-center flex-col">
-          {ChartData.map((item, index) => (
+          {chartContext.map((item, index) => (
             <li key={index} className={item['cName']}>
               {item['interval'] === 0 ? (item['interval'] = 3000) : null}
               <Chart
@@ -66,11 +66,12 @@ function ChartList({ chartData }) {
 }
 
 function ChartContent() {
+  const chartContext = useChartContext()
   const [chartData, setData] = useState<object | null>(null)
   const { data, doRequest } = useChartRequestHook()
   useEffect(() => {
     const id = setInterval(async () => {
-      const empty: boolean = Object.keys(ChartData).length === 0
+      const empty: boolean = Object.keys(chartContext).length === 0
       if (!empty) {
         doRequest()
         setData(data)
@@ -83,8 +84,8 @@ function ChartContent() {
     return () => {
       clearInterval(id)
     }
-  }, [data, doRequest])
-  return <ChartList chartData={chartData} />
+  }, [data, doRequest, chartContext])
+  return <ChartList chartData={chartData} chartContext={chartContext} />
 }
 
 export default function Charts() {
