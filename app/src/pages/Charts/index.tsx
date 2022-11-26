@@ -1,6 +1,6 @@
 import Chart from '@components/Chart'
 import { useChartRequestHook } from '@src/utils/Helpers/chartRequest'
-import { useChartContext } from '@src/utils/hooks/chartData'
+import { useChartContext, useChartContextUpdate } from '@src/utils/hooks/chartData'
 
 import { useState, useEffect } from 'react'
 
@@ -48,10 +48,13 @@ function ChartList({ chartData, chartContext }) {
             <li key={index} className={item['cName']}>
               {item['interval'] === 0 ? (item['interval'] = 3000) : null}
               <Chart
+                ip={item['ip']}
+                endpoint={item['endpoint']}
                 title={item['title']}
                 yAxis={item['y_axis_title']}
                 lineColor={item['line_color']}
                 chart_id={item['chart_id']}
+                object_id={item['object_id']}
                 data={fetchFromObject(chartData[item['object_id']], item['object_id'] || '')}
                 interval={item['interval']}
               />
@@ -67,11 +70,25 @@ function ChartList({ chartData, chartContext }) {
 
 function ChartContent() {
   const chartContext = useChartContext()
+  const updateChartContext = useChartContextUpdate()
   const [chartData, setData] = useState<object | null>(null)
   const { data, doRequest } = useChartRequestHook()
   useEffect(() => {
     const id = setInterval(async () => {
       const empty: boolean = Object.keys(chartContext).length === 0
+      const checkLocalStorage = localStorage.getItem('charts')
+      if (checkLocalStorage !== null) {
+        const settings: [] = JSON.parse(checkLocalStorage)
+        if (empty) {
+          // check if there are any charts in local storage settings key
+          if (settings.length > 0) {
+            // if there are charts in local storage settings key, add them to the chart context
+            settings.forEach((item) => {
+              updateChartContext(item)
+            })
+          }
+        }
+      }
       if (!empty) {
         doRequest()
         setData(data)
@@ -82,7 +99,7 @@ function ChartContent() {
     return () => {
       clearInterval(id)
     }
-  }, [data, doRequest, chartContext])
+  }, [data, doRequest, chartContext, updateChartContext])
   return <ChartList chartData={chartData} chartContext={chartContext} />
 }
 

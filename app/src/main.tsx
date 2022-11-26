@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   invoke('get_user')
     .then((config) => {
       console.log(config)
-      userName('name', config)
+      userName('settings', 'name', config)
     })
     .catch((e) => console.error(e))
   //* This will wait for the window to load, but we could
