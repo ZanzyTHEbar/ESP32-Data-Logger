@@ -1,6 +1,7 @@
 import Chart from '@components/Chart'
 import { ChartData } from '@src/static/ChartData'
-import { getChartRequest } from '@src/utils/Helpers/chartRequest'
+//import { getChartRequest } from '@src/utils/Helpers/chartRequest'
+import { useChartRequestHook } from '@src/utils/Helpers/chartRequest'
 import { useState, useEffect } from 'react'
 
 function fetchFromObject(obj: object, prop: string) {
@@ -64,34 +65,26 @@ function ChartList({ chartData }) {
   )
 }
 
-/* function LoadingScreen() {
-  return <div>LoadingScreen</div>
-} */
-
 function ChartContent() {
-  const [data, setData] = useState<object | null>(null)
-  //const [loading, setLoading] = useState(false)
+  const [chartData, setData] = useState<object | null>(null)
+  const { data, doRequest } = useChartRequestHook()
   useEffect(() => {
     const id = setInterval(async () => {
       const empty: boolean = Object.keys(ChartData).length === 0
-      //console.log(empty)
       if (!empty) {
-        const data = await getChartRequest()
+        doRequest()
         setData(data)
-        //setLoading(false)
-      } else if (data instanceof Error || empty) {
+      } else if (empty) {
         setData(null)
       } else {
         setData(null)
       }
     }, 1000)
-    return () => clearInterval(id)
-  }, [data])
-
-  /*  if (loading) {
-    return <LoadingScreen />
-  } */
-  return <ChartList chartData={data} />
+    return () => {
+      clearInterval(id)
+    }
+  }, [data, doRequest])
+  return <ChartList chartData={chartData} />
 }
 
 export default function Charts() {

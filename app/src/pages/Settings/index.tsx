@@ -16,13 +16,13 @@ interface Ibuttongroup {
   handleReset: () => void
 }
 
-function SettingsPane({
+const SettingsPane = ({
   handleChange,
   inputState,
   handleSave,
   handleDeleteAll,
   handleReset,
-}: Isettings & Ibuttongroup) {
+}: Isettings & Ibuttongroup) => {
   return (
     <ul className="">
       {SettingsPageData.map((item) => (
@@ -58,7 +58,7 @@ function SettingsPane({
   )
 }
 
-function ButtonGroup({ handleDeleteAll, handleSave, handleReset }: Ibuttongroup) {
+const ButtonGroup = ({ handleDeleteAll, handleSave, handleReset }: Ibuttongroup) => {
   return (
     <div className="pl-[3rem] pt-[4rem] pb-[1rem] md:mr-[2rem]">
       <button
@@ -80,7 +80,7 @@ function ButtonGroup({ handleDeleteAll, handleSave, handleReset }: Ibuttongroup)
   )
 }
 
-function CTA() {
+const CTA = () => {
   return (
     <div id="dropdown-cta" className="p-4 mt-6 bg-blue-50 rounded-lg dark:bg-blue-900" role="alert">
       <div className="flex items-center mb-3">
@@ -124,7 +124,7 @@ function CTA() {
   )
 }
 
-function Header() {
+const Header = () => {
   return (
     <div className="flex items-center justify-center">
       <header
@@ -138,7 +138,7 @@ function Header() {
   )
 }
 
-export default function Settings() {
+const Settings = () => {
   const settingsData = {
     ip: '',
     endpoint: '',
@@ -178,3 +178,5 @@ export default function Settings() {
     </div>
   )
 }
+
+export default Settings
