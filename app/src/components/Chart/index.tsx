@@ -11,10 +11,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useChartContext } from '@src/utils/hooks/chartData'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-//import Highcharts from "highcharts/highmaps";
+import Boost from 'highcharts/modules/boost'
 import React, { useState, useRef, useEffect } from 'react'
 import type HighchartsTypes from 'highcharts-react-official'
-
+Boost(Highcharts)
 //! Docs: https://api.highcharts.com/highcharts/
 //! Docs: https://www.highcharts.com/docs/
 
@@ -78,12 +78,21 @@ export default function Chart(props) {
   const [hoverData, setHoverData] = useState('')
   const chartRef = useRef<HighchartsTypes.RefObject>(null)
   const [chartOptions] = useState({
+    chart: {
+      zoomType: 'x',
+      panning: true,
+      panKey: 'shift',
+    },
+
     title: { text: props.title, style: { color: 'black', fontWeight: 'bold' } },
     subtitle: {
       text: 'Use buttons to change chart type',
     },
     accessibility: {
       enabled: false,
+    },
+    boost: {
+      useGPUTranslations: true,
     },
     xAxis: {
       type: 'datetime',
@@ -119,6 +128,7 @@ export default function Chart(props) {
         dataLabels: { enabled: true },
       },
       series: {
+        boostThreshold: 5000,
         color: props.lineColor,
         point: {
           events: {

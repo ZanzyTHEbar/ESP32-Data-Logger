@@ -5,8 +5,6 @@
 
 // TODO: setup building for linux and macOS
 
-// TODO: Remove warnings
-
 //use tauri::*;
 use tauri::Manager;
 use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
