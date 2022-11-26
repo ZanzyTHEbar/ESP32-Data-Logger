@@ -78,7 +78,7 @@ export default function Chart(props) {
   const [hoverData, setHoverData] = useState('')
   const chartRef = useRef<HighchartsTypes.RefObject>(null)
   const [chartOptions] = useState({
-    title: { text: props.title },
+    title: { text: props.title, style: { color: 'black', fontWeight: 'bold' } },
     subtitle: {
       text: 'Use buttons to change chart type',
     },
