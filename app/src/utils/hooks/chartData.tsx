@@ -8,17 +8,6 @@ interface IChartContext {
   children: ReactNode
 }
 
-/*
-ip: "http://waterchamber.local",
-endpoint: "/api/v1/builtin/command/json?type=data",
-title: "Temperature",
-y_axis_title: "Temperature (°C)",
-line_color: "#000000",
-interval: 3000,
-object_id: "humidity_temp_dht",
-chart_id: "chart1",
-cName: "graphContainer",
-*/
 type IChartDataContext = {
   ip: string
   endpoint: string
@@ -65,4 +54,4 @@ const ChartProvider = ({ children }: IChartContext) => {
 }
 
 export { ChartProvider, useChartContext, useChartContextUpdate }
-// Path: src\utils\hooks\useChartData.ts
+// Path: src\utils\hooks\useChartData.tsx

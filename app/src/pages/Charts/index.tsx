@@ -75,8 +75,6 @@ function ChartContent() {
       if (!empty) {
         doRequest()
         setData(data)
-      } else if (empty) {
-        setData(null)
       } else {
         setData(null)
       }
