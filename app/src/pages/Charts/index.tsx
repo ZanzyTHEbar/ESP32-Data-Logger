@@ -51,7 +51,7 @@ function ChartList({ chartData, chartContext }) {
                 title={item['title']}
                 yAxis={item['y_axis_title']}
                 lineColor={item['line_color']}
-                object_id={item['object_id']}
+                chart_id={item['chart_id']}
                 data={fetchFromObject(chartData[item['object_id']], item['object_id'] || '')}
                 interval={item['interval']}
               />

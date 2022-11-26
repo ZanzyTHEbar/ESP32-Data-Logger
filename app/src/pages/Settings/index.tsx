@@ -159,7 +159,10 @@ const Settings = () => {
   }
   const handleSave = () => {
     //chartContext.push(inputState)
-    chartContextUpdate(inputState)
+    const size = chartContext.length
+    const id = (size + 1).toString()
+    const chart = { ...inputState, chart_id: id }
+    chartContextUpdate(chart)
   }
   const handleReset = () => {
     setInputState(settingsData)

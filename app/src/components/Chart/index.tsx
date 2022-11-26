@@ -141,7 +141,7 @@ export default function Chart(props) {
   }
   const handleDelete = () => {
     if (chartContext.length >= 1) {
-      const charts = chartContext.filter((item) => item['object_id'] !== props.object_id)
+      const charts = chartContext.filter((item) => item['chart_id'] !== props.chart_id)
       chartContext.splice(0, chartContext.length, ...charts)
       //console.log(chartContext)
     }
