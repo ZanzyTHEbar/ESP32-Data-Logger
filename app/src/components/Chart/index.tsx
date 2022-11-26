@@ -88,9 +88,14 @@ export default function Chart(props) {
     xAxis: {
       type: 'datetime',
       dateTimeLabelFormats: { second: '%H:%M:%S' },
+      title: {
+        style: { color: 'black' },
+      },
+      labels: { style: { color: 'black' } },
     },
     yAxis: {
-      title: { text: props.yAxis },
+      title: { text: props.yAxis, style: { color: 'black' } },
+      labels: { style: { color: 'black' } },
     },
     credits: { enabled: false },
     series: [
