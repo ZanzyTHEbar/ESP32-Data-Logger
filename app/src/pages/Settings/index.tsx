@@ -10,43 +10,6 @@ interface Isettings {
   inputState: object
 }
 
-/* <div className="flex flex-wrap w-full">
-      <form className="w-full">
-        <div className="grid grid-cols-4 md:grid-cols-8 gap-3">
-          <div className="flex items-center">
-            <label
-              className="text-gray-500 font-bold mb-1 md:mb-0 whitespace-nowrap mr-2"
-              for="inline-password">
-              First Name
-            </label>
-          </div>
-          <div className="flex items-center col-span-3">
-            <input
-              className="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-800"
-              id="first-name"
-              type="text"
-              placeholder="First Name"
-            />
-          </div>
-          <div className="flex items-center">
-            <label
-              className="block text-gray-500 font-bold mb-1 md:mb-0 whitespace-nowrap mr-2"
-              for="last-name">
-              Last Name
-            </label>
-          </div>
-          <div className="flex items-center col-span-3">
-            <input
-              className="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-800"
-              id="inline-password"
-              type="text"
-              placeholder="Last Name"
-            />
-          </div>
-        </div>
-      </form>
-    </div> */
-
 interface Ibuttongroup {
   handleSave: () => void
   handleDeleteAll: () => void
