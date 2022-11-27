@@ -26,16 +26,18 @@ const SettingsPane = ({
   return (
     <ul className="">
       {SettingsPageData.map((item) => (
-        <li key={item.id} className={`${item.cName} `}>
+        <li
+          key={item.id}
+          className={`${item.cName}`}>
           <Tooltip tooltip={item.tooltip}>
-            <label className="" htmlFor={item.id}>
+            <label className="pb-2" htmlFor={item.id}>
               <span className="text-gray-700 dark:text-gray-600">{item.icon}</span>
               <span className="text-sm font-medium text-gray-700 dark:text-gray-500">
                 {item.title}
               </span>
             </label>
           </Tooltip>
-          <div className="">
+          <div className="mr-8 ml-8 pb-2">
             <Input
               key={item.id}
               type="text"
@@ -127,13 +129,7 @@ const CTA = () => {
 const Header = () => {
   return (
     <div className="flex items-center justify-center">
-      <header
-        style={{
-          color: '#059e8a',
-        }}
-        className="text-2xl font-bold">
-        Settings
-      </header>
+      <header className="mb-8 text-2xl font-bold text-[#059e8a]">Settings</header>
     </div>
   )
 }
@@ -172,7 +168,7 @@ const Settings = () => {
   }
 
   return (
-    <div className="overflow-auto py-4 px-3 rounded dark:bg-gray-300 z-10 h-[100%]">
+    <div className="overflow-x-auto py-4 px-3 rounded dark:bg-gray-300 z-10 h-[100%]">
       <Header />
       <SettingsPane
         handleChange={handleChange}

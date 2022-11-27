@@ -21,6 +21,7 @@
     margin-left: 2rem;
     background: none;
   }
+
   .nav-menu {
     background: none;
     height: 100vh;
@@ -35,15 +36,14 @@
     top: 1.85rem;
     opacity: 90%;
     z-index: 20;
-    /* overflow-y: auto; */
   }
 
-  .nav-text {
+  /* .nav-text {
     list-style: none;
     height: 60px;
-  }
+  } */
 
-  .nav-text label {
+  /* .nav-text label {
     text-decoration: none;
     color: theme('colors.gray.700');
     font-size: 18px;
@@ -53,21 +53,21 @@
     align-items: center;
     padding: 0 16px;
     border-radius: 4px;
-  }
+  } */
 
   .graphContainer {
     margin-bottom: 2rem;
   }
 
-  @media screen and (min-width: 768px) {
+  /* @media screen and (min-width: 768px) {
     .nav-text:hover {
       background-color: theme('colors.blue.300');
     }
-  }
+  } */
 
-  .nav-text:hover {
+  /* .nav-text:hover {
     background-color: none;
-  }
+  } */
 
   .settings-button {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
@@ -105,39 +105,6 @@
 
   #button-row {
   }
-
-  /* #button-row {
-    margin: 0 auto;
-    text-align: right;
-    font-size: 0;
-  }
-
-  #button-row button {
-    background: #eee;
-    transition: background 150ms;
-    border: 1px solid #999;
-    display: inline-block;
-    font-size: 12pt;
-    line-height: 16pt;
-    margin-left: -1px;
-    color: #555;
-  }
-
-  #button-row button:first-child {
-    border-top-left-radius: 0.3em;
-    border-bottom-left-radius: 0.3em;
-  }
-
-  #button-row button:last-child {
-    border-top-right-radius: 0.3em;
-    border-bottom-right-radius: 0.3em;
-  }
-
-  #button-row button:focus,
-  #button-row button:hover {
-    background: #ccc;
-    outline: none;
-  } */
 }
 
 #root {
