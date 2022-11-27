@@ -2,6 +2,9 @@ import AppRoutes from '@pages/routes/Routes'
 import { ChartProvider } from '@utils/hooks/chartData'
 import { Outlet } from 'react-router-dom'
 //import { appWindow } from "@tauri-apps/api/window";
+//! TODO: Add a way for the user to define Y axis min and max values
+
+// TODO: Add a way for the user to change the theme
 // TODO: Add API Key setting for fetch requests
 // TODO: Add a way to set the API Key
 // TODO: Setup support for linux and macos
