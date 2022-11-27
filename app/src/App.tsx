@@ -12,7 +12,7 @@ import { Outlet } from 'react-router-dom'
 // TODO: Implement support for multiple series in a chart
 
 //? Optional TODO's
-// TODO: ADd support for Websockets
+// TODO: Add support for Websockets
 // TODO: Add support for webserial
 // TODO: Add support for webusb
 // TODO: Add support for webhid

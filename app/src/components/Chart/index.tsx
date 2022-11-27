@@ -83,7 +83,6 @@ export default function Chart(props) {
       panning: true,
       panKey: 'shift',
     },
-
     title: { text: props.title, style: { color: 'black', fontWeight: 'bold' } },
     subtitle: {
       text: 'Use buttons to change chart type',
@@ -120,6 +119,7 @@ export default function Chart(props) {
           opacity: 0.25,
         },
         data: [],
+        name: props.title,
       },
     ],
     plotOptions: {
@@ -226,7 +226,7 @@ export default function Chart(props) {
         containerProps={{ className: 'chartContainer' }}
         ref={chartRef}
       />
-      <h3>Hovering over {hoverData}</h3>
+      <h3>Hovering over {Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', parseInt(hoverData))}</h3>
     </div>
   )
 }
