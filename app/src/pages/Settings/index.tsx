@@ -63,15 +63,13 @@ const SettingsPane = ({
   return (
     <div className="flex flex-wrap w-full">
       <form className="w-full">
-        <div className="grid grid-cols-3 gap-3 content-center justify-center">
+        <div className="grid auto-cols-auto gap-4 place-content-center">
           {SettingsPageData.map((item) => {
             return (
               <>
-                <div className="col-span-1 flex items-center content-center justify-center">
+                <div className="col-auto flex items-center content-center">
                   <Tooltip tooltip={item.tooltip}>
-                    <div className="pt-1 pr-1 ml-16 text-gray-700 dark:text-gray-600">
-                      {item.icon}
-                    </div>
+                    <div className="pt-1 pr-1 text-gray-700 dark:text-gray-600">{item.icon}</div>
                     <label className="" htmlFor={item.id}>
                       <div className="text-sm font-medium text-gray-700 dark:text-gray-500">
                         {item.title}
@@ -79,7 +77,7 @@ const SettingsPane = ({
                     </label>
                   </Tooltip>
                 </div>
-                <div className="flex items-center col-span-2">
+                <div className="flex items-center col-auto">
                   <Input
                     key={item.id}
                     type="text"
