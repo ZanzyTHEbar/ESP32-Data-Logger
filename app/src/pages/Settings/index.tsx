@@ -25,7 +25,7 @@ const SettingsPane = ({
 }: Isettings & Ibuttongroup) => {
   return (
     <div className="flex flex-wrap w-full">
-      <form className="w-full">
+      <div className="w-full">
         <div className="grid auto-cols-auto gap-4 place-content-center">
           {SettingsPageData.map((item) => {
             return (
@@ -61,7 +61,7 @@ const SettingsPane = ({
           handleDeleteAll={handleDeleteAll}
           handleReset={handleReset}
         />
-      </form>
+      </div>
     </div>
   )
 }
