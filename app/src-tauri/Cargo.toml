@@ -1,7 +1,7 @@
 [package]
 name = "esp32_data_logger"
 # TODO: increment version on every push
-version = "0.1.2"
+version = "0.1.3"
 description = "Data Logger App for Espressif chips"
 authors = ["ZanzyTHEbar"]
 license = "MIT"
@@ -19,7 +19,7 @@ tauri-build = { version = "1.1.1", features = [] }
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 # TODO: Remove devTools in final build - use devTools to debug release builds
-tauri = { version = "1.1.1", features = ["api-all", "devtools", "system-tray"] }
+tauri = { version = "1.1.1", features = ["api-all", "system-tray"] }
 whoami = "1.2.3"
 #window-shadows = "0.2.0"
 # sysinfo = "0.26.4"
