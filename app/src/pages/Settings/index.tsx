@@ -168,7 +168,7 @@ const Settings = () => {
   }
 
   return (
-    <div className="overflow-x-auto py-4 px-3 rounded dark:bg-gray-300 z-10 h-[100%]">
+    <div className="overflow-x-auto py-4 px-3 rounded-lg dark:bg-gray-300 z-10 h-[100%]">
       <Header />
       <SettingsPane
         handleChange={handleChange}
