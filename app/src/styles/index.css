@@ -103,6 +103,26 @@
     cursor: not-allowed;
   }
 
+  form {
+    margin-bottom: 1em;
+  }
+  form ol {
+    list-style-type: none;
+  }
+  form li {
+    margin: 20px;
+    height: 20px;
+    white-space: 5px;
+  }
+  form label {
+    display: inline-block;
+    text-align: right;
+  }
+
+  form input {
+    display: inline-block;
+  }
+
   #button-row {
   }
 }
