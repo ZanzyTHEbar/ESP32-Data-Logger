@@ -17,6 +17,7 @@ import type HighchartsTypes from 'highcharts-react-official'
 Boost(Highcharts)
 //! Docs: https://api.highcharts.com/highcharts/
 //! Docs: https://www.highcharts.com/docs/
+//! Docs: https://www.highcharts.com/docs/chart-concepts/axes
 
 interface Ibuttongroup {
   handleSave: () => void
