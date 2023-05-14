@@ -21,8 +21,8 @@
     "format": "yarn run lint --fix & yarn prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
-    "@kobalte/core": "^0.8.2",
-    "@kobalte/tailwindcss": "^0.4.2",
+    "@kobalte/core": "^0.9.6",
+    "@kobalte/tailwindcss": "^0.6.5",
     "@solid-primitives/i18n": "^1.4.0",
     "@solid-primitives/map": "^0.3.2",
     "@solidjs/meta": "^0.28.5",
@@ -35,7 +35,6 @@
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
-    "headlessui": "^0.0.0",
     "highcharts": "^11.0.1",
     "moment": "^2.29.4",
     "solid-form-handler": "^1.2.0",
@@ -50,6 +49,7 @@
     "tauri-plugin-log-api": "github:tauri-apps/tauri-plugin-log",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store",
     "tauri-plugin-upload-api": "github:tauri-apps/tauri-plugin-upload",
+    "terracotta": "0.13.2-alpha.119",
     "undici": "^5.22.1",
     "yup": "^0.32.11"
   },

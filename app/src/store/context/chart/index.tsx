@@ -1,10 +1,4 @@
-import {
-    createContext,
-    useContext,
-    createMemo,
-    type Component,
-    Accessor,
-} from 'solid-js'
+import { createContext, useContext, createMemo, type Component, Accessor } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 //import { useAppMDNSContext } from '../mdns'
 import type { Context } from '@static/types'
