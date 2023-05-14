@@ -3,7 +3,7 @@
 }
 
 .tooltip__content[data-expanded] {
-    animation: contentShow 250ms ease-out;
+    @apply animate-[contentShow_250ms_ease-out];
 }
 
 @keyframes contentShow {
