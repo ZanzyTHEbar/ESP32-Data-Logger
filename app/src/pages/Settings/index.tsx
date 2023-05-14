@@ -80,7 +80,7 @@ const CTA = () => {
                 </span>
             </div>
             <p class="mb-3 text-sm text-blue-400">
-                Your URL is{' '}
+                Your URL is 
                 <u>
                     <em
                         style={{
@@ -88,7 +88,7 @@ const CTA = () => {
                         }}>
                         required
                     </em>
-                </u>{' '}
+                </u> 
                 to be set in order to use the app. Please enter your URL in the settings. The URL
                 must be a valid URL for a <b>GET</b> request.
             </p>
