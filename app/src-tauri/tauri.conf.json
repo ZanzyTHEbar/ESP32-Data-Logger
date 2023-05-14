@@ -1,121 +1,182 @@
 {
-  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
-  "build": {
-    "beforeBuildCommand": "yarn build",
-    "beforeDevCommand": "yarn dev",
-    "devPath": "http://localhost:5173",
-    "distDir": "../dist"
-  },
-  "package": {
-    "productName": "ESP32 Data Logger",
-    "version": "0.1.3"
-  },
-  "tauri": {
-    "allowlist": {
-      "all": true,
-      "http": {
-        "all": true,
-        "request": true
-      },
-      "window": {
-        "all": true,
-        "create": true,
-        "center": true,
-        "requestUserAttention": true,
-        "setResizable": true,
-        "setTitle": true,
-        "maximize": true,
-        "unmaximize": true,
-        "minimize": true,
-        "unminimize": true,
-        "show": true,
-        "hide": true,
-        "close": true,
-        "setDecorations": true,
-        "setAlwaysOnTop": true,
-        "setSize": true,
-        "setMinSize": true,
-        "setMaxSize": true,
-        "setPosition": true,
-        "setFullscreen": true,
-        "setFocus": true,
-        "setIcon": true,
-        "setSkipTaskbar": true,
-        "setCursorGrab": true,
-        "setCursorVisible": true,
-        "setCursorIcon": true,
-        "setCursorPosition": true,
-        "startDragging": true,
-        "print": true
-      }
+    "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+    "build": {
+        "beforeBuildCommand": "pnpm build",
+        "beforeDevCommand": "pnpm dev",
+        "devPath": "http://localhost:5173",
+        "distDir": "../dist"
     },
-    "bundle": {
-      "active": true,
-      "category": "Productivity",
-      "copyright": "ZanzyTHEbar",
-      "deb": {
-        "depends": []
-      },
-      "externalBin": [],
-      "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
-      ],
-      "identifier": "com.esp32datalogger.dev",
-      "longDescription": "",
-      "resources": [],
-      "shortDescription": "",
-      "targets": "all",
-      "windows": {
-        "allowDowngrades": false,
-        "certificateThumbprint": null,
-        "digestAlgorithm": "sha256",
-        "timestampUrl": "",
-        "webviewInstallMode": {
-          "type": "downloadBootstrapper"
+    "package": {
+        "productName": "ESP32 Data Logger",
+        "version": "0.1.3"
+    },
+    "tauri": {
+        "allowlist": {
+            "all": false,
+            "clipboard": {
+                "all": false,
+                "readText": false,
+                "writeText": false
+            },
+            "dialog": {
+                "all": true,
+                "ask": true,
+                "confirm": true,
+                "message": true,
+                "open": true,
+                "save": true
+            },
+            "fs": {
+                "all": true,
+                "readFile": true,
+                "writeFile": true,
+                "readDir": true,
+                "copyFile": true,
+                "createDir": true,
+                "removeDir": true,
+                "removeFile": true,
+                "renameFile": true,
+                "exists": true,
+                "scope": ["$APP/*", "$APPDATA/*", "$APPCONFIG/*"]
+            },
+            "globalShortcut": {
+                "all": false
+            },
+            "http": {
+                "all": true,
+                "request": true,
+                "scope": [
+                    "http://127.0.0.1:7856/*",
+                    "https://api.github.com/repos/lorow/OpenIris/*"
+                ]
+            },
+            "notification": {
+                "all": true
+            },
+            "os": {
+                "all": true
+            },
+            "path": {
+                "all": true
+            },
+            "process": {
+                "all": false,
+                "exit": true,
+                "relaunch": true,
+                "relaunchDangerousAllowSymlinkMacos": false
+            },
+            "protocol": {
+                "all": false,
+                "asset": true,
+                "assetScope": ["$APPCONFIG/*", "$APPDATA/*", "$RESOURCE/*"]
+            },
+            "shell": {
+                "all": false,
+                "execute": false,
+                "open": ".*",
+                "scope": [],
+                "sidecar": true
+            },
+            "window": {
+                "all": false,
+                "center": true,
+                "close": true,
+                "create": true,
+                "hide": true,
+                "maximize": true,
+                "minimize": true,
+                "print": false,
+                "requestUserAttention": true,
+                "setAlwaysOnTop": false,
+                "setCursorGrab": false,
+                "setCursorIcon": false,
+                "setCursorPosition": false,
+                "setCursorVisible": false,
+                "setDecorations": true,
+                "setFocus": true,
+                "setFullscreen": true,
+                "setIcon": false,
+                "setMaxSize": false,
+                "setMinSize": false,
+                "setPosition": true,
+                "setResizable": true,
+                "setSize": true,
+                "setSkipTaskbar": false,
+                "setTitle": true,
+                "show": true,
+                "startDragging": true,
+                "unmaximize": true,
+                "unminimize": true
+            }
         },
-        "wix": {
-          "language": [
-            "en-US"
-          ]
+        "bundle": {
+            "active": true,
+            "category": "Productivity",
+            "copyright": "ZanzyTHEbar",
+            "deb": {
+                "depends": []
+            },
+            "externalBin": [],
+            "icon": [
+                "icons/32x32.png",
+                "icons/128x128.png",
+                "icons/128x128@2x.png",
+                "icons/icon.icns",
+                "icons/icon.ico"
+            ],
+            "identifier": "EmbeddedDataLogger",
+            "longDescription": "",
+            "resources": [],
+            "shortDescription": "",
+            "targets": "all",
+            "windows": {
+                "allowDowngrades": false,
+                "certificateThumbprint": null,
+                "digestAlgorithm": "sha256",
+                "timestampUrl": "",
+                "webviewInstallMode": {
+                    "type": "downloadBootstrapper"
+                },
+                "wix": {
+                    "language": ["en-US"]
+                }
+            }
+        },
+        "security": {
+            "csp": "default-src blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self' img-src: 'self' asset: https://asset.localhost media-src stream: https://stream.localhost"
+        },
+        "updater": {
+            "active": false,
+            "dialog": true,
+            "endpoints": ["https://youtu.be/ZXjlZBisYPQ"],
+            "pubkey": ""
+        },
+        "windows": [
+            {
+                "fullscreen": false,
+                "height": 662,
+                "width": 800,
+                "resizable": true,
+                "center": true,
+                "title": "ESP32 Data Logger",
+                "visible": false,
+                "decorations": false,
+                "transparent": true
+            },
+            {
+                "height": 662,
+                "width": 800,
+                "decorations": false,
+                "transparent": true,
+                "resizable": false,
+                "center": true,
+                "url": "splashscreen.html",
+                "label": "splashscreen"
+            }
+        ],
+        "systemTray": {
+            "iconPath": "icons/32x32.png",
+            "iconAsTemplate": true
         }
-      }
-    },
-    "security": {
-      "csp": null
-    },
-    "updater": {
-      "active": false
-    },
-    "windows": [
-      {
-        "fullscreen": false,
-        "height": 662,
-        "width": 800,
-        "resizable": true,
-        "center": true,
-        "title": "ESP32 Data Logger",
-        "visible": false,
-        "decorations": false,
-        "transparent": true
-      },
-      {
-        "height": 662,
-        "width": 800,
-        "decorations": false,
-        "transparent": true,
-        "resizable": false,
-        "center": true,
-        "url": "splashscreen.html",
-        "label": "splashscreen"
-      }
-    ],
-    "systemTray": {
-      "iconPath": "icons/32x32.png",
-      "iconAsTemplate": true
     }
-  }
 }
