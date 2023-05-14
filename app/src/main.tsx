@@ -2,7 +2,7 @@
 import { Router } from '@solidjs/router'
 import { render } from 'solid-js/web'
 import '@styles/imports.css'
-import App from './app'
+import App from './App'
 import { AppContextMainProvider } from './store/context/main'
 
 render(

@@ -10,7 +10,6 @@ interface AppUIContext {
     openModalStatus: Accessor<boolean | undefined>
     menuOpenStatus: Accessor<MenuOpen | null | undefined>
     connectedUserName: Accessor<string>
-    showCameraView: Accessor<boolean | undefined>
     showNotifications: Accessor<boolean | undefined>
     hideHeaderButtons: Accessor<boolean>
     setMenu: (menuOpen: MenuOpen | null) => void
@@ -19,7 +18,6 @@ interface AppUIContext {
     setOpenModal: (openModal: boolean) => void
     setConnectedUser: (userName: string) => void
     setLoader: (type: loaderType, value: boolean) => void
-    setShowCameraView: (showCameraView: boolean) => void
 }
 
 const AppUIContext = createContext<AppUIContext>()
@@ -85,14 +83,6 @@ export const AppUIProvider: Component<Context> = (props) => {
         )
     }
 
-    const setShowCameraView = (showCameraView: boolean) => {
-        setState(
-            produce((s) => {
-                s.showCameraView = showCameraView
-            }),
-        )
-    }
-
     const uiState = createMemo(() => state)
 
     const connectingStatus = createMemo(() => uiState().connecting)
@@ -100,7 +90,6 @@ export const AppUIProvider: Component<Context> = (props) => {
     const openModalStatus = createMemo(() => uiState().openModal)
     const menuOpenStatus = createMemo(() => uiState().menuOpen)
     const connectedUserName = createMemo(() => uiState().connectedUser)
-    const showCameraView = createMemo(() => uiState().showCameraView)
     const showNotifications = createMemo(() => uiState().showNotifications)
     const hideHeaderButtons = createMemo(() => uiState().hideHeaderButtons)
 
@@ -112,7 +101,6 @@ export const AppUIProvider: Component<Context> = (props) => {
                 openModalStatus,
                 menuOpenStatus,
                 connectedUserName,
-                showCameraView,
                 showNotifications,
                 hideHeaderButtons,
                 setMenu,
@@ -121,7 +109,6 @@ export const AppUIProvider: Component<Context> = (props) => {
                 setOpenModal,
                 setConnectedUser,
                 setLoader,
-                setShowCameraView,
             }}>
             {props.children}
         </AppUIContext.Provider>

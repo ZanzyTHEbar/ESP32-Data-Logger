@@ -1,5 +1,12 @@
 import { invoke } from '@tauri-apps/api/tauri'
-import { createContext, useContext, createMemo, type Component, Accessor } from 'solid-js'
+import {
+    createContext,
+    useContext,
+    createMemo,
+    type Component,
+    Accessor,
+    createSignal,
+} from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { error } from 'tauri-plugin-log-api'
 import type { Context } from '@static/types'

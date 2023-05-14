@@ -30,6 +30,7 @@
     "@stitches/core": "^1.2.8",
     "@tailwindcss/typography": "^0.5.9",
     "babel-preset-solid": "^1.7.4",
+    "chart.js": "^4.3.0",
     "clsx": "^1.2.1",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.7",

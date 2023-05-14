@@ -1,9 +1,4 @@
-import {
-    ENotificationAction,
-    ENotificationType,
-    MdnsStatus,
-    loaderType,
-} from '../enums'
+import { ENotificationAction, ENotificationType, MdnsStatus, loaderType } from '../enums'
 import type { DebugMode } from '@static/types'
 import type { RESTStatus, RESTType } from '@static/types/enums'
 import type { WebviewWindow } from '@tauri-apps/api/window'
@@ -130,4 +125,16 @@ export interface UiStore {
     connectedUser: string
     showNotifications?: boolean
     hideHeaderButtons: boolean
+}
+
+export interface AppStoreChart {
+    ip: string
+    endpoint: string
+    title: string
+    y_axis_title: string
+    line_color: string
+    interval: number
+    object_id: string
+    chart_id: string
+    cName: string
 }

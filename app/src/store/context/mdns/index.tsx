@@ -82,7 +82,7 @@ export const AppMdnsProvider: Component<Context> = (props) => {
             const response = res as MdnsResponse
             setMdnsStatus(MdnsStatus.ACTIVE)
             setMdnsData(response)
-            // loop through the res and add the cameras to the store
+            // loop through the res and add the devices to the store
             const size = Object.keys(response.names).length
             for (let i = 0; i < size; i++) {
                 // grab the unknown key and use it to access the res.urls object

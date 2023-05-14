@@ -1,3 +1,4 @@
+import { AppStoreChart } from './interfaces'
 import type { ENotificationAction } from './enums'
 import type { JSXElement } from 'solid-js'
 
@@ -27,4 +28,5 @@ type PersistentSettings = {
     globalNotificationsType?: ENotificationAction
     enableMDNS?: boolean
     debugMode?: DebugMode
+    charts?: AppStoreChart[]
 }

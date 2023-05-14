@@ -2,6 +2,7 @@ import { createContext, useContext, createMemo, type Component, Accessor } from 
 import { createStore, produce } from 'solid-js/store'
 import { attachConsole } from 'tauri-plugin-log-api'
 import { AppAPIProvider } from '../api'
+import { AppChartProvider } from '../chart'
 import { AppMdnsProvider } from '../mdns'
 import { AppNotificationProvider } from '../notifications'
 import { AppUIProvider } from '../ui'
@@ -91,7 +92,9 @@ export const AppProvider: Component<Context> = (props) => {
             <AppUIProvider>
                 <AppNotificationProvider>
                     <AppAPIProvider>
-                        <AppMdnsProvider>{props.children}</AppMdnsProvider>
+                        <AppMdnsProvider>
+                            <AppChartProvider>{props.children}</AppChartProvider>
+                        </AppMdnsProvider>
                     </AppAPIProvider>
                 </AppNotificationProvider>
             </AppUIProvider>
