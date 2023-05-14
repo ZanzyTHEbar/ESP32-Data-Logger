@@ -1,44 +1,45 @@
-import react from '@vitejs/plugin-react'
+import { resolve } from 'path'
 import { defineConfig } from 'vite'
-const path = require('path')
-
+import solidPlugin from 'vite-plugin-solid'
 
 export default defineConfig({
-  clearScreen: false,
-  // Tauri expects a fixed port, fail if that port is not available
-  // to make use of `TAURI_PLATFORM`, `TAURI_ARCH`, `TAURI_FAMILY`,
-  // `TAURI_PLATFORM_VERSION`, `TAURI_PLATFORM_TYPE` and `TAURI_DEBUG`
-  // env variables
-  envPrefix: ['VITE_', 'TAURI_'],
-  // also change alias in tsconfig.json compilerOptions > path
-  resolve: {
-    alias: {
-      '@src': path.resolve(__dirname, './src'),
-      '@pages': path.resolve(__dirname, './src/pages'),
-      '@config': path.resolve(__dirname, './src/config'),
-      '@styles': path.resolve(__dirname, './src/styles'),
-      '@redux': path.resolve(__dirname, './src/redux'),
-      '@interfaces': path.resolve(__dirname, './src/interfaces'),
-      '@assets': path.resolve(__dirname, './assets'),
-      '@components': path.resolve(__dirname, './src/components'),
-      '@tauri': path.resolve(__dirname, './src-tauri'),
-      '@static': path.resolve(__dirname, './src/static'),
-      '@utils': path.resolve(__dirname, './src/utils'),
+    clearScreen: false,
+    envPrefix: ['VITE_', 'TAURI_'],
+    resolve: {
+        alias: {
+            '@interfaces': resolve(__dirname, './src/interfaces'),
+            '@components': resolve(__dirname, './src/components'),
+            '@routes': resolve(__dirname, './src/routes'),
+            '@pages': resolve(__dirname, './src/pages'),
+            '@styles': resolve(__dirname, './src/styles'),
+            '@config': resolve(__dirname, './src/config'),
+            '@src': resolve(__dirname, './src'),
+            '@assets': resolve(__dirname, './assets'),
+            '@hooks': resolve(__dirname, './src/utils/hooks'),
+            '@store': resolve(__dirname, './src/store'),
+            '@static': resolve(__dirname, './src/static'),
+            '@utils': resolve(__dirname, './src/utils'),
+        },
     },
-  },
-  server: {
-    host: true,
-    strictPort: true,
-  },
-  build: {
-    // Tauri supports es2021
-    target: ['es2021', 'chrome100', 'safari13'],
-    // don't minify for debug builds
-    minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
-    // produce sourcemaps for debug builds
-    sourcemap: !!process.env.TAURI_DEBUG,
-  },
-  plugins: [
-    react(),
-  ]
+    plugins: [solidPlugin()],
+    server: {
+        port: 3000,
+        host: true,
+        strictPort: true,
+    },
+    build: {
+        rollupOptions: {
+            input: {
+                main: resolve(__dirname, 'index.html'),
+                docs: resolve(__dirname, 'src/windows/docs/index.html'),
+                webserial: resolve(__dirname, 'src/windows/webserial/index.html'),
+            },
+        },
+        // Tauri supports es2021
+        target: ['es2021', 'esnext'],
+        // don't minify for debug builds
+        minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
+        // produce sourcemaps for debug builds
+        sourcemap: !!process.env.TAURI_DEBUG,
+    },
 })

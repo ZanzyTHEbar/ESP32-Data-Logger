@@ -1,7 +1,15 @@
-import AppRoutes from '@pages/routes/Routes'
+import { lazy, onMount, Suspense } from 'solid-js'
+import { useAppContextMain } from './store/context/main'
+import { AppProvider } from '@store/context/app'
+
+import AppRoutes from '@routes/Routes'
 import { ChartProvider } from '@utils/hooks/chartData'
-import { Outlet } from 'react-router-dom'
-//import { appWindow } from "@tauri-apps/api/window";
+
+const AppRoutes = lazy(() => import('@routes/Routes'))
+//const NewContextMenu = lazy(() => import('@components/NewMenu'))
+//const ExampleMenu = lazy(() => import('@components/NewMenu/DevTools'))
+//const ToastNotificationWindow = lazy(() => import('@components/Notifications'))
+
 //! TODO: Add a way for the user to define Y axis min and max values
 
 // TODO: Add a way for the user to change the theme
@@ -20,14 +28,17 @@ import { Outlet } from 'react-router-dom'
 // TODO: Add support for MQTT
 
 function App() {
-  return (
-    <ChartProvider>
-      <main className="App">
-        <AppRoutes />
-        <Outlet />
-      </main>
-    </ChartProvider>
-  )
+    return (
+        <main class="App overflow-y-auto items-center">
+            <ChartProvider>
+                <AppRoutes />
+                {/* <NewContextMenu ref={ref} name="test">
+                    <ExampleMenu />
+                </NewContextMenu>
+                <ToastNotificationWindow /> */}
+            </ChartProvider>
+        </main>
+    )
 }
 
 export default App
