@@ -1,19 +1,21 @@
+import { useNavigate, useLocation } from '@solidjs/router'
 import { FaSolidGear } from 'solid-icons/fa'
-import { createSignal } from 'solid-js'
-import logo from '../../../public/images/logo.png'
 import type { Component } from 'solid-js'
-import { Modal } from '@components/Modal'
-import Settings from '@pages/Settings'
+import logo from '@src/assets/images/logo.png'
 
 const Header: Component<{ name: string }> = (props) => {
-    const [showSettings, setShowSettings] = createSignal(false)
+    const navigate = useNavigate()
+    const location = useLocation()
     return (
         <div class="flex-initial">
             <header class="container px-4 py-2 pt-[20px] flex items-center justify-between mx-auto">
                 <div class="navbar">
                     <div class="menu-bars">
                         <button
-                            onClick={() => setShowSettings(!showSettings)}
+                            onClick={() => {
+                                if (location.pathname === '/') navigate('/settings')
+                                else navigate('/')
+                            }}
                             class="settings-button ml-4 p-1 hover:bg-gray-200 border rounded-full py-3 px-4 mr-5 focus:bg-gray-100 transition duration-200 ease-in focus:shadow-inner">
                             <FaSolidGear />
                         </button>
@@ -27,11 +29,6 @@ const Header: Component<{ name: string }> = (props) => {
                 </h2>
                 <img src={logo} alt="logo" class="ml-5 mr-0 w-15 h-12" />
             </header>
-            <div class="nav-menu z-10">
-                <Modal isVisible={showSettings} onClose={() => setShowSettings(false)} width="200">
-                    <Settings />
-                </Modal>
-            </div>
         </div>
     )
 }

@@ -8,6 +8,7 @@ interface AppChartContext {
     getCharts: Accessor<AppStoreChart[]>
     setAddChart: (chart: AppStoreChart) => void
     setRemoveChart: (chart: AppStoreChart | undefined) => void
+    setRemoveAllCharts: () => void
 }
 
 const AppChartContext = createContext<AppChartContext>()
@@ -56,12 +57,22 @@ export const AppChartProvider: Component<Context> = (props) => {
         )
     }
 
+    const setRemoveAllCharts = () => {
+        setState(
+            produce((draft) => {
+                //* remove all charts from state
+                draft.splice(0, draft.length)
+            }),
+        )
+    }
+
     return (
         <AppChartContext.Provider
             value={{
                 getCharts,
                 setAddChart,
                 setRemoveChart,
+                setRemoveAllCharts,
             }}>
             {props.children}
         </AppChartContext.Provider>

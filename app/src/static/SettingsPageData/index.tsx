@@ -1,13 +1,17 @@
-import { BsGraphDown } from 'react-icons/bs'
-import { FaServer, FaLink, FaPencilAlt, FaEyeDropper, FaIdBadge, FaClock } from 'react-icons/fa'
-//import * as AiIcons from 'react-icons/ai';
-//import * as IoIcons from 'react-icons/io';
-//https://react-icons.github.io/react-icons/
+import { BsGraphDown } from 'solid-icons/bs'
+import {
+    FaSolidServer,
+    FaSolidLink,
+    FaSolidPencil,
+    FaSolidEyeDropper,
+    FaSolidIdBadge,
+    FaSolidClock,
+} from 'solid-icons/fa'
 
 export const SettingsPageData = [
     {
         title: 'IP Address',
-        icon: <FaServer />,
+        icon: <FaSolidServer />,
         cName: 'nav-text',
         id: 'ip',
         tooltip: 'IP Address of the server',
@@ -15,7 +19,7 @@ export const SettingsPageData = [
     },
     {
         title: 'Endpoint',
-        icon: <FaLink />,
+        icon: <FaSolidLink />,
         cName: 'nav-text',
         id: 'endpoint',
         tooltip: 'Endpoint of the server',
@@ -23,7 +27,7 @@ export const SettingsPageData = [
     },
     {
         title: 'Chart Title',
-        icon: <FaPencilAlt />,
+        icon: <FaSolidPencil />,
         cName: 'nav-text',
         id: 'title',
         tooltip: 'Title of the graph',
@@ -39,7 +43,7 @@ export const SettingsPageData = [
     },
     {
         title: 'Color',
-        icon: <FaEyeDropper />,
+        icon: <FaSolidEyeDropper />,
         cName: 'nav-text',
         id: 'line_color',
         tooltip: 'Graph Line Color',
@@ -47,7 +51,7 @@ export const SettingsPageData = [
     },
     {
         title: 'JSON ID',
-        icon: <FaIdBadge />,
+        icon: <FaSolidIdBadge />,
         cName: 'nav-text',
         id: 'object_id',
         tooltip: 'The object member name from the JSON data',
@@ -55,7 +59,7 @@ export const SettingsPageData = [
     },
     {
         title: 'Interval (ms)',
-        icon: <FaClock />,
+        icon: <FaSolidClock />,
         cName: 'nav-text',
         id: 'interval',
         tooltip: 'The interval in milliseconds to update the graph',
