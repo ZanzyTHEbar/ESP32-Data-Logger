@@ -91,7 +91,6 @@ async fn close_splashscreen(window: tauri::Window) {
 }
 
 fn main() {
-    env_logger::init();
     let quit = CustomMenuItem::new("quit".to_string(), "Quit");
     let hide = CustomMenuItem::new("hide".to_string(), "Hide");
     let show = CustomMenuItem::new("show".to_string(), "Show");
@@ -167,12 +166,4 @@ fn main() {
         })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
-    /* .build(tauri::generate_context!())*/
-    /* .expect("error while building tauri application") */
-    /* .run(|_app_handle, event| match event {
-        tauri::RunEvent::ExitRequested { api, .. } => {
-            api.prevent_exit();
-        }
-        _ => {}
-    }); */
 }
