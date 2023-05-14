@@ -4,6 +4,7 @@ import Input from '@components/Inputs'
 import { SettingsPageData } from '@src/static/SettingsPageData'
 import { AppStoreChart } from '@src/static/types/interfaces'
 import { useAppChartContext } from '@src/store/context/chart'
+import './styles.css'
 
 interface ISettings {
     handleChange: (value: string, id: string) => void
@@ -24,17 +25,25 @@ const SettingsPane = (props: ISettings & IButtonGroup) => {
                     <For each={SettingsPageData}>
                         {(item) => {
                             return (
-                                <div class="flex items-center">
-                                    <Input
-                                        onChange={props.handleChange}
-                                        header={item.title}
-                                        data-key={item.id}
-                                        type="text"
-                                        id={item.id}
-                                        icon={item.icon}
-                                        placeholder={item.placeholder}
-                                    />
-                                </div>
+                                <Tooltip.Root placement='left-start' >
+                                    <Tooltip.Trigger>
+                                        <Input
+                                            onChange={props.handleChange}
+                                            header={item.title}
+                                            data-key={item.id}
+                                            type="text"
+                                            id={item.id}
+                                            icon={item.icon}
+                                            placeholder={item.placeholder}
+                                        />
+                                    </Tooltip.Trigger>
+                                    <Tooltip.Portal>
+                                        <Tooltip.Content class="tooltip__content">
+                                            <Tooltip.Arrow />
+                                            <p>{item.tooltip}</p>
+                                        </Tooltip.Content>
+                                    </Tooltip.Portal>
+                                </Tooltip.Root>
                             )
                         }}
                     </For>
