@@ -1,10 +1,6 @@
 import { lazy, onMount, Suspense } from 'solid-js'
 import { useAppContextMain } from './store/context/main'
 import { AppProvider } from '@store/context/app'
-
-import AppRoutes from '@routes/Routes'
-import { ChartProvider } from '@utils/hooks/chartData'
-
 const AppRoutes = lazy(() => import('@routes/Routes'))
 //const NewContextMenu = lazy(() => import('@components/NewMenu'))
 //const ExampleMenu = lazy(() => import('@components/NewMenu/DevTools'))
@@ -30,13 +26,13 @@ const AppRoutes = lazy(() => import('@routes/Routes'))
 function App() {
     return (
         <main class="App overflow-y-auto items-center">
-            <ChartProvider>
+            <AppProvider>
                 <AppRoutes />
                 {/* <NewContextMenu ref={ref} name="test">
                     <ExampleMenu />
                 </NewContextMenu>
                 <ToastNotificationWindow /> */}
-            </ChartProvider>
+            </AppProvider>
         </main>
     )
 }
