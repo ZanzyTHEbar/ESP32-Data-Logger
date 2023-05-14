@@ -1,6 +1,8 @@
-import { lazy, onMount, Suspense } from 'solid-js'
+import { lazy, onMount } from 'solid-js'
 import { useAppContextMain } from './store/context/main'
 import { AppProvider } from '@store/context/app'
+
+
 const AppRoutes = lazy(() => import('@routes/Routes'))
 //const NewContextMenu = lazy(() => import('@components/NewMenu'))
 //const ExampleMenu = lazy(() => import('@components/NewMenu/DevTools'))
@@ -24,6 +26,12 @@ const AppRoutes = lazy(() => import('@routes/Routes'))
 // TODO: Add support for MQTT
 
 function App() {
+    const { handleTitlebar, handleAppBoot } = useAppContextMain()
+    onMount(() => {
+        handleTitlebar(true)
+        handleAppBoot()
+    })
+
     return (
         <main class="App overflow-y-auto items-center">
             <AppProvider>

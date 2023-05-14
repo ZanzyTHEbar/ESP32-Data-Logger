@@ -1,5 +1,5 @@
 import { useRoutes } from '@solidjs/router'
-import { type Component, createEffect, onMount } from 'solid-js'
+import { createEffect, onMount } from 'solid-js'
 import { useEventListener } from 'solidjs-use'
 import { debug } from 'tauri-plugin-log-api'
 import { routes } from '.'
@@ -44,9 +44,9 @@ export default function AppRoutes() {
             // save the app settings to the persistent store
             const settings: PersistentSettings = {
                 user: connectedUserName(),
-                enableNotifications: getEnableNotifications(),
-                enableNotificationsSounds: getEnableNotificationsSounds(),
-                globalNotificationsType: getGlobalNotificationsType(),
+                //enableNotifications: getEnableNotifications(),
+                //enableNotificationsSounds: getEnableNotificationsSounds(),
+                //globalNotificationsType: getGlobalNotificationsType(),
                 enableMDNS: getEnableMDNS(),
                 debugMode: getDebugMode(),
                 charts: getCharts(),
@@ -60,7 +60,7 @@ export default function AppRoutes() {
         <main class="pb-[5rem] w-[100%] px-8 max-w-[1920px]">
             <div class="header-wrapper">
                 <Header
-                    name={connectedUserName()['name'] ? `${connectedUserName()['name']}` : '!'}
+                    name={connectedUserName() ? `${connectedUserName()}` : 'stranger'}
                 />
             </div>
             <div class="pt-[70px]">

@@ -23,7 +23,7 @@ export default defineConfig({
     },
     plugins: [solidPlugin()],
     server: {
-        port: 3000,
+        port: 5173,
         host: true,
         strictPort: true,
     },
@@ -31,8 +31,8 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 main: resolve(__dirname, 'index.html'),
-                docs: resolve(__dirname, 'src/windows/docs/index.html'),
-                webserial: resolve(__dirname, 'src/windows/webserial/index.html'),
+                //docs: resolve(__dirname, 'src/windows/docs/index.html'),
+                //webserial: resolve(__dirname, 'src/windows/webserial/index.html'),
             },
         },
         // Tauri supports es2021

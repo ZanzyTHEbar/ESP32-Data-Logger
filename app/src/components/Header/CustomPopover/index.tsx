@@ -24,7 +24,7 @@ const CustomPopover = (props: ICustomPopover) => {
             onMouseEnter={handlePopOver}
             onMouseLeave={handlePopOver}
             class="group relative inline-flex">
-            <Popover.Root isOpen={open()}>
+            <Popover.Root open={open()} onOpenChange={setOpen}>
                 <Popover.Trigger class="rounded-[8px] pl-[1.5rem] pr-[1.5rem] ">
                     <Show when={props.icon}>
                         <Image.Root>
