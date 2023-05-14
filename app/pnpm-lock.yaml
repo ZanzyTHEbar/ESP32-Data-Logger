@@ -2,11 +2,11 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@kobalte/core':
-    specifier: ^0.8.2
-    version: 0.8.2(solid-js@1.7.5)
+    specifier: ^0.9.6
+    version: 0.9.6(solid-js@1.7.5)
   '@kobalte/tailwindcss':
-    specifier: ^0.4.2
-    version: 0.4.2(tailwindcss@3.3.2)
+    specifier: ^0.6.5
+    version: 0.6.5(tailwindcss@3.3.2)
   '@solid-primitives/i18n':
     specifier: ^1.4.0
     version: 1.4.0(solid-js@1.7.5)
@@ -43,9 +43,6 @@ dependencies:
   dotenv:
     specifier: ^16.0.3
     version: 16.0.3
-  headlessui:
-    specifier: ^0.0.0
-    version: 0.0.0
   highcharts:
     specifier: ^11.0.1
     version: 11.0.1
@@ -88,6 +85,9 @@ dependencies:
   tauri-plugin-upload-api:
     specifier: github:tauri-apps/tauri-plugin-upload
     version: github.com/tauri-apps/tauri-plugin-upload/a2874fc43cb9996f3bbaa755484a3c9da785a091
+  terracotta:
+    specifier: 0.13.2-alpha.119
+    version: 0.13.2-alpha.119(solid-js@1.7.5)
   undici:
     specifier: ^5.22.1
     version: 5.22.1
@@ -1623,6 +1623,40 @@ packages:
       '@floating-ui/core': 1.2.6
     dev: false
 
+  /@formatjs/ecma402-abstract@1.15.0:
+    resolution: {integrity: sha512-7bAYAv0w4AIao9DNg0avfOLTCPE9woAgs6SpXuMq11IN3A+l+cq8ghczwqSZBM11myvPSJA7vLn72q0rJ0QK6Q==}
+    dependencies:
+      '@formatjs/intl-localematcher': 0.2.32
+      tslib: 2.5.0
+    dev: false
+
+  /@formatjs/fast-memoize@2.0.1:
+    resolution: {integrity: sha512-M2GgV+qJn5WJQAYewz7q2Cdl6fobQa69S1AzSM2y0P68ZDbK5cWrJIcPCO395Of1ksftGZoOt4LYCO/j9BKBSA==}
+    dependencies:
+      tslib: 2.5.0
+    dev: false
+
+  /@formatjs/icu-messageformat-parser@2.4.0:
+    resolution: {integrity: sha512-6Dh5Z/gp4F/HovXXu/vmd0If5NbYLB5dZrmhWVNb+BOGOEU3wt7Z/83KY1dtd7IDhAnYHasbmKE1RbTE0J+3hw==}
+    dependencies:
+      '@formatjs/ecma402-abstract': 1.15.0
+      '@formatjs/icu-skeleton-parser': 1.4.0
+      tslib: 2.5.0
+    dev: false
+
+  /@formatjs/icu-skeleton-parser@1.4.0:
+    resolution: {integrity: sha512-Qq347VM616rVLkvN6QsKJELazRyNlbCiN47LdH0Mc5U7E2xV0vatiVhGqd3KFgbc055BvtnUXR7XX60dCGFuWg==}
+    dependencies:
+      '@formatjs/ecma402-abstract': 1.15.0
+      tslib: 2.5.0
+    dev: false
+
+  /@formatjs/intl-localematcher@0.2.32:
+    resolution: {integrity: sha512-k/MEBstff4sttohyEpXxCmC3MqbUn9VvHGlZ8fauLzkbwXmVrEeyzS+4uhrvAk9DWU9/7otYWxyDox4nT/KVLQ==}
+    dependencies:
+      tslib: 2.5.0
+    dev: false
+
   /@humanwhocodes/config-array@0.11.8:
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}
     engines: {node: '>=10.10.0'}
@@ -1649,14 +1683,15 @@ packages:
       '@swc/helpers': 0.4.14
     dev: false
 
-  /@internationalized/number@3.2.0:
-    resolution: {integrity: sha512-GUXkhXSX1Ee2RURnzl+47uvbOxnlMnvP9Er+QePTjDjOPWuunmLKlEkYkEcLiiJp7y4l9QxGDLOlVr8m69LS5w==}
+  /@internationalized/message@3.1.0:
+    resolution: {integrity: sha512-Oo5m70FcBdADf7G8NkUffVSfuCdeAYVfsvNjZDi9ELpjvkc4YNJVTHt/NyTI9K7FgAVoELxiP9YmN0sJ+HNHYQ==}
     dependencies:
       '@swc/helpers': 0.4.14
+      intl-messageformat: 10.3.5
     dev: false
 
-  /@internationalized/string@3.1.0:
-    resolution: {integrity: sha512-TJQKiyUb+wyAfKF59UNeZ/kELMnkxyecnyPCnBI1ma4NaXReJW+7Cc2mObXAqraIBJUVv7rgI46RLKrLgi35ng==}
+  /@internationalized/number@3.2.0:
+    resolution: {integrity: sha512-GUXkhXSX1Ee2RURnzl+47uvbOxnlMnvP9Er+QePTjDjOPWuunmLKlEkYkEcLiiJp7y4l9QxGDLOlVr8m69LS5w==}
     dependencies:
       '@swc/helpers': 0.4.14
     dev: false
@@ -1708,38 +1743,38 @@ packages:
       lodash: 4.17.21
     dev: true
 
-  /@kobalte/core@0.8.2(solid-js@1.7.5):
-    resolution: {integrity: sha512-EoBYKpYa3+Csr5Zh7l3aY3yAg7fk1O3ZM9lGyD1mdQ1FutTuwTkyj8z1CvSSj1Klb+rBL+X1N662Occ8Bmsi2w==}
+  /@kobalte/core@0.9.6(solid-js@1.7.5):
+    resolution: {integrity: sha512-nuo3+ncZHC2Fl531DdliLE/kRcmdMf2FflSTVqM0FqqgilbzIbdJCFXJddkZj4KtML9F4rHRiPq5reSXMMrFLg==}
     peerDependencies:
-      solid-js: ^1.6.15
+      solid-js: ^1.7.3
     dependencies:
       '@floating-ui/dom': 1.2.8
       '@internationalized/date': 3.2.0
+      '@internationalized/message': 3.1.0
       '@internationalized/number': 3.2.0
-      '@internationalized/string': 3.1.0
-      '@kobalte/utils': 0.6.1(solid-js@1.7.5)
+      '@kobalte/utils': 0.7.2(solid-js@1.7.5)
       solid-js: 1.7.5
     dev: false
 
-  /@kobalte/tailwindcss@0.4.2(tailwindcss@3.3.2):
-    resolution: {integrity: sha512-06+8HyFYPEFfvfoOwQW6TQbWoRR8iyYrUdI64sPANEHpQWwnUMBdpmJjDQKi58xfvh8DYSbTAqtNRpqU9ALOQw==}
+  /@kobalte/tailwindcss@0.6.5(tailwindcss@3.3.2):
+    resolution: {integrity: sha512-E8iAOtC05WVYUIbj4rdsjnmu6qedT1uZFV2SUnO3rUcZMPtLvHcv2EIqUpEzaIoO7HMbWIrer53/IGtv+MOwEA==}
     peerDependencies:
-      tailwindcss: ^3.2.4
+      tailwindcss: ^3.3.0
     dependencies:
       tailwindcss: 3.3.2
     dev: false
 
-  /@kobalte/utils@0.6.1(solid-js@1.7.5):
-    resolution: {integrity: sha512-YvBqe9t9j0iYFUHfKXSMLQKM3s5+nL72RvT9b75W+IOxUpSpN4rdaI8C2j97k3LsEt7qY4ktJdt8lPM1rr8JXw==}
+  /@kobalte/utils@0.7.2(solid-js@1.7.5):
+    resolution: {integrity: sha512-ZdINbHemz+jnixJ63VFi9wUEHEMAsP7iDGEADciKdSKrK4bDuccDw5th1O+5/PykfHqFwSI++JhhUpOd+iZ5jg==}
     peerDependencies:
-      solid-js: ^1.6.12
+      solid-js: ^1.7.3
     dependencies:
       '@solid-primitives/event-listener': 2.2.11(solid-js@1.7.5)
       '@solid-primitives/keyed': 1.2.0(solid-js@1.7.5)
       '@solid-primitives/media': 2.2.1(solid-js@1.7.5)
       '@solid-primitives/props': 3.1.5(solid-js@1.7.5)
       '@solid-primitives/refs': 1.0.3(solid-js@1.7.5)
-      '@solid-primitives/utils': 5.5.2(solid-js@1.7.5)
+      '@solid-primitives/utils': 6.1.1(solid-js@1.7.5)
       solid-js: 1.7.5
     dev: false
 
@@ -2530,7 +2565,7 @@ packages:
       call-bind: 1.0.2
       define-properties: 1.2.0
       es-abstract: 1.21.2
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
       is-string: 1.0.7
     dev: true
 
@@ -2834,7 +2869,7 @@ packages:
     resolution: {integrity: sha512-7O+FbCihrB5WGbFYesctwmTKae6rOiIzmz1icreWJ+0aA7LJfuqhEso2T9ncpcFtzMQtzXf2QGGueWJGTYsqrA==}
     dependencies:
       function-bind: 1.1.1
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
     dev: true
 
   /callsites@3.1.0:
@@ -3260,7 +3295,7 @@ packages:
       es-set-tostringtag: 2.0.1
       es-to-primitive: 1.2.1
       function.prototype.name: 1.1.5
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
       get-symbol-description: 1.0.0
       globalthis: 1.0.3
       gopd: 1.0.1
@@ -3298,7 +3333,7 @@ packages:
     resolution: {integrity: sha512-g3OMbtlwY3QewlqAiMLI47KywjWZoEytKr8pf6iTC8uJq5bIAH52Z9pnQ8pVL6whrCto53JZDuUIsifGeLorTg==}
     engines: {node: '>= 0.4'}
     dependencies:
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
       has: 1.0.3
       has-tostringtag: 1.0.0
     dev: true
@@ -3882,11 +3917,12 @@ packages:
     engines: {node: 6.* || 8.* || >= 10.*}
     dev: true
 
-  /get-intrinsic@1.2.0:
-    resolution: {integrity: sha512-L049y6nFOuom5wGyRc3/gdTLO94dySVKRACj1RmJZBQXlbTMhtNIgkWkUHq+jYmZvKf14EW1EoJnnjbmoHij0Q==}
+  /get-intrinsic@1.2.1:
+    resolution: {integrity: sha512-2DcsyfABl+gVHEfCOaTrWgyt+tb6MSEGmKq+kI5HwLbIYgjgmMcV8KQ41uaKz1xxUcn9tJtgFbQUEVcEbd0FYw==}
     dependencies:
       function-bind: 1.1.1
       has: 1.0.3
+      has-proto: 1.0.1
       has-symbols: 1.0.3
     dev: true
 
@@ -3900,7 +3936,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
     dev: true
 
   /get-tsconfig@4.5.0:
@@ -3988,7 +4024,7 @@ packages:
   /gopd@1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
     dependencies:
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
     dev: true
 
   /graceful-fs@4.2.11:
@@ -4019,7 +4055,7 @@ packages:
   /has-property-descriptors@1.0.0:
     resolution: {integrity: sha512-62DVLZGoiEBDHQyqG4w9xCuZ7eJEwNmJRWw2VY84Oedb7WFcA27fiEVe8oUQx9hAUJ4ekurquucTGwsyO1XGdQ==}
     dependencies:
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
     dev: true
 
   /has-proto@1.0.1:
@@ -4053,10 +4089,6 @@ packages:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
     dev: true
-
-  /headlessui@0.0.0:
-    resolution: {integrity: sha512-CHvacVPbl8AqIg2sBNKySUmumu7o15jSrCaTrIh9GW2Eq4y/krCN/vZFOsKCwlrhWQbO4267a8xvvP8bs+qREQ==}
-    dev: false
 
   /highcharts@11.0.1:
     resolution: {integrity: sha512-KRwNwm6kJsp3JxNSpORuWLzvLnPuqCR3n0qbGjw+0m6MIxrlkUWnFaZJ2uXjMur6j3RUC66te36tldlSheYydQ==}
@@ -4168,10 +4200,19 @@ packages:
     resolution: {integrity: sha512-Y+R5hJrzs52QCG2laLn4udYVnxsfny9CpOhNhUvk/SSSVyF6T27FzRbF0sroPidSu3X8oEAkOn2K804mjpt6UQ==}
     engines: {node: '>= 0.4'}
     dependencies:
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
       has: 1.0.3
       side-channel: 1.0.4
     dev: true
+
+  /intl-messageformat@10.3.5:
+    resolution: {integrity: sha512-6kPkftF8Jg3XJCkGKa5OD+nYQ+qcSxF4ZkuDdXZ6KGG0VXn+iblJqRFyDdm9VvKcMyC0Km2+JlVQffFM52D0YA==}
+    dependencies:
+      '@formatjs/ecma402-abstract': 1.15.0
+      '@formatjs/fast-memoize': 2.0.1
+      '@formatjs/icu-messageformat-parser': 2.4.0
+      tslib: 2.5.0
+    dev: false
 
   /ipaddr.js@1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
@@ -4182,7 +4223,7 @@ packages:
     resolution: {integrity: sha512-y+FyyR/w8vfIRq4eQcM1EYgSTnmHXPqaF+IgzgraytCFq5Xh8lllDVmAZolPJiZttZLeFSINPYMaEJ7/vWUa1w==}
     dependencies:
       call-bind: 1.0.2
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
       is-typed-array: 1.1.10
     dev: true
 
@@ -5537,7 +5578,7 @@ packages:
     resolution: {integrity: sha512-JBUUzyOgEwXQY1NuPtvcj/qcBDbDmEvWufhlnXZIm75DEHp+afM1r1ujJpJsV/gSM4t59tpDyPi1sd6ZaPFfsA==}
     dependencies:
       call-bind: 1.0.2
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
       is-regex: 1.1.4
     dev: true
 
@@ -5649,7 +5690,7 @@ packages:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
     dependencies:
       call-bind: 1.0.2
-      get-intrinsic: 1.2.0
+      get-intrinsic: 1.2.1
       object-inspect: 1.12.3
     dev: true
 
@@ -5742,6 +5783,19 @@ packages:
     engines: {node: '>=10'}
     peerDependencies:
       solid-js: ^1.5
+    dependencies:
+      solid-js: 1.7.5
+    dev: false
+
+  /solid-use@0.7.0(solid-js@1.7.5):
+    resolution: {integrity: sha512-okMWy/dADFS8EqXr2Ckr2W1gEu1Rz7g+a204Hp4LWwrk6/BxB26WdEB4b4eyax5lq3XEoiaKNWxFepBBeeE8rw==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      seroval: '>=0.1.0'
+      solid-js: ^1.5
+    peerDependenciesMeta:
+      seroval:
+        optional: true
     dependencies:
       solid-js: 1.7.5
     dev: false
@@ -5989,6 +6043,18 @@ packages:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
     engines: {node: '>=6'}
     dev: true
+
+  /terracotta@0.13.2-alpha.119(solid-js@1.7.5):
+    resolution: {integrity: sha512-dr+Eu9SK8QYt01DhtgZv95VR2/inQdg+K8NMOHlxXs4RXmWL4lW5DV+cSZchxpF+bsqsRl2XFi1d7fASz3uiTw==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      solid-js: ^1.7
+    dependencies:
+      solid-js: 1.7.5
+      solid-use: 0.7.0(solid-js@1.7.5)
+    transitivePeerDependencies:
+      - seroval
+    dev: false
 
   /terser-webpack-plugin@5.3.8(webpack@5.82.1):
     resolution: {integrity: sha512-WiHL3ElchZMsK27P8uIUh4604IgJyAW47LVXGbEoB21DbQcZ+OuMpGjVYnEUaqcWM6dO8uS2qUbA7LSCWqvsbg==}

@@ -6,20 +6,10 @@ import {
     FaSolidChartArea,
     FaSolidTrashCan,
 } from 'solid-icons/fa'
-import {
-    createSignal,
-    onMount,
-    onCleanup,
-    createMemo,
-    createEffect,
-    Component,
-    Signal,
-    createResource,
-} from 'solid-js'
+import { createSignal, Component, createResource } from 'solid-js'
 import type { AppStoreChart } from '@static/types/interfaces'
-import { Tooltip } from '@components/Tooltip'
+import CustomPopover from '@components/Header/CustomPopover'
 import { useAppChartContext } from '@store/context/chart'
-import { createStore, unwrap, reconcile } from 'solid-js/store'
 
 interface IButtonGroup {
     handleDelete: () => void
@@ -30,51 +20,48 @@ const ButtonGroup = (props: IButtonGroup) => {
     return (
         <div id="button-row" class="flex justify-end py-[2px]">
             <div id="chart-types">
-                <Tooltip tooltip="Line Chart">
-                    <button
-                        data-user="line"
-                        onClick={(event) =>
-                            props.updateChartType(event.currentTarget.dataset['user'] ?? '')
-                        }
-                        class="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
-                        <FaSolidChartLine data-user="line" />
-                    </button>
-                </Tooltip>
-                <Tooltip tooltip="Bar Chart">
-                    <button
-                        data-user="bar"
-                        onClick={(event) =>
-                            props.updateChartType(event.currentTarget.dataset['user'] ?? '')
-                        }
-                        class="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
-                        <FaSolidChartBar data-user="bar" />
-                    </button>
-                </Tooltip>
-                <Tooltip tooltip="Area Chart">
-                    <button
-                        data-user="area"
-                        onClick={(event) =>
-                            props.updateChartType(event.currentTarget.dataset['user'] ?? '')
-                        }
-                        class="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
-                        <FaSolidChartArea data-user="area" />
-                    </button>
-                </Tooltip>
+                <button
+                    data-user="line"
+                    onClick={(event) =>
+                        props.updateChartType(event.currentTarget.dataset['user'] ?? '')
+                    }
+                    class="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
+                    <CustomPopover styles="h-full" popoverContent="Line Chart" />
+                    <FaSolidChartLine data-user="line" />
+                </button>
+                <button
+                    data-user="bar"
+                    onClick={(event) =>
+                        props.updateChartType(event.currentTarget.dataset['user'] ?? '')
+                    }
+                    class="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
+                    <CustomPopover styles="h-full" popoverContent="Bar Chart" />
+                    <FaSolidChartBar data-user="bar" />
+                </button>
+                <button
+                    data-user="area"
+                    onClick={(event) =>
+                        props.updateChartType(event.currentTarget.dataset['user'] ?? '')
+                    }
+                    class="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
+                    <CustomPopover styles="h-full" popoverContent="Area Chart" />
+                    <FaSolidChartArea data-user="area" />
+                </button>
             </div>
-            {/* <Tooltip tooltip="Save Chart">
+            {/*
                 <button
                     onClick={() => props.handleSave()}
                     class="py-1 px-2 mx-[1px] bg-blue-400 hover:bg-blue-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-blue-700 transition duration-100 ease-in focus:shadow-inner">
+                    <CustomPopover styles="h-full" popoverContent="Save Chart" />
                     <BsSave2 />
                 </button>
-            </Tooltip> */}
-            <Tooltip tooltip="Delete Chart">
-                <button
-                    onClick={() => props.handleDelete()}
-                    class="py-1 px-2 mx-[1px] bg-red-400 hover:bg-red-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-red-700 transition duration-100 ease-in focus:shadow-inner">
-                    <FaSolidTrashCan />
-                </button>
-            </Tooltip>
+             */}
+            <button
+                onClick={() => props.handleDelete()}
+                class="py-1 px-2 mx-[1px] bg-red-400 hover:bg-red-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-red-700 transition duration-100 ease-in focus:shadow-inner">
+                <CustomPopover styles="h-full" popoverContent="Delete Chart" />
+                <FaSolidTrashCan />
+            </button>
             {/* <button class="pie-chart">
                         <FontAwesomeIcon icon={faPieChart} />
                     </button> */}
@@ -85,7 +72,9 @@ const ButtonGroup = (props: IButtonGroup) => {
 const Chart: Component<AppStoreChart> = (props) => {
     const { setRemoveChart, getCharts } = useAppChartContext()
     const [chartRef, setChartRef] = createSignal(null)
-    const updateChartType = (value: string) => {}
+    const updateChartType = (value: string) => {
+        return
+    }
 
     const handleDelete = () => {
         if (getCharts().length >= 1) {
@@ -118,6 +107,7 @@ const Chart: Component<AppStoreChart> = (props) => {
             }
         } catch (err) {
             console.log(err)
+            return null
         }
     }
 
