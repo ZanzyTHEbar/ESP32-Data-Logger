@@ -1,12 +1,13 @@
 //import { BsSave2 } from 'solid-icons/bs'
 import { invoke } from '@tauri-apps/api/tauri'
+import { Chart, ChartType } from 'chart.js/auto'
 import {
     FaSolidChartLine,
     FaSolidChartBar,
     FaSolidChartArea,
     FaSolidTrashCan,
 } from 'solid-icons/fa'
-import { createSignal, Component, createResource } from 'solid-js'
+import { createSignal, Component, createResource, onMount } from 'solid-js'
 import type { AppStoreChart } from '@static/types/interfaces'
 import CustomPopover from '@components/Header/CustomPopover'
 import { useAppChartContext } from '@store/context/chart'
@@ -69,11 +70,14 @@ const ButtonGroup = (props: IButtonGroup) => {
     )
 }
 
-const Chart: Component<AppStoreChart> = (props) => {
+const CustomChart: Component<AppStoreChart> = (props) => {
     const { setRemoveChart, getCharts } = useAppChartContext()
-    const [chartRef, setChartRef] = createSignal(null)
+    const [chartRef, setChartRef] = createSignal<HTMLCanvasElement>()
+    const [chartType, setChartType] = createSignal('line')
+    const [localChart, setLocalChart] = createSignal<Chart>()
+
     const updateChartType = (value: string) => {
-        return
+        setChartType(value)
     }
 
     const handleDelete = () => {
@@ -113,12 +117,32 @@ const Chart: Component<AppStoreChart> = (props) => {
 
     const [resource] = createResource(handleChartUpdate)
 
+    onMount(() => {
+        if (chartRef()) {
+            const canvas = chartRef() as HTMLCanvasElement
+            const type = chartType() as ChartType
+            const chart = new Chart(canvas, {
+                type: type,
+                data: {},
+            })
+            setLocalChart(chart)
+        }
+    })
+
     return (
         <div class="card">
             <ButtonGroup handleDelete={handleDelete} updateChartType={updateChartType} />
-            <canvas class={`chartContainer ${props.cName}`} />
+            <div class="w-[500px]">
+                <canvas
+                    role="img"
+                    id="dimensions"
+                    ref={setChartRef}
+                    class={`chartContainer ${props.cName}`}
+                />
+            </div>
+            <br />
         </div>
     )
 }
 
-export default Chart
+export default CustomChart
