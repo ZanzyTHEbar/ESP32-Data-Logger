@@ -76,6 +76,8 @@ const CustomChart: Component<AppStoreChart> = (props) => {
     const [chartType, setChartType] = createSignal('line')
     const [localChart, setLocalChart] = createSignal<Chart>()
 
+    let chartData: AppStoreChart | undefined
+
     const updateChartType = (value: string) => {
         setChartType(value)
     }
@@ -90,7 +92,6 @@ const CustomChart: Component<AppStoreChart> = (props) => {
     }
 
     const handleChartUpdate = async (source, { value, refetching }) => {
-        const chartData = getCharts().find((item) => item.chart_id === props.chart_id)
         try {
             if (chartData) {
                 const response = await invoke('do_rest_request', {
@@ -115,9 +116,11 @@ const CustomChart: Component<AppStoreChart> = (props) => {
         }
     }
 
-    const [resource] = createResource(handleChartUpdate)
+    const [resource] = createResource(chartData, handleChartUpdate)
 
     onMount(() => {
+        console.log('chart mounted', getCharts())
+        chartData = getCharts().find((item) => item.chart_id === props.chart_id)
         if (chartRef()) {
             const canvas = chartRef() as HTMLCanvasElement
             const type = chartType() as ChartType

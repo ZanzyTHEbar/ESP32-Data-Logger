@@ -40,12 +40,11 @@ const NoCharts: Component = () => {
 const ChartList: Component = () => {
     const { getCharts } = useAppChartContext()
     return (
-        <Show when={getCharts().length !== 0} fallback={<NoCharts />}>
+        <Show when={getCharts().length > 0} fallback={<NoCharts />}>
             <ul class="flow-root items-center content-center justify-center flex-col">
                 <For each={getCharts()}>
                     {(item, index) => (
                         <li data-key={index()} class={item.cName}>
-                            {item.interval === 0 ? (item.interval = 3000) : null}
                             <Chart
                                 ip={item.ip}
                                 endpoint={item.endpoint}
