@@ -14,19 +14,20 @@ interface AppChartContext {
 const AppChartContext = createContext<AppChartContext>()
 export const AppChartProvider: Component<Context> = (props) => {
     //const { getMdnsAddresses } = useAppMDNSContext()
-    const defaultState: AppStoreChart[] = [
-        {
-            ip: '',
-            endpoint: '',
-            title: '',
-            y_axis_title: '',
-            line_color: '',
-            interval: 0,
-            object_id: '',
-            chart_id: '',
-            cName: '',
-        },
-    ]
+    /**
+     ** {
+     **    ip: '',
+     **    endpoint: '',
+     **    title: '',
+     **    y_axis_title: '',
+     **    line_color: '',
+     **    interval: 0,
+     **    object_id: '',
+     **    chart_id: '',
+     **    cName: '',
+     ** },
+     **/
+    const defaultState: AppStoreChart[] = []
 
     const [state, setState] = createStore<AppStoreChart[]>(defaultState)
     const getCharts = createMemo(() => state)
