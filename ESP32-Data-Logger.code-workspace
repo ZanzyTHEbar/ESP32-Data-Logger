@@ -58,6 +58,7 @@
     "cSpell.words": [
       "APPCONFIG",
       "APPDATA",
+      "chartjs",
       "clippy",
       "clsx",
       "Coeff",
@@ -83,6 +84,7 @@
       "solidjs",
       "soundfile",
       "tamasfe",
+      "typecheck",
       "undici",
       "Unlisten",
       "vorbis",

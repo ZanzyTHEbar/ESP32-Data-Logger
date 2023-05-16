@@ -78,6 +78,20 @@ const CustomChart: Component<AppStoreChart> = (props) => {
 
     let chartData: AppStoreChart | undefined
 
+    onMount(() => {
+        console.log('chart mounted', getCharts())
+        chartData = getCharts().find((item) => item.chart_id === props.chart_id)
+        if (chartRef()) {
+            const canvas = chartRef() as HTMLCanvasElement
+            const type = chartType() as ChartType
+            const chart = new Chart(canvas, {
+                type: type,
+                data: {},
+            })
+            setLocalChart(chart)
+        }
+    })
+
     const updateChartType = (value: string) => {
         setChartType(value)
     }
@@ -103,9 +117,9 @@ const CustomChart: Component<AppStoreChart> = (props) => {
                     const parsedResponse = JSON.parse(response)
 
                     //* grab the target object key from the response
-                    const targetKey = Object.keys(parsedResponse).find(
-                        (item) => item === chartData.object_id,
-                    )
+                    const targetKey = Object.keys(parsedResponse).find((item) => {
+                        if (chartData) item === chartData.object_id
+                    })
                     console.log(targetKey)
                     return targetKey ? parsedResponse[targetKey] : null
                 }
@@ -117,20 +131,6 @@ const CustomChart: Component<AppStoreChart> = (props) => {
     }
 
     const [resource] = createResource(chartData, handleChartUpdate)
-
-    onMount(() => {
-        console.log('chart mounted', getCharts())
-        chartData = getCharts().find((item) => item.chart_id === props.chart_id)
-        if (chartRef()) {
-            const canvas = chartRef() as HTMLCanvasElement
-            const type = chartType() as ChartType
-            const chart = new Chart(canvas, {
-                type: type,
-                data: {},
-            })
-            setLocalChart(chart)
-        }
-    })
 
     return (
         <div class="card">
