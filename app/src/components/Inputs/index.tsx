@@ -20,18 +20,12 @@ const Input: Component<Props> = (props) => {
 
     return (
         <div class="flex grow rounded-xl flex-col pl-3 pr-3 pb-3 pt-3 bg-gray-100">
-            <div>
-                <div class="flex justify-between pb-3">
-                    <div>
-                        <div>
-                            <div class="flex items-center content-center">
-                                <span class="items-center pr-1 pb-1 justify-center content-center">
-                                    <div class="pt-1 pr-1 text-primary">{props.icon}</div>
-                                </span>
-                                <p class="font-[700] text-lg text-secondary">{props.header}</p>
-                            </div>
-                        </div>
-                    </div>
+            <div class="flex justify-between pb-3">
+                <div class="flex items-center content-center">
+                    <span class="items-center pr-1 pb-1 justify-center content-center">
+                        <div class="pt-1 pr-1 text-primary">{props.icon}</div>
+                    </span>
+                    <p class="font-[700] text-lg text-secondary">{props.header}</p>
                 </div>
             </div>
             <div>

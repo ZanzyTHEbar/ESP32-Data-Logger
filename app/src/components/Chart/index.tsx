@@ -1,67 +1,77 @@
-//import { BsSave2 } from 'solid-icons/bs'
+import { useNavigate } from '@solidjs/router'
 import { invoke } from '@tauri-apps/api/tauri'
-import { Chart, ChartType } from 'chart.js/auto'
+import { ChartData, ChartTypeRegistry } from 'chart.js'
+import { Chart, DefaultChart, Title, Tooltip, Legend } from 'solid-chartjs/dist'
 import {
     FaSolidChartLine,
     FaSolidChartBar,
+    FaSolidGear,
     FaSolidChartArea,
     FaSolidTrashCan,
 } from 'solid-icons/fa'
-import { createSignal, Component, createResource, onMount } from 'solid-js'
-import type { AppStoreChart } from '@static/types/interfaces'
-import CustomPopover from '@components/Header/CustomPopover'
+import { createSignal, createResource, onMount, For } from 'solid-js'
+import { createStore } from 'solid-js/store'
+import type { ChartSettings } from '@static/types/interfaces'
+import type { Component } from 'solid-js'
+import CustomTooltip from '@components/Tooltip'
 import { useAppChartContext } from '@store/context/chart'
+import { generateRandomChartData, generateRandomDataset } from '@utils/utils'
 
 interface IButtonGroup {
     handleDelete: () => void
-    updateChartType: (value: string) => void
+    updateChartType: (event: any) => void
+    chart: ChartSettings
 }
 
 const ButtonGroup = (props: IButtonGroup) => {
+    const navigate = useNavigate()
+
+    const { setSelectedChart } = useAppChartContext()
+
     return (
         <div id="button-row" class="flex justify-end py-[2px]">
             <div id="chart-types">
                 <button
                     data-user="line"
-                    onClick={(event) =>
-                        props.updateChartType(event.currentTarget.dataset['user'] ?? '')
-                    }
+                    onClick={(event) => props.updateChartType(event)}
                     class="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
-                    <CustomPopover styles="h-full" popoverContent="Line Chart" />
-                    <FaSolidChartLine data-user="line" />
+                    <CustomTooltip tooltip="Line Chart">
+                        <FaSolidChartLine data-user="line" />
+                    </CustomTooltip>
                 </button>
                 <button
                     data-user="bar"
-                    onClick={(event) =>
-                        props.updateChartType(event.currentTarget.dataset['user'] ?? '')
-                    }
+                    onClick={(event) => props.updateChartType(event)}
                     class="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
-                    <CustomPopover styles="h-full" popoverContent="Bar Chart" />
-                    <FaSolidChartBar data-user="bar" />
+                    <CustomTooltip tooltip="Line Chart">
+                        <FaSolidChartBar data-user="bar" />
+                    </CustomTooltip>
                 </button>
                 <button
-                    data-user="area"
-                    onClick={(event) =>
-                        props.updateChartType(event.currentTarget.dataset['user'] ?? '')
-                    }
+                    data-user="polarArea"
+                    onClick={(event) => props.updateChartType(event)}
                     class="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
-                    <CustomPopover styles="h-full" popoverContent="Area Chart" />
-                    <FaSolidChartArea data-user="area" />
+                    <CustomTooltip tooltip="Line Chart">
+                        <FaSolidChartArea data-user="area" />
+                    </CustomTooltip>
                 </button>
             </div>
-            {/*
-                <button
-                    onClick={() => props.handleSave()}
-                    class="py-1 px-2 mx-[1px] bg-blue-400 hover:bg-blue-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-blue-700 transition duration-100 ease-in focus:shadow-inner">
-                    <CustomPopover styles="h-full" popoverContent="Save Chart" />
-                    <BsSave2 />
-                </button>
-             */}
+            <button
+                onClick={() => {
+                    setSelectedChart(props.chart)
+                    navigate('/settings')
+                }}
+                class="py-1 px-2 mx-[1px] bg-blue-400 hover:bg-blue-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-blue-700 transition duration-100 ease-in focus:shadow-inner">
+                <CustomTooltip tooltip="Chart Settings">
+                    <FaSolidGear data-user="settings" />
+                </CustomTooltip>
+            </button>
             <button
                 onClick={() => props.handleDelete()}
                 class="py-1 px-2 mx-[1px] bg-red-400 hover:bg-red-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-red-700 transition duration-100 ease-in focus:shadow-inner">
-                <CustomPopover styles="h-full" popoverContent="Delete Chart" />
-                <FaSolidTrashCan />
+                <CustomTooltip tooltip="Delete Chart">
+                    <FaSolidTrashCan />
+                </CustomTooltip>
             </button>
             {/* <button class="pie-chart">
                         <FontAwesomeIcon icon={faPieChart} />
@@ -70,36 +80,35 @@ const ButtonGroup = (props: IButtonGroup) => {
     )
 }
 
-const CustomChart: Component<AppStoreChart> = (props) => {
+const CustomChart: Component<ChartSettings> = (props) => {
     const { setRemoveChart, getCharts } = useAppChartContext()
-    const [chartRef, setChartRef] = createSignal<HTMLCanvasElement>()
-    const [chartType, setChartType] = createSignal('line')
-    const [localChart, setLocalChart] = createSignal<Chart>()
-
-    let chartData: AppStoreChart | undefined
-
-    onMount(() => {
-        console.log('chart mounted', getCharts())
-        chartData = getCharts().find((item) => item.chart_id === props.chart_id)
-        if (chartRef()) {
-            const canvas = chartRef() as HTMLCanvasElement
-            const type = chartType() as ChartType
-            const chart = new Chart(canvas, {
-                type: type,
-                data: {},
-            })
-            setLocalChart(chart)
-        }
+    const [chartData, setChartData] = createSignal<ChartData>(generateRandomChartData())
+    const [ref, setRef] = createSignal<HTMLCanvasElement | null>(null)
+    const [chartConfig, setChartConfig] = createStore({
+        width: 500,
+        height: 500,
     })
 
-    const updateChartType = (value: string) => {
-        setChartType(value)
-    }
+    const chartTypes: (keyof ChartTypeRegistry)[] = [
+        'line',
+        'bar',
+        'doughnut',
+        'radar',
+        'polarArea',
+        'bubble',
+        'pie',
+        'scatter',
+    ]
+    const [chartType, setChartType] = createSignal<keyof ChartTypeRegistry | undefined>(
+        chartTypes[0],
+    )
 
     const handleDelete = () => {
-        if (getCharts().length >= 1) {
+        if (getCharts().settings.length >= 1) {
             //* get chart data
-            const chartData = getCharts().find((item) => item['chart_id'] === props.chart_id)
+            const chartData = getCharts().settings.find(
+                (item) => item['chart_id'] === props.chart_id,
+            )
             //* remove chart from state
             setRemoveChart(chartData)
         }
@@ -130,20 +139,64 @@ const CustomChart: Component<AppStoreChart> = (props) => {
         }
     }
 
-    const [resource] = createResource(chartData, handleChartUpdate)
+    /* const onRandomizeClick = () => {
+        setChartData((prev) => generateRandomChartData(prev.datasets.length))
+    } */
+    const onAddDatasetClick = () => {
+        setChartData((prev) => {
+            const datasets = prev.datasets
+            datasets.push(generateRandomDataset(prev.labels as string[], prev.datasets.length + 1))
+            return { ...prev, datasets }
+        })
+    }
+    const onRemoveDatasetClick = () => {
+        setChartData((prev) => {
+            const datasets = prev.datasets
+            datasets.pop()
+            return { ...prev, datasets }
+        })
+    }
 
+    const onDimensionsInput = (type: 'width' | 'height', event: any) => {
+        setChartConfig(type, () => +event.target.value)
+    }
+
+    const onTypeSelect = (event: any) => {
+        setChartType(event.currentTarget.dataset['user'] ?? ('' as keyof ChartTypeRegistry))
+    }
+
+    onMount(() => {
+        Chart.register(Title, Tooltip, Legend)
+        console.debug('[Chart Ref]:', ref())
+    })
+
+    //
     return (
         <div class="card">
-            <ButtonGroup handleDelete={handleDelete} updateChartType={updateChartType} />
-            <div class="w-[500px]">
-                <canvas
-                    role="img"
-                    id="dimensions"
-                    ref={setChartRef}
-                    class={`chartContainer ${props.cName}`}
-                />
+            <ButtonGroup handleDelete={handleDelete} updateChartType={onTypeSelect} chart={props} />
+            <div class="flex justify-center items-center content-center">
+                <div class="w-[500px]">
+                    <DefaultChart
+                        class={`chartContainer ${props.cName}`}
+                        ref={setRef}
+                        width={chartConfig.width}
+                        height={chartConfig.height}
+                        fallback={<p>Chart is not available</p>}
+                        type={chartType()!}
+                        data={chartData()}
+                        options={{
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: props.title,
+                                },
+                            },
+                        }}
+                    />
+                </div>
             </div>
-            <br />
         </div>
     )
 }

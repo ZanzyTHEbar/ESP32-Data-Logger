@@ -39,6 +39,7 @@
         "dayjs": "^1.11.7",
         "dotenv": "^16.0.3",
         "highcharts": "^11.0.1",
+        "lodash": "^4.17.21",
         "moment": "^2.29.4",
         "solid-chartjs": "git+https://github.com/ZanzyTHEbar/solid-chartjs.git",
         "solid-form-handler": "^1.2.0",

@@ -11,7 +11,7 @@ import type { AppStore } from '@static/types/interfaces'
 import type { UnlistenFn } from '@tauri-apps/api/event'
 
 interface AppContext {
-    getDetachConsole: Accessor<Promise<UnlistenFn>>
+    //getDetachConsole: Accessor<Promise<UnlistenFn>>
     getDebugMode: Accessor<DebugMode>
     getEnableMDNS: Accessor<boolean>
     getScanForCamerasOnStartup: Accessor<boolean>
@@ -24,7 +24,7 @@ interface AppContext {
 
 const AppContext = createContext<AppContext>()
 export const AppProvider: Component<Context> = (props) => {
-    const detachConsole = attachConsole()
+    //const detachConsole = attachConsole()
 
     //#region Store
     const defaultState: AppStore = {
@@ -73,13 +73,13 @@ export const AppProvider: Component<Context> = (props) => {
     const getEnableMDNS = createMemo(() => appState().enableMDNS)
     const getScanForCamerasOnStartup = createMemo(() => appState().scanForCamerasOnStartup)
     const getStopAlgoBackend = createMemo(() => appState().stopAlgoBackend)
-    const getDetachConsole = createMemo(() => detachConsole)
+    //const getDetachConsole = createMemo(() => detachConsole)
     //#endregion
 
     return (
         <AppContext.Provider
             value={{
-                getDetachConsole,
+                //getDetachConsole,
                 getEnableMDNS,
                 getDebugMode,
                 getScanForCamerasOnStartup,

@@ -49,7 +49,7 @@ export default function AppRoutes() {
                 //globalNotificationsType: getGlobalNotificationsType(),
                 enableMDNS: getEnableMDNS(),
                 debugMode: getDebugMode(),
-                charts: getCharts(),
+                charts: getCharts().settings,
             }
             debug(`[Routes]: Saving Settings - ${JSON.stringify(settings)}`)
             set('settings', settings)
@@ -59,9 +59,7 @@ export default function AppRoutes() {
     return (
         <main class="pb-[5rem] w-[100%] px-8 max-w-[1920px]">
             <div class="header-wrapper">
-                <Header
-                    name={connectedUserName() ? `${connectedUserName()}` : 'stranger'}
-                />
+                <Header name={connectedUserName() ? `${connectedUserName()}` : 'stranger'} />
             </div>
             <div class="pt-[70px]">
                 <Path />

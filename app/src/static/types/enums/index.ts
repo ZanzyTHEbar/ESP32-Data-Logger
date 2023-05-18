@@ -1,21 +1,3 @@
-export enum POPOVER_ID {
-    GRIP = 'grip-popover',
-    LIST = 'list-popover',
-    TRACKER_MANAGER = 'tracker-manager-popover',
-    SETTINGS_POPOVER = 'settings-popover',
-}
-
-export enum ANIMATION_MODE {
-    GRIP = 'grip-popover',
-    LIST = 'list-popover',
-    NONE = 'NONE',
-}
-
-export enum loaderType {
-    MDNS_CONNECTING = 'MDNS_CONNECTING',
-    REST_CLIENT = 'REST_CLIENT',
-}
-
 export enum ENotificationType {
     ERROR = 'ERROR',
     SUCCESS = 'SUCCESS',
