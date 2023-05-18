@@ -49,12 +49,15 @@ dependencies:
   highcharts:
     specifier: ^11.0.1
     version: 11.0.1
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
   moment:
     specifier: ^2.29.4
     version: 2.29.4
   solid-chartjs:
     specifier: git+https://github.com/ZanzyTHEbar/solid-chartjs.git
-    version: github.com/ZanzyTHEbar/solid-chartjs/e9f64c8231580acb04a0e19020b9addcd2b33f46(@solid-primitives/refs@1.0.3)(chart.js@4.3.0)(solid-js@1.7.5)
+    version: github.com/ZanzyTHEbar/solid-chartjs/18a7b8501df155cab4eaf82178fec2dad86a06b7(@solid-primitives/refs@1.0.3)(chart.js@4.3.0)(solid-js@1.7.5)
   solid-form-handler:
     specifier: ^1.2.0
     version: 1.2.0(solid-js@1.7.5)
@@ -90,7 +93,7 @@ dependencies:
     version: github.com/tauri-apps/tauri-plugin-store/0558a1f6c869ae0afdb0181dfa1ea31be8cf4893
   tauri-plugin-upload-api:
     specifier: github:tauri-apps/tauri-plugin-upload
-    version: github.com/tauri-apps/tauri-plugin-upload/a2874fc43cb9996f3bbaa755484a3c9da785a091
+    version: github.com/tauri-apps/tauri-plugin-upload/8fbea0cf983ef9aaf623ee0d8fcc1ccc8c07af3c
   terracotta:
     specifier: 0.13.2-alpha.119
     version: 0.13.2-alpha.119(solid-js@1.7.5)
@@ -1775,9 +1778,9 @@ packages:
     peerDependencies:
       solid-js: ^1.7.3
     dependencies:
-      '@solid-primitives/event-listener': 2.2.11(solid-js@1.7.5)
+      '@solid-primitives/event-listener': 2.2.12(solid-js@1.7.5)
       '@solid-primitives/keyed': 1.2.0(solid-js@1.7.5)
-      '@solid-primitives/media': 2.2.1(solid-js@1.7.5)
+      '@solid-primitives/media': 2.2.2(solid-js@1.7.5)
       '@solid-primitives/props': 3.1.5(solid-js@1.7.5)
       '@solid-primitives/refs': 1.0.3(solid-js@1.7.5)
       '@solid-primitives/utils': 6.1.1(solid-js@1.7.5)
@@ -1826,8 +1829,8 @@ packages:
       solid-js: 1.7.5
     dev: false
 
-  /@solid-primitives/event-listener@2.2.11(solid-js@1.7.5):
-    resolution: {integrity: sha512-pX/offimvt8qtXxwk3kUB6R7igVhnXmSHosQ0ITBOPQvcyhB9Lfrb80zSM8Z0MUf6ZKWyt5n8lco+yK5v2+bIg==}
+  /@solid-primitives/event-listener@2.2.12(solid-js@1.7.5):
+    resolution: {integrity: sha512-CGSn4BF8t9887LWdnGOOIIEoMJFhrs4mCeSDoGJRLy1zmPjokFb+IMNd3VLTpvf6+prxEDIEy6wrzE373ZvTzA==}
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:
@@ -1861,12 +1864,12 @@ packages:
       solid-js: 1.7.5
     dev: false
 
-  /@solid-primitives/media@2.2.1(solid-js@1.7.5):
-    resolution: {integrity: sha512-KhfGIGox8zJlKKMAzj/Up9wvsZ6qgiN1htBV/fe7FKvqr+jjhnPl+71DzmdmcrW1JY3cuE5bNWpSubc8TD7dJw==}
+  /@solid-primitives/media@2.2.2(solid-js@1.7.5):
+    resolution: {integrity: sha512-m0+C96SKFOGjAPrLaKnlEE47LTssTyVSgodhAYvQu+wxndVMsQPmbsFdYPH6TLdGQ+hlbZpvbi40oSwMViU2tw==}
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:
-      '@solid-primitives/event-listener': 2.2.11(solid-js@1.7.5)
+      '@solid-primitives/event-listener': 2.2.12(solid-js@1.7.5)
       '@solid-primitives/rootless': 1.4.0(solid-js@1.7.5)
       '@solid-primitives/static-store': 0.0.3(solid-js@1.7.5)
       '@solid-primitives/utils': 6.1.1(solid-js@1.7.5)
@@ -2444,8 +2447,8 @@ packages:
       negotiator: 0.6.3
     dev: true
 
-  /ace-builds@1.20.0:
-    resolution: {integrity: sha512-JUvWbRXz7tL3EkcM5CpVyyuu9mvVRo594ZRgwHzb9arb9s2o5gTg94Lrk3zQZzM1udq6fRSDnmU2RClJPt9aNw==}
+  /ace-builds@1.21.1:
+    resolution: {integrity: sha512-GHHtz76BnQc5PcAAjJK6tPbuktSKQ+Vu5MDlu2+hDS4NtiofrttGBJHaxcD4741WZwsAO7Dk1I8w2a4n204T+Q==}
     dev: true
 
   /acorn-globals@3.1.0:
@@ -2653,7 +2656,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.5
-      caniuse-lite: 1.0.30001487
+      caniuse-lite: 1.0.30001488
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -2842,8 +2845,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001487
-      electron-to-chromium: 1.4.394
+      caniuse-lite: 1.0.30001488
+      electron-to-chromium: 1.4.397
       node-releases: 2.0.10
       update-browserslist-db: 1.0.11(browserslist@4.21.5)
 
@@ -2915,8 +2918,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /caniuse-lite@1.0.30001487:
-    resolution: {integrity: sha512-83564Z3yWGqXsh2vaH/mhXfEM0wX+NlBCm1jYHOb97TrTWJEmPTccZgeLTPBUUb0PNVo+oomb7wkimZBIERClA==}
+  /caniuse-lite@1.0.30001488:
+    resolution: {integrity: sha512-NORIQuuL4xGpIy6iCCQGN4iFjlBXtfKWIenlUuyZJumLRIindLb7wXM+GO8erEhb7vXfcnf4BAg2PrSDN5TNLQ==}
 
   /catharsis@0.9.0:
     resolution: {integrity: sha512-prMTQVpcns/tzFgFVkVp6ak6RykZyWb3gu8ckUpd6YkTlacOd3DXGJjIpD4Q6zJirizvaiAjSSHlOsA+6sNh2A==}
@@ -3285,8 +3288,8 @@ packages:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
     dev: true
 
-  /electron-to-chromium@1.4.394:
-    resolution: {integrity: sha512-0IbC2cfr8w5LxTz+nmn2cJTGafsK9iauV2r5A5scfzyovqLrxuLoxOHE5OBobP3oVIggJT+0JfKnw9sm87c8Hw==}
+  /electron-to-chromium@1.4.397:
+    resolution: {integrity: sha512-jwnPxhh350Q/aMatQia31KAIQdhEsYS0fFZ0BQQlN9tfvOEwShu6ZNwI4kL/xBabjcB/nTy6lSt17kNIluJZ8Q==}
 
   /emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -3451,7 +3454,7 @@ packages:
     resolution: {integrity: sha512-gozW2blMLJCeFpBwugLTGyvVjNoeo1knonXAcatC6bjPBZitotxdWf7Gimr25N4c0AAOo4eOUfaG82IJPDpqCA==}
     dependencies:
       debug: 3.2.7
-      is-core-module: 2.12.0
+      is-core-module: 2.12.1
       resolve: 1.22.2
     transitivePeerDependencies:
       - supports-color
@@ -3471,7 +3474,7 @@ packages:
       eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.59.6)(eslint-import-resolver-typescript@3.5.5)(eslint@8.40.0)
       get-tsconfig: 4.5.0
       globby: 13.1.4
-      is-core-module: 2.12.0
+      is-core-module: 2.12.1
       is-glob: 4.0.3
       synckit: 0.8.5
     transitivePeerDependencies:
@@ -3545,7 +3548,7 @@ packages:
       eslint-import-resolver-node: 0.3.7
       eslint-module-utils: 2.8.0(@typescript-eslint/parser@5.59.6)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.40.0)
       has: 1.0.3
-      is-core-module: 2.12.0
+      is-core-module: 2.12.1
       is-glob: 4.0.3
       minimatch: 3.1.2
       object.values: 1.1.6
@@ -4280,8 +4283,8 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /is-core-module@2.12.0:
-    resolution: {integrity: sha512-RECHCBCd/viahWmwj6enj19sKbHfJrddi/6cBDsNTKbNq0f7VeaUkBo60BqzvPqo/W54ChS62Z5qyun7cfOMqQ==}
+  /is-core-module@2.12.1:
+    resolution: {integrity: sha512-Q4ZuBAe2FUsKtyQJoQHlvP8OvBERxO3jEmy1I7hcRXcJBGGHFh/aJBswbXuS9sgrDH2QUO8ilkwNPHvHMd8clg==}
     dependencies:
       has: 1.0.3
 
@@ -4666,7 +4669,6 @@ packages:
 
   /lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /longest@1.0.1:
     resolution: {integrity: sha512-k+yt5n3l48JU4k8ftnKG6V7u32wyH2NfKzeMto9F/QRE0amxy/LayxwlvjjkZEIzqR+19IrtFO8p5kB9QaYUFg==}
@@ -5149,7 +5151,7 @@ packages:
       postcss: ^8.2.14
     dependencies:
       postcss: 8.4.23
-      postcss-selector-parser: 6.0.12
+      postcss-selector-parser: 6.0.13
 
   /postcss-selector-parser@6.0.10:
     resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}
@@ -5159,8 +5161,8 @@ packages:
       util-deprecate: 1.0.2
     dev: false
 
-  /postcss-selector-parser@6.0.12:
-    resolution: {integrity: sha512-NdxGCAZdRrwVI1sy59+Wzrh+pMMHxapGnpfenDVlMEXoOcvt4pGE0JLK9YY2F5dLxcFYA/YbVQKhcGU+FtSYQg==}
+  /postcss-selector-parser@6.0.13:
+    resolution: {integrity: sha512-EaV1Gl4mUEV4ddhDnv/xtj7sxwrwxdetHdWUGnT4VJQf+4d05v6lHYZr8N573k5Z0BViss7BDhfWtKS3+sfAqQ==}
     engines: {node: '>=4'}
     dependencies:
       cssesc: 3.0.0
@@ -5362,7 +5364,7 @@ packages:
       react: ^0.13.0 || ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0
       react-dom: ^0.13.0 || ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0
     dependencies:
-      ace-builds: 1.20.0
+      ace-builds: 1.21.1
       diff-match-patch: 1.0.5
       lodash.get: 4.4.2
       lodash.isequal: 4.5.0
@@ -5549,7 +5551,7 @@ packages:
     resolution: {integrity: sha512-Sb+mjNHOULsBv818T40qSPeRiuWLyaGMa5ewydRLFimneixmVy2zdivRl+AF6jaYPC8ERxGDmFSiqui6SfPd+g==}
     hasBin: true
     dependencies:
-      is-core-module: 2.12.0
+      is-core-module: 2.12.1
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
 
@@ -5571,8 +5573,8 @@ packages:
       glob: 7.2.3
     dev: true
 
-  /rollup@3.21.8:
-    resolution: {integrity: sha512-SSFV2T2fWtQ/vvBip85u2Nr0GNKireabH9d7nXswBg+XSH+jbVDSYptRAEbCEsquhs503rpPA9POYAp0/Jhasw==}
+  /rollup@3.22.0:
+    resolution: {integrity: sha512-imsigcWor5Y/dC0rz2q0bBt9PabcL3TORry2hAa6O6BuMvY71bqHyfReAz5qyAqiQATD1m70qdntqBfBQjVWpQ==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -6060,7 +6062,7 @@ packages:
       postcss-js: 4.0.1(postcss@8.4.23)
       postcss-load-config: 4.0.1(postcss@8.4.23)
       postcss-nested: 6.0.1(postcss@8.4.23)
-      postcss-selector-parser: 6.0.12
+      postcss-selector-parser: 6.0.13
       postcss-value-parser: 4.2.0
       resolve: 1.22.2
       sucrase: 3.32.0
@@ -6437,7 +6439,7 @@ packages:
       '@types/node': 20.1.7
       esbuild: 0.17.19
       postcss: 8.4.23
-      rollup: 3.21.8
+      rollup: 3.22.0
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -6674,11 +6676,11 @@ packages:
       type-fest: 2.19.0
     dev: false
 
-  github.com/ZanzyTHEbar/solid-chartjs/e9f64c8231580acb04a0e19020b9addcd2b33f46(@solid-primitives/refs@1.0.3)(chart.js@4.3.0)(solid-js@1.7.5):
-    resolution: {tarball: https://codeload.github.com/ZanzyTHEbar/solid-chartjs/tar.gz/e9f64c8231580acb04a0e19020b9addcd2b33f46}
-    id: github.com/ZanzyTHEbar/solid-chartjs/e9f64c8231580acb04a0e19020b9addcd2b33f46
+  github.com/ZanzyTHEbar/solid-chartjs/18a7b8501df155cab4eaf82178fec2dad86a06b7(@solid-primitives/refs@1.0.3)(chart.js@4.3.0)(solid-js@1.7.5):
+    resolution: {tarball: https://codeload.github.com/ZanzyTHEbar/solid-chartjs/tar.gz/18a7b8501df155cab4eaf82178fec2dad86a06b7}
+    id: github.com/ZanzyTHEbar/solid-chartjs/18a7b8501df155cab4eaf82178fec2dad86a06b7
     name: solid-chartjs
-    version: 0.0.0
+    version: 1.2.4
     peerDependencies:
       '@solid-primitives/refs': ^1.0.3
       chart.js: ^4.3.0
@@ -6706,8 +6708,8 @@ packages:
       '@tauri-apps/api': 1.3.0
     dev: false
 
-  github.com/tauri-apps/tauri-plugin-upload/a2874fc43cb9996f3bbaa755484a3c9da785a091:
-    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-upload/tar.gz/a2874fc43cb9996f3bbaa755484a3c9da785a091}
+  github.com/tauri-apps/tauri-plugin-upload/8fbea0cf983ef9aaf623ee0d8fcc1ccc8c07af3c:
+    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-upload/tar.gz/8fbea0cf983ef9aaf623ee0d8fcc1ccc8c07af3c}
     name: tauri-plugin-upload-api
     version: 0.0.0
     dependencies:

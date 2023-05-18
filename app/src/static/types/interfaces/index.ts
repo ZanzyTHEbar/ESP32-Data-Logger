@@ -1,4 +1,4 @@
-import { ENotificationAction, ENotificationType, MdnsStatus, loaderType } from '../enums'
+import { ENotificationAction, ENotificationType, MdnsStatus } from '../enums'
 import type { DebugMode } from '@static/types'
 import type { RESTStatus, RESTType } from '@static/types/enums'
 import type { WebviewWindow } from '@tauri-apps/api/window'
@@ -118,16 +118,11 @@ export interface AppStoreMdns {
 }
 
 export interface UiStore {
-    loader?: { [key in loaderType]: boolean }
-    connecting?: boolean
-    openModal?: boolean
-    menuOpen?: MenuOpen | null
     connectedUser: string
     showNotifications?: boolean
-    hideHeaderButtons: boolean
 }
 
-export interface AppStoreChart {
+export interface ChartSettings {
     ip: string
     endpoint: string
     title: string
@@ -137,4 +132,9 @@ export interface AppStoreChart {
     object_id: string
     chart_id: string
     cName: string
+}
+
+export interface AppStoreChart {
+    settings: ChartSettings[]
+    selectedChart?: ChartSettings
 }

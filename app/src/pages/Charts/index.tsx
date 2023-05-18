@@ -40,9 +40,9 @@ const NoCharts: Component = () => {
 const ChartList: Component = () => {
     const { getCharts } = useAppChartContext()
     return (
-        <Show when={getCharts().length > 0} fallback={<NoCharts />}>
+        <Show when={getCharts().settings.length > 0} fallback={<NoCharts />}>
             <ul class="flow-root items-center content-center justify-center flex-col">
-                <For each={getCharts()}>
+                <For each={getCharts().settings}>
                     {(item, index) => (
                         <li data-key={index()} class={item.cName}>
                             <Chart

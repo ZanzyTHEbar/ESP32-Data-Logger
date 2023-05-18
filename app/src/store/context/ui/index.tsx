@@ -1,71 +1,23 @@
 import { createContext, useContext, createMemo, type Component, Accessor } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import type { Context } from '@static/types'
-import { UiStore, MenuOpen } from '@src/static/types/interfaces'
-import { loaderType } from '@static/types/enums'
+import { UiStore } from '@src/static/types/interfaces'
+
 
 interface AppUIContext {
-    connectingStatus: Accessor<boolean | undefined>
-    loaderStatus: Accessor<Record<loaderType, boolean> | undefined>
-    openModalStatus: Accessor<boolean | undefined>
-    menuOpenStatus: Accessor<MenuOpen | null | undefined>
     connectedUserName: Accessor<string>
     showNotifications: Accessor<boolean | undefined>
-    hideHeaderButtons: Accessor<boolean>
-    setMenu: (menuOpen: MenuOpen | null) => void
-    setHideHeaderButtons: (flag: boolean) => void
-    setConnecting: (connecting: boolean) => void
-    setOpenModal: (openModal: boolean) => void
     setConnectedUser: (userName: string) => void
-    setLoader: (type: loaderType, value: boolean) => void
 }
 
 const AppUIContext = createContext<AppUIContext>()
 export const AppUIProvider: Component<Context> = (props) => {
-    const defaultState = {
-        loader: { [loaderType.MDNS_CONNECTING]: false, [loaderType.REST_CLIENT]: false },
-        connecting: false,
-        openModal: false,
-        menuOpen: null,
+    const defaultState: UiStore = {
         connectedUser: '',
-        showCameraView: false,
         showNotifications: true,
-        hideHeaderButtons: false,
     }
 
     const [state, setState] = createStore<UiStore>(defaultState)
-
-    const setMenu = (menuOpen: MenuOpen | null) => {
-        setState(
-            produce((s) => {
-                s.menuOpen = menuOpen || null
-            }),
-        )
-    }
-
-    const setHideHeaderButtons = (flag: boolean) => {
-        setState(
-            produce((s) => {
-                s.hideHeaderButtons = flag
-            }),
-        )
-    }
-
-    const setConnecting = (connecting: boolean) => {
-        setState(
-            produce((s) => {
-                s.connecting = connecting
-            }),
-        )
-    }
-
-    const setOpenModal = (openModal: boolean) => {
-        setState(
-            produce((s) => {
-                s.openModal = openModal
-            }),
-        )
-    }
 
     const setConnectedUser = (userName: string) => {
         setState(
@@ -75,40 +27,17 @@ export const AppUIProvider: Component<Context> = (props) => {
         )
     }
 
-    const setLoader = (type: loaderType, value: boolean) => {
-        setState(
-            produce((s) => {
-                if (s.loader) s.loader[type] = value
-            }),
-        )
-    }
-
     const uiState = createMemo(() => state)
 
-    const connectingStatus = createMemo(() => uiState().connecting)
-    const loaderStatus = createMemo(() => uiState().loader)
-    const openModalStatus = createMemo(() => uiState().openModal)
-    const menuOpenStatus = createMemo(() => uiState().menuOpen)
     const connectedUserName = createMemo(() => uiState().connectedUser)
     const showNotifications = createMemo(() => uiState().showNotifications)
-    const hideHeaderButtons = createMemo(() => uiState().hideHeaderButtons)
 
     return (
         <AppUIContext.Provider
             value={{
-                connectingStatus,
-                loaderStatus,
-                openModalStatus,
-                menuOpenStatus,
                 connectedUserName,
                 showNotifications,
-                hideHeaderButtons,
-                setMenu,
-                setHideHeaderButtons,
-                setConnecting,
-                setOpenModal,
                 setConnectedUser,
-                setLoader,
             }}>
             {props.children}
         </AppUIContext.Provider>

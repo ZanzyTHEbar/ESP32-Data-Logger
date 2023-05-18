@@ -2,10 +2,14 @@ import { useNavigate, useLocation } from '@solidjs/router'
 import { FaSolidGear } from 'solid-icons/fa'
 import type { Component } from 'solid-js'
 import logo from '@src/assets/images/logo.png'
+import { useAppChartContext } from '@store/context/chart'
 
 const Header: Component<{ name: string }> = (props) => {
     const navigate = useNavigate()
     const location = useLocation()
+
+    const { resetSelectedChart } = useAppChartContext()
+
     return (
         <div class="flex-initial">
             <header class="container px-4 py-2 pt-[20px] flex items-center justify-between mx-auto">
@@ -13,6 +17,7 @@ const Header: Component<{ name: string }> = (props) => {
                     <div class="menu-bars">
                         <button
                             onClick={() => {
+                                resetSelectedChart()
                                 if (location.pathname === '/') navigate('/settings')
                                 else navigate('/')
                             }}
