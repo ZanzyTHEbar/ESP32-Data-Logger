@@ -1,8 +1,15 @@
 import { useNavigate } from '@solidjs/router'
-import { ChartData, ChartOptions, ChartTypeRegistry } from 'chart.js'
-import { Chart, Title, Tooltip, Legend, TimeSeriesScale } from 'chart.js'
+import {
+    ChartData,
+    ChartOptions,
+    ChartTypeRegistry,
+    Chart,
+    Title,
+    Tooltip,
+    Legend,
+    TimeSeriesScale,
+} from 'chart.js'
 import { DefaultChart } from 'solid-chartjs'
-import 'chartjs-adapter-date-fns'
 import {
     FaSolidChartLine,
     FaSolidChartBar,
@@ -229,18 +236,16 @@ const CustomChart: Component<ChartSettings> = (props) => {
         <div class="card">
             <ButtonGroup handleDelete={handleDelete} updateChartType={onTypeSelect} chart={props} />
             <div class="flex justify-center items-center content-center">
-                <div class="w-[500px]">
-                    <DefaultChart
-                        class={`chartContainer ${props.cName}`}
-                        ref={setRef}
-                        width={chartConfig.width}
-                        height={chartConfig.height}
-                        fallback={<p>Chart is not available</p>}
-                        type={chartType()!}
-                        data={chartData()}
-                        options={{ ...chartOptions() }}
-                    />
-                </div>
+                <DefaultChart
+                    class={`chartContainer ${props.cName}`}
+                    ref={setRef}
+                    width={chartConfig.width}
+                    height={chartConfig.height}
+                    fallback={<p>Chart is not available</p>}
+                    type={chartType()!}
+                    data={chartData()}
+                    options={{ ...chartOptions() }}
+                />
             </div>
         </div>
     )
