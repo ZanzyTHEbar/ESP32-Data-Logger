@@ -71,6 +71,7 @@ pub async fn request(rest_client: &RESTClient) -> Result<String, String> {
 /// ## Arguments
 /// - `endpoint` The endpoint to query for
 /// - `device_name` The name of the device to query
+/// - `method` The method to use for the request
 pub async fn run_rest_client(
   endpoint: String,
   device_name: String,

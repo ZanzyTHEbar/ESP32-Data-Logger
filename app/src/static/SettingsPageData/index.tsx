@@ -58,6 +58,14 @@ export const SettingsPageData = [
         placeholder: 'humidity_dht',
     },
     {
+        title: 'Y Axis Label JSON ID',
+        icon: <FaSolidIdBadge />,
+        cName: 'nav-text',
+        id: 'object_id_label',
+        tooltip: 'The JSON ID for the Y axis label',
+        placeholder: 'timestamp',
+    },
+    {
         title: 'Interval (ms)',
         icon: <FaSolidClock />,
         cName: 'nav-text',

@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import type { ChartSettings } from '@static/types/interfaces'
 
 export const fillArrayWithRandomNumbers = (min: number, max: number, length = 10) => {
@@ -48,20 +49,8 @@ export const generateRandomDataset = (labels: string[], index: number) => ({
 })
 
 export const generateRandomChartData = (datasetsLength = 2) => {
-    const labels = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-    ]
+    const labels = generateTimeAxis(23)
+
     const datasets: object[] = []
 
     for (let i = 0; i < datasetsLength; i++) {
@@ -91,4 +80,16 @@ export const clearObject = (value: ChartSettings) => {
             value[key] = null
         }
     }
+}
+
+export const generateTimeAxis = (length: number) => {
+    const result: string[] = []
+    for (let i = 0; i <= length; i++) {
+        const date = new Date()
+
+        const time = date.toISOString()
+        result.push(time)
+        console.log('result', result)
+    }
+    return result
 }

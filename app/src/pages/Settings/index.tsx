@@ -128,6 +128,7 @@ const Settings = () => {
         title: '',
         //app_title: '',
         y_axis_title: '',
+        object_id_label: '',
         line_color: '',
         interval: 3000,
         object_id: '',
@@ -137,7 +138,7 @@ const Settings = () => {
     const inputState = createAsyncMemo(() => inputStore)
 
     onMount(() => {
-        console.log('getSelectedChart()', getSelectedChart())
+        //console.log('getSelectedChart()', getSelectedChart())
         if (getSelectedChart()) {
             const size = getSelectedChart()?.chart_id.length
             if (size! > 0) {
@@ -158,7 +159,7 @@ const Settings = () => {
                 draft[id] = value
             }),
         )
-        console.log(inputState())
+        //console.log(inputState())
     }
 
     const handleSave = () => {
