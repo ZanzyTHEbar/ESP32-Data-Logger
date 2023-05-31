@@ -39,6 +39,7 @@ export const AppChartProvider: Component<Context> = (props) => {
             endpoint: '',
             title: '',
             y_axis_title: '',
+            object_id_label: '',
             line_color: '',
             interval: 3000,
             object_id: '',
@@ -62,7 +63,7 @@ export const AppChartProvider: Component<Context> = (props) => {
     const setEditChart = (chart: ChartSettings) => {
         setState(
             produce((draft) => {
-                //* check for duplicates
+                //* check for chart in state
                 let prev_chart = draft.settings.find((item) => item.chart_id === chart.chart_id)
                 if (prev_chart) {
                     //* push new chart and remove old one
@@ -114,6 +115,7 @@ export const AppChartProvider: Component<Context> = (props) => {
                     endpoint: '',
                     title: '',
                     y_axis_title: '',
+                    object_id_label: '',
                     line_color: '',
                     interval: 3000,
                     object_id: '',

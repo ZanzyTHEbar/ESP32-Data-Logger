@@ -66,6 +66,7 @@ export interface IRest {
 export interface IRestProps {
     endpointName: string
     deviceName: string
+    port?: number
     args?: string
 }
 
@@ -127,6 +128,7 @@ export interface ChartSettings {
     endpoint: string
     title: string
     y_axis_title: string
+    object_id_label: string
     line_color: string
     interval: number
     object_id: string

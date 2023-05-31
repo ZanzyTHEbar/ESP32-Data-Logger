@@ -1,7 +1,8 @@
 import { useNavigate } from '@solidjs/router'
-import { invoke } from '@tauri-apps/api/tauri'
-import { ChartData, ChartTypeRegistry } from 'chart.js'
-import { Chart, DefaultChart, Title, Tooltip, Legend } from 'solid-chartjs/dist'
+import { ChartData, ChartOptions, ChartTypeRegistry } from 'chart.js'
+import { Chart, Title, Tooltip, Legend, TimeSeriesScale } from 'chart.js'
+import { DefaultChart } from 'solid-chartjs'
+import 'chartjs-adapter-date-fns'
 import {
     FaSolidChartLine,
     FaSolidChartBar,
@@ -9,11 +10,14 @@ import {
     FaSolidChartArea,
     FaSolidTrashCan,
 } from 'solid-icons/fa'
-import { createSignal, createResource, onMount, For } from 'solid-js'
-import { createStore } from 'solid-js/store'
+import { createSignal, onMount, createEffect, onCleanup, createMemo } from 'solid-js'
+import { createStore, produce } from 'solid-js/store'
+import { useInterval } from 'solidjs-use'
+import { error } from 'tauri-plugin-log-api'
 import type { ChartSettings } from '@static/types/interfaces'
 import type { Component } from 'solid-js'
 import CustomTooltip from '@components/Tooltip'
+import { useAppAPIContext } from '@src/store/context/api'
 import { useAppChartContext } from '@store/context/chart'
 import { generateRandomChartData, generateRandomDataset } from '@utils/utils'
 
@@ -81,14 +85,6 @@ const ButtonGroup = (props: IButtonGroup) => {
 }
 
 const CustomChart: Component<ChartSettings> = (props) => {
-    const { setRemoveChart, getCharts } = useAppChartContext()
-    const [chartData, setChartData] = createSignal<ChartData>(generateRandomChartData())
-    const [ref, setRef] = createSignal<HTMLCanvasElement | null>(null)
-    const [chartConfig, setChartConfig] = createStore({
-        width: 500,
-        height: 500,
-    })
-
     const chartTypes: (keyof ChartTypeRegistry)[] = [
         'line',
         'bar',
@@ -99,9 +95,36 @@ const CustomChart: Component<ChartSettings> = (props) => {
         'pie',
         'scatter',
     ]
+    const { setRemoveChart, getCharts } = useAppChartContext()
+    const { useRequestHook, getRESTResponse } = useAppAPIContext()
+    const [chartData, setChartData] = createSignal<ChartData>(/* generateRandomChartData() */)
+    const [ref, setRef] = createSignal<HTMLCanvasElement | null>(null)
+    const [chartConfig, setChartConfig] = createStore({
+        width: 500,
+        height: 500,
+    })
+
     const [chartType, setChartType] = createSignal<keyof ChartTypeRegistry | undefined>(
         chartTypes[0],
     )
+
+    const [restData, setChartRESTdata] = createStore<object[]>([{}])
+
+    const chartRESTData = createMemo(() => restData)
+
+    const [chartOptions, setChartOptions] = createSignal<ChartOptions>({
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: {
+            duration: 0,
+        },
+        plugins: {
+            title: {
+                display: true,
+                text: props.title,
+            },
+        },
+    })
 
     const handleDelete = () => {
         if (getCharts().settings.length >= 1) {
@@ -114,34 +137,64 @@ const CustomChart: Component<ChartSettings> = (props) => {
         }
     }
 
-    const handleChartUpdate = async (source, { value, refetching }) => {
-        try {
-            if (chartData) {
-                const response = await invoke('do_rest_request', {
-                    endpoint: chartData.endpoint,
-                    deviceName: chartData.ip,
-                    method: 'GET',
-                })
-                if (typeof response === 'string') {
-                    const parsedResponse = JSON.parse(response)
+    const updateChartData = () => {
+        const data = {
+            labels: chartRESTData().map((item) => item['object_label']),
+            datasets: [
+                {
+                    label: props.title,
+                    data: chartRESTData().map((item) => item['object_data']),
+                    backgroundColor: [props.line_color],
+                    borderColor: [props.line_color],
+                    borderWidth: 1,
+                },
+            ],
+        }
+        setChartData(data)
+    }
 
-                    //* grab the target object key from the response
-                    const targetKey = Object.keys(parsedResponse).find((item) => {
-                        if (chartData) item === chartData.object_id
-                    })
-                    console.log(targetKey)
-                    return targetKey ? parsedResponse[targetKey] : null
-                }
+    const getChartData = async () => {
+        useRequestHook(props.endpoint, props.ip, 'GET').catch((err) => {
+            error(err)
+        })
+        if (getRESTResponse) {
+            const response = getRESTResponse()
+            console.log('[Get Target Data]: ', response)
+            if (response) {
+                const targetKey = Object.keys(response).find((item) => item === props.object_id)
+                const labelTargetKey = Object.keys(response).find(
+                    (item) => item === props.object_id_label,
+                )
+                console.log('[Get Target Data]: ', targetKey, labelTargetKey)
+
+                const object_data = targetKey ? response[targetKey] : null
+                const object_label = targetKey ? response[labelTargetKey!] : null
+
+                console.log('[Get Target Data]: ', object_data, object_label)
+                setChartRESTdata(
+                    produce((state) => {
+                        state.push({
+                            object_data,
+                            object_label,
+                        })
+                    }),
+                )
+                console.log('[Get Target Data]: ', chartRESTData())
+                updateChartData()
             }
-        } catch (err) {
-            console.log(err)
-            return null
         }
     }
 
-    /* const onRandomizeClick = () => {
-        setChartData((prev) => generateRandomChartData(prev.datasets.length))
-    } */
+    createEffect(() => {
+        const { reset, pause, resume } = useInterval(props.interval, {
+            controls: true,
+            callback: getChartData,
+        })
+        onCleanup(() => {
+            pause()
+        })
+    })
+
     const onAddDatasetClick = () => {
         setChartData((prev) => {
             const datasets = prev.datasets
@@ -149,6 +202,7 @@ const CustomChart: Component<ChartSettings> = (props) => {
             return { ...prev, datasets }
         })
     }
+
     const onRemoveDatasetClick = () => {
         setChartData((prev) => {
             const datasets = prev.datasets
@@ -166,7 +220,7 @@ const CustomChart: Component<ChartSettings> = (props) => {
     }
 
     onMount(() => {
-        Chart.register(Title, Tooltip, Legend)
+        Chart.register(Title, Tooltip, Legend, TimeSeriesScale)
         console.debug('[Chart Ref]:', ref())
     })
 
@@ -184,16 +238,7 @@ const CustomChart: Component<ChartSettings> = (props) => {
                         fallback={<p>Chart is not available</p>}
                         type={chartType()!}
                         data={chartData()}
-                        options={{
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                title: {
-                                    display: true,
-                                    text: props.title,
-                                },
-                            },
-                        }}
+                        options={{ ...chartOptions() }}
                     />
                 </div>
             </div>

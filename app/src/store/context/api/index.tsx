@@ -31,17 +31,17 @@ interface AppAPIContext {
 const AppAPIContext = createContext<AppAPIContext>()
 export const AppAPIProvider: Component<Context> = (props) => {
     const endpointsMap: Map<string, IEndpoint> = new Map<string, IEndpoint>([
-        ['ping', { url: ':81/control/command/ping', type: RESTType.GET }],
-        ['save', { url: ':81/control/command/save', type: RESTType.GET }],
-        ['resetConfig', { url: ':81/control/command/resetConfig', type: RESTType.GET }],
-        ['rebootDevice', { url: ':81/control/command/rebootDevice', type: RESTType.GET }],
-        ['restartCamera', { url: ':81/control/command/restartCamera', type: RESTType.GET }],
-        ['getStoredConfig', { url: ':81/control/command/getStoredConfig', type: RESTType.GET }],
-        ['setTxPower', { url: ':81/control/command/setTxPower', type: RESTType.POST }],
-        ['setDevice', { url: ':81/control/command/setDevice', type: RESTType.POST }],
-        ['wifi', { url: ':81/control/command/wifi', type: RESTType.POST }],
-        ['wifiStrength', { url: ':81/control/command/wifiStrength', type: RESTType.POST }],
-        ['ota', { url: ':81/update', type: RESTType.POST }],
+        ['ping', { url: '/builtin/command/ping', type: RESTType.GET }],
+        ['save', { url: '/builtin/command/save', type: RESTType.GET }],
+        ['resetConfig', { url: '/builtin/command/resetConfig', type: RESTType.GET }],
+        ['rebootDevice', { url: '/builtin/command/rebootDevice', type: RESTType.GET }],
+        ['json', { url: '/builtin/command/json', type: RESTType.GET }],
+        ['getStoredConfig', { url: '/builtin/command/getStoredConfig', type: RESTType.GET }],
+        ['setTxPower', { url: '/builtin/command/setTxPower', type: RESTType.POST }],
+        ['setDevice', { url: '/builtin/command/setDevice', type: RESTType.POST }],
+        ['wifi', { url: '/builtin/command/wifi', type: RESTType.POST }],
+        ['wifiStrength', { url: '/builtin/command/wifiStrength', type: RESTType.POST }],
+        ['ota', { url: 'update', type: RESTType.POST }],
     ])
 
     const defaultState: AppStoreAPI = {
@@ -86,23 +86,51 @@ export const AppAPIProvider: Component<Context> = (props) => {
     //#endregion
 
     //#region hooks
-    const useRequestHook = async (endpointName: string, deviceName: string, args: string) => {
-        let endpoint: string = getEndpoints().get(endpointName)?.url ?? ''
-
-        if (args) {
-            endpoint += args
-        }
+    const useRequestHook = async (
+        endpointName: string,
+        deviceName: string,
+        method?: string,
+        args?: string,
+    ) => {
         setRESTStatus(RESTStatus.LOADING)
 
         try {
+            let endpoint: string
+            let _method: RESTType
+
+            // get the key that matches the endpoint name
+            const keys = [...getEndpoints().keys()].filter((key) => key === endpointName)
+            const key = keys[0]
+
+            if (keys.length === 0) {
+                error(
+                    `[REST Request]: Endpoint not found in builtin map, using passed in value ${endpointName}`,
+                )
+                endpoint = endpointName
+                _method = method as RESTType
+                if (args) {
+                    endpoint += args
+                }
+            } else {
+                endpoint = getEndpoints().get(key)?.url ?? ''
+                _method = getEndpoints().get(key)?.type ?? (method as RESTType)
+            }
+
+            if (args) {
+                endpoint += args
+            }
+
+            console.log(`[REST Request]: ${deviceName}${endpoint} ${_method}`)
+
             const response = await invoke('do_rest_request', {
-                endpoint: endpoint,
-                deviceName: deviceName,
-                method: getEndpoints().get(endpointName)?.type,
+                endpoint,
+                deviceName,
+                method,
             })
             if (typeof response === 'string') {
                 setRESTStatus(RESTStatus.ACTIVE)
                 const parsedResponse = JSON.parse(response)
+                console.log(parsedResponse)
                 setRESTResponse(parsedResponse)
             }
             setRESTStatus(RESTStatus.COMPLETE)

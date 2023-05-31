@@ -2,7 +2,7 @@ import { For, Show, type Component } from 'solid-js'
 import Chart from '@components/Chart'
 import { useAppChartContext } from '@store/context/chart'
 
-const fetchFromObject = (obj: object, prop: string) => {
+/* const fetchFromObject = (obj: object, prop: string) => {
     //console.log(obj)
     if (typeof obj === 'undefined' || obj === null) {
         return false
@@ -12,7 +12,7 @@ const fetchFromObject = (obj: object, prop: string) => {
         return fetchFromObject(obj[prop.substring(0, _index)], prop.substr(_index + 1))
     }
     return obj[prop]
-}
+} */
 
 const NoCharts: Component = () => {
     return (
@@ -50,6 +50,7 @@ const ChartList: Component = () => {
                                 endpoint={item.endpoint}
                                 title={item.title}
                                 y_axis_title={item.y_axis_title}
+                                object_id_label={item.object_id_label}
                                 line_color={item.line_color}
                                 chart_id={item.chart_id}
                                 object_id={item.object_id}
