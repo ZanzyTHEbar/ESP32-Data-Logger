@@ -13,13 +13,13 @@ Download the latest release for your OS from the [releases page](https://github.
 - [x] export as CSV
 - [x] Save chart instances to browser local storage so that they load on page refresh
 - [x] Pie Chart support
-- [-] multiple datasets on one graph
-- [] WebSocket support
-- [] Serial Device support
-- [] MQTT support
-- [] Publish data to google sheets
-- [] usage of API keys in the `HTTP` requests
-- [] `POST` requests
+- [ ] multiple datasets on one graph
+- [ ] WebSocket support
+- [ ] Serial Device support
+- [ ] MQTT support
+- [ ] Publish data to google sheets
+- [ ] usage of API keys in the `HTTP` requests
+- [ ] `POST` requests
 
 ## Look and Feel
 
