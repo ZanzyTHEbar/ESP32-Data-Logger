@@ -23,7 +23,7 @@ export const Modal: Component<IModalProps> = (props) => {
             <Dialog.Trigger>{props.icon}</Dialog.Trigger>
             <Dialog.Portal>
                 <Dialog.Overlay class="dialog__overlay" />
-                <div class="dialog__positioner">
+                <div class="dialog__positioner" ref={setRef}>
                     <Dialog.Content class="dialog__content">
                         <div class="dialog__header">
                             <Dialog.Title class="dialog__title">About Kobalte</Dialog.Title>

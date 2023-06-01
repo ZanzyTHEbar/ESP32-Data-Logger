@@ -2,7 +2,6 @@ import { lazy, onMount } from 'solid-js'
 import { useAppContextMain } from './store/context/main'
 import { AppProvider } from '@store/context/app'
 
-
 const AppRoutes = lazy(() => import('@routes/Routes'))
 //const NewContextMenu = lazy(() => import('@components/NewMenu'))
 //const ExampleMenu = lazy(() => import('@components/NewMenu/DevTools'))
