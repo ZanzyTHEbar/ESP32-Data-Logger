@@ -1,5 +1,5 @@
 import { useRoutes } from '@solidjs/router'
-import _ from 'lodash'
+import { isEqual } from 'lodash'
 import { createEffect, onMount } from 'solid-js'
 import { useEventListener, useInterval } from 'solidjs-use'
 import { debug } from 'tauri-plugin-log-api'
@@ -50,7 +50,7 @@ export default function AppRoutes() {
             //globalNotificationsType: getGlobalNotificationsType(),
         }
         get('settings').then((storedSettings) => {
-            if (!_.isEqual(storedSettings, settings)) {
+            if (!isEqual(storedSettings, settings)) {
                 console.log(`[Routes]: Settings have changed - ${JSON.stringify(settings)}`)
                 set('settings', settings)
             }
