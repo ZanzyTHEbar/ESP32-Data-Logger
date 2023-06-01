@@ -41,6 +41,15 @@ module.exports = {
                 quinary: '#F45B69',
                 ...defaultTheme.colors,
             },
+            backgroundColor: {
+                primary: 'var(--color-bg-primary)',
+                secondary: 'var(--color-bg-secondary)',
+            },
+            textColor: {
+                accent: 'var(--color-text-accent)',
+                primary: 'var(--color-text-primary)',
+                secondary: 'var(--color-text-secondary)',
+            },
             width: generateSizeClass(1024),
             minHeight: generateSizeClass(1024, 0),
             maxHeight: generateSizeClass(1024, 0),

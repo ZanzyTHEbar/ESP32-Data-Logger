@@ -122,8 +122,10 @@ const CustomChart: Component<ChartSettings> = (props) => {
     )
 
     const [restData, setChartRESTdata] = createStore<object[]>([{}])
-
     const chartRESTData = createMemo(() => restData)
+
+    const [csvData, setChartCSVdata] = createStore<object[]>([{}])
+    const chartCSVData = createMemo(() => csvData)
 
     const [chartOptions, setChartOptions] = createSignal<ChartOptions>({
         responsive: true,
@@ -180,15 +182,31 @@ const CustomChart: Component<ChartSettings> = (props) => {
                 )
                 //console.log('[Get Target Data]: ', targetKey, labelTargetKey)
 
-                const object_data = targetKey ? response[targetKey] : null
-                const object_label = targetKey ? response[labelTargetKey!] : null
+                let object_data = targetKey ? response[targetKey] : null
+                let object_label = targetKey ? response[labelTargetKey!] : null
+
+                if (object_data === null || object_label === null) {
+                    // use the previous data if there is some
+                    const previousData = chartRESTData()[chartRESTData().length - 1]
+                    object_data = previousData['object_data']
+                    object_label = previousData['object_label']
+                }
 
                 //console.log('[Get Target Data]: ', object_data, object_label)
                 setChartRESTdata(
                     produce((state) => {
-                        if (state.length >= 10) {
+                        if (state.length >= 50) {
+                            // add state to csv
                             state.shift()
                         }
+                        setChartCSVdata(
+                            produce((csvState) => {
+                                csvState.push({
+                                    object_data,
+                                    object_label,
+                                })
+                            }),
+                        )
                         state.push({
                             object_data,
                             object_label,
@@ -207,10 +225,11 @@ const CustomChart: Component<ChartSettings> = (props) => {
             callback: getChartData,
         })
         onCleanup(() => {
-            pause()
+            reset()
         })
     })
 
+    // TODO: Add support for multiple datasets
     const onAddDatasetClick = () => {
         setChartData((prev) => {
             const datasets = prev.datasets
@@ -219,6 +238,7 @@ const CustomChart: Component<ChartSettings> = (props) => {
         })
     }
 
+    // TODO: Add support for multiple datasets
     const onRemoveDatasetClick = () => {
         setChartData((prev) => {
             const datasets = prev.datasets
@@ -227,6 +247,7 @@ const CustomChart: Component<ChartSettings> = (props) => {
         })
     }
 
+    // TODO: Add support for changing size of chart
     const onDimensionsInput = (type: 'width' | 'height', event: any) => {
         setChartConfig(type, () => +event.target.value)
     }
@@ -246,7 +267,7 @@ const CustomChart: Component<ChartSettings> = (props) => {
             <ButtonGroup
                 handleDelete={handleDelete}
                 updateChartType={onTypeSelect}
-                downloadChart={() => downloadCSV(jsonToCSV(chartRESTData()))}
+                downloadChart={() => downloadCSV(jsonToCSV(chartCSVData()))}
                 chart={props}
             />
             <div class="flex justify-center items-center content-center">

@@ -16,7 +16,7 @@ import { useAppUIContext } from '@store/context/ui'
 export default function AppRoutes() {
     const Path = useRoutes(routes)
     const { get, set } = usePersistentStore()
-    const { useMDNSScanner } = useAppMDNSContext()
+    //const { useMDNSScanner } = useAppMDNSContext()
     const { connectedUserName, setConnectedUser } = useAppUIContext()
     const { setAddChart, getCharts } = useAppChartContext()
     const { setEnableMDNS, setDebugMode, getEnableMDNS, getDebugMode } = useAppContext()

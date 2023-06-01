@@ -6,6 +6,11 @@ type Context = {
     [key: string]: JSXElement
 }
 
+type MainContext = {
+    [key: string]: JSXElement
+    theme: string
+}
+
 type DebugMode = 'off' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
 
 /**

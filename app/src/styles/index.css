@@ -1,6 +1,7 @@
 @layer components {
   .card {
-    background-color: theme('colors.white');
+    /* background-color: theme('colors.white'); */
+    background-color: #252525;
     border-radius: theme('borderRadius.lg');
     padding-left: theme('spacing.6');
     padding-right: theme('spacing.6');
@@ -59,10 +60,12 @@
     text-decoration: none;
     outline: 0;
   }
+
   .settings-button:hover {
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
     color: theme('colors.blue.400');
   }
+
   .settings-button:active {
     color: theme('colors.blue.500');
   }
@@ -71,22 +74,26 @@
     text-decoration: none;
     outline: 0;
   }
+
   .settings-button[disabled] {
-    color: rgba(0, 0, 0, 0.25);
+    color: theme('colors.gray.400');
     cursor: not-allowed;
   }
 
   form {
     margin-bottom: 1em;
   }
+
   form ol {
     list-style-type: none;
   }
+
   form li {
     margin: 20px;
     height: 20px;
     white-space: 5px;
   }
+
   form label {
     display: inline-block;
     text-align: right;
@@ -97,9 +104,6 @@
   }
 }
 
-#root {
-  text-align: center;
-}
 
 body {
   margin: 0;
@@ -113,6 +117,11 @@ body {
   font-size: 14px;
 }
 
+.root {
+  text-align: center;
+  @apply: .light;
+}
+
 .App {
   color: #0b0c10;
   text-align: center;
@@ -124,6 +133,22 @@ body {
 .main-div {
   height: 100vh;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: #252525e3;
   border-radius: 1rem;
+}
+
+.dark {
+  --color-bg-primary: #2d3748;
+  --color-bg-secondary: #283141;
+  --color-text-primary: #f7fafc;
+  --color-text-secondary: #e2e8f0;
+  --color-text-accent: #81e6d9;
+}
+
+.light {
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #edf2f7;
+  --color-text-primary: #2d3748;
+  --color-text-secondary: #4a5568;
+  --color-text-accent: #2b6cb0;
 }
