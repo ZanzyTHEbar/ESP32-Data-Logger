@@ -23,11 +23,11 @@ Download the latest release for your OS from the [releases page](https://github.
 
 ## Look and Feel
 
-![homescreen](/images/homescreen.png "homescreen")
+![homescreen](/images/dark_mode.png "homescreen")
+
+![homescreen](/images/light_mode.png "homescreen")
 
 ![settings](/images/settings.png "settings")
-
-![charts](/images/charts.png "charts")
 
 ## How to Setup Dev Environment
 
