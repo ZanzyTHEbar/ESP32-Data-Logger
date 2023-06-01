@@ -14,6 +14,8 @@ interface AppChartContext {
     setSelectedChart: (chart: ChartSettings) => void
     setEditChart: (chart: ChartSettings) => void
     resetSelectedChart: () => void
+    jsonToCSV: (data: object) => string
+    downloadCSV: (data: string) => void
 }
 
 const AppChartContext = createContext<AppChartContext>()
@@ -107,6 +109,79 @@ export const AppChartProvider: Component<Context> = (props) => {
         )
     }
 
+    const jsonToCSV = (data: object[]) => {
+        console.log('[JSON TO CSV]: ', data)
+        // Empty array for storing the values
+        const csvRows: string[] = []
+
+        // extract keys from the first object
+        const headers = Object.keys(data[1])
+
+        // As for making csv format, headers must
+        // be separated by comma and pushing it
+        // into array
+        csvRows.push(headers.join(','))
+
+        console.log('[HEADERS]: ', headers)
+
+        // Looping through the data values and make
+        // sure to align values with respect to headers
+        data.forEach((item: object) => {
+            const values = headers.map((e) => {
+                console.log(item[e])
+                return item[e]
+            })
+
+            // check if the values are of object type
+            // then stringify the values
+            if (typeof values === 'object') {
+                values.map((e) => {
+                    JSON.stringify(e)
+                })
+            }
+
+            // check if the values are of array type
+            // then stringify the values
+            if (values instanceof Array) {
+                values.map((e) => {
+                    JSON.stringify(e)
+                })
+            }
+
+            csvRows.push(values.join(','))
+        })
+
+        // Pushing Object values into array
+        // with comma separation
+        //const values = Object.values(data).join(',')
+        //csvRows.push(values)
+
+        // Returning the array joining with new line
+        return csvRows.join('\n')
+    }
+
+    const downloadCSV = (data: string) => {
+        // Creating a Blob for having a csv file format
+        // and passing the data with type
+        const blob = new Blob([data], { type: 'text/csv' })
+
+        // Creating an object for downloading url
+        const url = window.URL.createObjectURL(blob)
+
+        // Creating an anchor(a) tag of HTML
+        const a = document.createElement('a')
+
+        // Passing the blob downloading url
+        a.setAttribute('href', url)
+
+        // Setting the anchor tag attribute for downloading
+        // and passing the download file name
+        a.setAttribute('download', 'download.csv')
+
+        // Performing a download with click
+        a.click()
+    }
+
     const resetSelectedChart = () => {
         setState(
             produce((draft) => {
@@ -144,6 +219,8 @@ export const AppChartProvider: Component<Context> = (props) => {
                 setSelectedChart,
                 setEditChart,
                 resetSelectedChart,
+                jsonToCSV,
+                downloadCSV,
             }}>
             {props.children}
         </AppChartContext.Provider>

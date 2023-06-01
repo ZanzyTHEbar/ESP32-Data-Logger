@@ -96,7 +96,6 @@ export const AppAPIProvider: Component<Context> = (props) => {
 
         try {
             let endpoint: string
-            let _method: RESTType
 
             // get the key that matches the endpoint name
             const keys = [...getEndpoints().keys()].filter((key) => key === endpointName)
@@ -107,20 +106,18 @@ export const AppAPIProvider: Component<Context> = (props) => {
                     `[REST Request]: Endpoint not found in builtin map, using passed in value ${endpointName}`,
                 )
                 endpoint = endpointName
-                _method = method as RESTType
                 if (args) {
                     endpoint += args
                 }
             } else {
                 endpoint = getEndpoints().get(key)?.url ?? ''
-                _method = getEndpoints().get(key)?.type ?? (method as RESTType)
             }
 
             if (args) {
                 endpoint += args
             }
 
-            console.log(`[REST Request]: ${deviceName}${endpoint} ${_method}`)
+            console.log(`[REST Request]: ${deviceName}${endpoint} ${method}`)
 
             const response = await invoke('do_rest_request', {
                 endpoint,
@@ -130,7 +127,7 @@ export const AppAPIProvider: Component<Context> = (props) => {
             if (typeof response === 'string') {
                 setRESTStatus(RESTStatus.ACTIVE)
                 const parsedResponse = JSON.parse(response)
-                console.log(parsedResponse)
+                //console.log(parsedResponse)
                 setRESTResponse(parsedResponse)
             }
             setRESTStatus(RESTStatus.COMPLETE)
