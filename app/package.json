@@ -25,6 +25,7 @@
     "dependencies": {
         "@kobalte/core": "^0.9.6",
         "@kobalte/tailwindcss": "^0.6.5",
+        "@optimize-lodash/rollup-plugin": "^4.0.3",
         "@solid-primitives/i18n": "^1.4.0",
         "@solid-primitives/map": "^0.4.5",
         "@solid-primitives/refs": "^1.0.4",
@@ -39,6 +40,7 @@
         "date-fns": "^2.30.0",
         "dayjs": "^1.11.7",
         "dotenv": "^16.1.3",
+        "lodash": "^4.17.21",
         "moment": "^2.29.4",
         "solid-chartjs": "^1.3.8",
         "solid-form-handler": "^1.2.0",
