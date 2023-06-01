@@ -65,8 +65,8 @@ dependencies:
     specifier: ^1.0.4
     version: 1.0.4(solid-js@1.7.6)
   solid-icons:
-    specifier: ^1.0.5
-    version: 1.0.5(solid-js@1.7.6)
+    specifier: ^1.0.6
+    version: 1.0.6(solid-js@1.7.6)
   solid-js:
     specifier: ^1.7.6
     version: 1.7.6
@@ -5979,8 +5979,8 @@ packages:
       solid-js: 1.7.6
     dev: false
 
-  /solid-icons@1.0.5(solid-js@1.7.6):
-    resolution: {integrity: sha512-sRF5lu8r7OBS2nefI9ntYYScygy+NVKKjH6VCpLyrV/cmkh4FnfHLRSderV/VYFN6m0FMCSUyrh2YdqrrY103Q==}
+  /solid-icons@1.0.6(solid-js@1.7.6):
+    resolution: {integrity: sha512-SACGHh+4aTq879tXzim4/4YF8Ti4vFDFbBAJLOzl8ykASVYJ50Pttu4NnD1Faay+PDpjJqEZzytg429AN0W1PQ==}
     engines: {node: '>= 16'}
     peerDependencies:
       solid-js: '*'
@@ -6322,12 +6322,12 @@ packages:
       jest-worker: 27.5.1
       schema-utils: 3.1.2
       serialize-javascript: 6.0.1
-      terser: 5.17.6
+      terser: 5.17.7
       webpack: 5.85.0
     dev: true
 
-  /terser@5.17.6:
-    resolution: {integrity: sha512-V8QHcs8YuyLkLHsJO5ucyff1ykrLVsR4dNnS//L5Y3NiSXpbK1J+WMVUs67eI0KTxs9JtHhgEQpXQVHlHI92DQ==}
+  /terser@5.17.7:
+    resolution: {integrity: sha512-/bi0Zm2C6VAexlGgLlVxA0P2lru/sdLyfCVaRMfKVo9nWxbmz7f/sD8VPybPeSUJaJcwmCJis9pBIhcVcG1QcQ==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
