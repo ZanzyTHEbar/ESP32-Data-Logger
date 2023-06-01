@@ -14,7 +14,6 @@ const AppRoutes = lazy(() => import('@routes/Routes'))
 // TODO: Add API Key setting for fetch requests
 // TODO: Add a way to set the API Key
 // TODO: Setup support for linux and macos
-// TODO: Implement a download chart data as CSV feature - needs capture time frame (30 second snapshots for example)
 // TODO: Implement support for multiple series in a chart
 
 //? Optional TODO's

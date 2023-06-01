@@ -14,7 +14,7 @@ interface AppChartContext {
     setSelectedChart: (chart: ChartSettings) => void
     setEditChart: (chart: ChartSettings) => void
     resetSelectedChart: () => void
-    jsonToCSV: (data: object) => string
+    jsonToCSV: (data: object[]) => string
     downloadCSV: (data: string) => void
 }
 
@@ -110,7 +110,7 @@ export const AppChartProvider: Component<Context> = (props) => {
     }
 
     const jsonToCSV = (data: object[]) => {
-        console.log('[JSON TO CSV]: ', data)
+        //console.log('[JSON TO CSV]: ', data)
         // Empty array for storing the values
         const csvRows: string[] = []
 
@@ -122,13 +122,13 @@ export const AppChartProvider: Component<Context> = (props) => {
         // into array
         csvRows.push(headers.join(','))
 
-        console.log('[HEADERS]: ', headers)
+        //console.log('[HEADERS]: ', headers)
 
         // Looping through the data values and make
         // sure to align values with respect to headers
         data.forEach((item: object) => {
             const values = headers.map((e) => {
-                console.log(item[e])
+                //console.log(item[e])
                 return item[e]
             })
 
