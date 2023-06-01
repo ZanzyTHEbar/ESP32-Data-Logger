@@ -6,27 +6,77 @@ on:
       - "*.md"
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  ENABLE_CODE_SIGNING: ${{ secrets.APPLE_CERTIFICATE }}
+  APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+  APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+  APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+  APPLE_ID: ${{ secrets.APPLE_ID }}
+  APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
 
 concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
+permissions:
+  contents: write
 
 jobs:
   build:
-    defaults:
-      run:
-        working-directory: app
+    #defaults:
+    #  run:
+    #    working-directory: app
     strategy:
       fail-fast: false
       matrix:
-        node-version: [16.x]
+        node-version: [18.x]
         platform: [windows-latest, macos-latest, ubuntu-latest]
+        include:
+          #- os: ubuntu-18.04
+          #  rust_target: x86_64-unknown-linux-gnu
+          - os: windows-latest
+            rust_target: x86_64-pc-windows-msvc
+          - os: macos-latest
+            rust_target: x86_64-apple-darwin
+          - os: macos-latest
+            rust_target: aarch64-apple-darwin
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v2
         with:
           token: ${{ env.GITHUB_TOKEN }}
-      - name: use Node.js ${{ matrix.node-version }}
+      - name: Build the App (Linux)
+        if: matrix.platform == 'ubuntu-latest'
+        uses: addnab/docker-run-action@v3
+        with:
+          image: ghcr.io/zanzythebar/tauridocker:latest
+          options: -v ${{ github.workspace }}:/workspace
+          run: |
+            echo "::group::install node dependencies"
+            npm install -g pnpm
+            npm install -g typescript
+            cd app
+            pnpm install
+            echo "::endgroup::"
+            echo "::group::build app"
+            echo "::group::tauri build"
+            pnpm tauri build
+            echo "::endgroup::"
+      - name: Archive the App (Linux)
+        if: matrix.platform == 'ubuntu-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: production-files
+          path: |
+            app/src-tauri/target/release/bundle/deb/*.deb
+            app/src-tauri/target/release/bundle/appimage/*.AppImage
+          retention-days: 5
+          if-no-files-found: error
+      - name: Verify build (Linux)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          ls -la app/src-tauri/target/release/bundle/appimage
+          ls -la app/src-tauri/target/release/bundle/deb
+
+      - name: Node.js setup ${{ matrix.node-version }} (Windows & MacOS)
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
@@ -34,28 +84,98 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-      - name: install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-latest'
+      - name: Install dependencies (Windows & MacOS)
+        if: matrix.platform == 'windows-latest' || matrix.platform == 'macos-latest'
         run: |
-          sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
-          npm install -g typescript 
-          yarn && yarn build
-      - name: install dependencies (macos only)
-        if: matrix.platform == 'macos-latest'
-        run: |
-          npm install -g typescript 
-          yarn && yarn build
-      - name: install dependencies (windows only)
-        if: matrix.platform == 'windows-latest'
-        run: |
+          echo "::group::install node dependencies"
+          npm install -g pnpm
           npm install -g typescript
-          yarn && yarn build
-      - name: Build
-        uses: tauri-apps/tauri-action@v0
+          cd app
+          pnpm install
+          echo "::endgroup::"
+
+      - name: Setup Rust (Windows & MacOS)
+        if: matrix.platform == 'windows-latest' || matrix.platform == 'macos-latest'
+        uses: actions-rs/toolchain@v1
         with:
-          tagName: esp32datalogger-v__VERSION__
-          releaseName: "Esp32 Data Logger v__VERSION__" # name of the release
-          releaseBody: "Initial app public build. There may be bugs, please report them." # message to include in the release
-          releaseDraft: true # set to false to publish the release as a finished product
-          prerelease: false # set to true to mark the release as a pre-release
+          default: true
+          override: true
+          profile: minimal
+          toolchain: stable
+          target: ${{ matrix.platform.rust_target }}
+
+      - name: Cache Rust (Windows & MacOS)
+        if: matrix.platform == 'windows-latest' || matrix.platform == 'macos-latest'
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: "./app/src-tauri -> target"
+
+      - name: Build the app (Windows & MacOS)
+        if: matrix.platform == 'windows-latest' || matrix.platform == 'macos-latest'
+        uses: JonasKruckenberg/tauri-build@v1.2.3
+        id: tauri_build
+        env:
+          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+          ENABLE_CODE_SIGNING: ${{ env.APPLE_CERTIFICATE }}
+          #APPLE_CERTIFICATE: ${{ env.APPLE_CERTIFICATE }}
+          #APPLE_CERTIFICATE_PASSWORD: ${{ env.APPLE_CERTIFICATE_PASSWORD }}
+          #APPLE_SIGNING_IDENTITY: ${{ env.APPLE_SIGNING_IDENTITY }}
+          #APPLE_ID: ${{ env.APPLE_ID }}
+          #APPLE_PASSWORD: ${{ env.APPLE_PASSWORD }}
+        with:
+          target: ${{ matrix.platform.rust_target }}
+
+      - name: Archive the App (Windows & MacOS)
+        if: matrix.platform == 'windows-latest' || matrix.platform == 'macos-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: production-files
+          path: "${{ join(fromJSON(steps.tauri_build.outputs.artifacts), '\n') }}"
+          retention-days: 5
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    needs: [build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Create Directory
+        run: mkdir -p dist
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: production-files
+          path: ./dist
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm install -g conventional-changelog-conventionalcommits
+      - run: npm install -g semantic-release@v21.0.2
+      - run: npm install -g @semantic-release/exec
+      - run: npm install -g @semantic-release/git
+      - run: npm install -g @semantic-release/release-notes-generator
+      - run: npm install -g @semantic-release/changelog
+      - run: npm install -g @semantic-release/github
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+        run: |
+          sudo apt-get install -y jq
+          chmod +x ./scripts/prepareCMD.sh 
+          semantic-release
+
+  cleanup:
+    name: Cleanup actions
+    needs:
+      - deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: "♻️ remove build artifacts"
+        uses: geekyeggo/delete-artifact@v1
+        with:
+          name: production-files
+
