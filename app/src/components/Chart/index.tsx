@@ -17,6 +17,7 @@ import {
     FaSolidChartArea,
     FaSolidTrashCan,
 } from 'solid-icons/fa'
+import { IoSave } from 'solid-icons/io'
 import { createSignal, onMount, createEffect, onCleanup, createMemo } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { useInterval } from 'solidjs-use'
@@ -31,6 +32,7 @@ import { generateRandomChartData, generateRandomDataset } from '@utils/utils'
 interface IButtonGroup {
     handleDelete: () => void
     updateChartType: (event: any) => void
+    downloadChart: () => void
     chart: ChartSettings
 }
 
@@ -45,7 +47,7 @@ const ButtonGroup = (props: IButtonGroup) => {
                 <button
                     data-user="line"
                     onClick={(event) => props.updateChartType(event)}
-                    class="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
+                    class="py-1 px-2 mx-[1px] bg-blue-500 hover:bg-blue-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-blue-700 transition duration-100 ease-in focus:shadow-inner">
                     <CustomTooltip tooltip="Line Chart">
                         <FaSolidChartLine data-user="line" />
                     </CustomTooltip>
@@ -53,7 +55,7 @@ const ButtonGroup = (props: IButtonGroup) => {
                 <button
                     data-user="bar"
                     onClick={(event) => props.updateChartType(event)}
-                    class="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
+                    class="py-1 px-2 mx-[1px] bg-blue-500 hover:bg-blue-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-blue-700 transition duration-100 ease-in focus:shadow-inner">
                     <CustomTooltip tooltip="Line Chart">
                         <FaSolidChartBar data-user="bar" />
                     </CustomTooltip>
@@ -61,7 +63,7 @@ const ButtonGroup = (props: IButtonGroup) => {
                 <button
                     data-user="polarArea"
                     onClick={(event) => props.updateChartType(event)}
-                    class="py-1 px-2 mx-[1px] bg-green-500 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
+                    class="py-1 px-2 mx-[1px] bg-blue-500 hover:bg-blue-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-blue-700 transition duration-100 ease-in focus:shadow-inner">
                     <CustomTooltip tooltip="Line Chart">
                         <FaSolidChartArea data-user="area" />
                     </CustomTooltip>
@@ -72,7 +74,7 @@ const ButtonGroup = (props: IButtonGroup) => {
                     setSelectedChart(props.chart)
                     navigate('/settings')
                 }}
-                class="py-1 px-2 mx-[1px] bg-blue-400 hover:bg-blue-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-blue-700 transition duration-100 ease-in focus:shadow-inner">
+                class="py-1 px-2 mx-[1px] bg-cyan-400 hover:bg-cyan-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-cyan-700 transition duration-100 ease-in focus:shadow-inner">
                 <CustomTooltip tooltip="Chart Settings">
                     <FaSolidGear data-user="settings" />
                 </CustomTooltip>
@@ -84,9 +86,13 @@ const ButtonGroup = (props: IButtonGroup) => {
                     <FaSolidTrashCan />
                 </CustomTooltip>
             </button>
-            {/* <button class="pie-chart">
-                        <FontAwesomeIcon icon={faPieChart} />
-                    </button> */}
+            <button
+                onClick={() => props.downloadChart()}
+                class="py-1 px-2 mx-[1px] bg-green-400 hover:bg-green-600 focus:outline-none text-white font-medium text-sm rounded-md text-rounded shadow-md hover:shadow-xl focus:bg-green-700 transition duration-100 ease-in focus:shadow-inner">
+                <CustomTooltip tooltip="Save Chart to CSV">
+                    <IoSave />
+                </CustomTooltip>
+            </button>
         </div>
     )
 }
@@ -102,9 +108,9 @@ const CustomChart: Component<ChartSettings> = (props) => {
         'pie',
         'scatter',
     ]
-    const { setRemoveChart, getCharts } = useAppChartContext()
+    const { setRemoveChart, getCharts, downloadCSV, jsonToCSV } = useAppChartContext()
     const { useRequestHook, getRESTResponse } = useAppAPIContext()
-    const [chartData, setChartData] = createSignal<ChartData>(/* generateRandomChartData() */)
+    const [chartData, setChartData] = createSignal<ChartData>()
     const [ref, setRef] = createSignal<HTMLCanvasElement | null>(null)
     const [chartConfig, setChartConfig] = createStore({
         width: 500,
@@ -166,27 +172,30 @@ const CustomChart: Component<ChartSettings> = (props) => {
         })
         if (getRESTResponse) {
             const response = getRESTResponse()
-            console.log('[Get Target Data]: ', response)
+            //console.log('[Get Target Data]: ', response)
             if (response) {
                 const targetKey = Object.keys(response).find((item) => item === props.object_id)
                 const labelTargetKey = Object.keys(response).find(
                     (item) => item === props.object_id_label,
                 )
-                console.log('[Get Target Data]: ', targetKey, labelTargetKey)
+                //console.log('[Get Target Data]: ', targetKey, labelTargetKey)
 
                 const object_data = targetKey ? response[targetKey] : null
                 const object_label = targetKey ? response[labelTargetKey!] : null
 
-                console.log('[Get Target Data]: ', object_data, object_label)
+                //console.log('[Get Target Data]: ', object_data, object_label)
                 setChartRESTdata(
                     produce((state) => {
+                        if (state.length >= 10) {
+                            state.shift()
+                        }
                         state.push({
                             object_data,
                             object_label,
                         })
                     }),
                 )
-                console.log('[Get Target Data]: ', chartRESTData())
+                //console.log('[Get Target Data]: ', chartRESTData())
                 updateChartData()
             }
         }
@@ -234,7 +243,12 @@ const CustomChart: Component<ChartSettings> = (props) => {
     //
     return (
         <div class="card">
-            <ButtonGroup handleDelete={handleDelete} updateChartType={onTypeSelect} chart={props} />
+            <ButtonGroup
+                handleDelete={handleDelete}
+                updateChartType={onTypeSelect}
+                downloadChart={() => downloadCSV(jsonToCSV(chartRESTData()))}
+                chart={props}
+            />
             <div class="flex justify-center items-center content-center">
                 <DefaultChart
                     class={`chartContainer ${props.cName}`}
