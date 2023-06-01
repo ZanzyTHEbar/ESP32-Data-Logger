@@ -1,6 +1,7 @@
 import { useRoutes } from '@solidjs/router'
+import _ from 'lodash'
 import { createEffect, onMount } from 'solid-js'
-import { useEventListener } from 'solidjs-use'
+import { useEventListener, useInterval } from 'solidjs-use'
 import { debug } from 'tauri-plugin-log-api'
 import { routes } from '.'
 import type { PersistentSettings } from '@static/types'
@@ -8,10 +9,8 @@ import Header from '@components/Header'
 import { usePersistentStore } from '@src/store/tauriStore'
 import { useAppContext } from '@store/context/app'
 import { useAppChartContext } from '@store/context/chart'
-import { useAppMDNSContext } from '@store/context/mdns'
+//import { useAppMDNSContext } from '@store/context/mdns'
 import { useAppUIContext } from '@store/context/ui'
-
-//import config from '@tauri/config/config.json'
 
 export default function AppRoutes() {
     const Path = useRoutes(routes)
@@ -19,7 +18,7 @@ export default function AppRoutes() {
     //const { useMDNSScanner } = useAppMDNSContext()
     const { connectedUserName, setConnectedUser } = useAppUIContext()
     const { setAddChart, getCharts } = useAppChartContext()
-    const { setEnableMDNS, setDebugMode, getEnableMDNS, getDebugMode } = useAppContext()
+    const { /* setEnableMDNS, setDebugMode, */ getEnableMDNS, getDebugMode } = useAppContext()
 
     onMount(() => {
         get('settings').then((settings) => {
@@ -39,20 +38,46 @@ export default function AppRoutes() {
         })
     })
 
+    const handleSaveSettings = async () => {
+        // check if the settings have changed
+        const settings: PersistentSettings = {
+            charts: getCharts().settings,
+            debugMode: getDebugMode(),
+            enableMDNS: getEnableMDNS(),
+            user: connectedUserName(),
+            //enableNotifications: getEnableNotifications(),
+            //enableNotificationsSounds: getEnableNotificationsSounds(),
+            //globalNotificationsType: getGlobalNotificationsType(),
+        }
+        get('settings').then((storedSettings) => {
+            if (!_.isEqual(storedSettings, settings)) {
+                console.log(`[Routes]: Settings have changed - ${JSON.stringify(settings)}`)
+                set('settings', settings)
+            }
+        })
+    }
+
     createEffect(() => {
+        const { resume, pause } = useInterval(30000, {
+            controls: true,
+            callback: handleSaveSettings,
+        })
+
         useEventListener(window, 'blur', () => {
+            pause()
             // save the app settings to the persistent store
             const settings: PersistentSettings = {
+                charts: getCharts().settings,
+                debugMode: getDebugMode(),
+                enableMDNS: getEnableMDNS(),
                 user: connectedUserName(),
                 //enableNotifications: getEnableNotifications(),
                 //enableNotificationsSounds: getEnableNotificationsSounds(),
                 //globalNotificationsType: getGlobalNotificationsType(),
-                enableMDNS: getEnableMDNS(),
-                debugMode: getDebugMode(),
-                charts: getCharts().settings,
             }
             debug(`[Routes]: Saving Settings - ${JSON.stringify(settings)}`)
             set('settings', settings)
+            resume()
         })
     })
 

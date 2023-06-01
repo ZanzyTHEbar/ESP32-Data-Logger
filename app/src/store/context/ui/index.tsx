@@ -3,7 +3,6 @@ import { createStore, produce } from 'solid-js/store'
 import type { Context } from '@static/types'
 import { UiStore } from '@src/static/types/interfaces'
 
-
 interface AppUIContext {
     connectedUserName: Accessor<string>
     showNotifications: Accessor<boolean | undefined>

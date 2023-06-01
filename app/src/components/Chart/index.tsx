@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useNavigate } from '@solidjs/router'
 import {
     ChartData,
     ChartOptions,
     ChartTypeRegistry,
     Chart,
+    Colors,
     Title,
     Tooltip,
     Legend,
-    TimeSeriesScale,
 } from 'chart.js'
 import { DefaultChart } from 'solid-chartjs'
 import {
@@ -27,7 +29,6 @@ import type { Component } from 'solid-js'
 import CustomTooltip from '@components/Tooltip'
 import { useAppAPIContext } from '@src/store/context/api'
 import { useAppChartContext } from '@store/context/chart'
-import { generateRandomChartData, generateRandomDataset } from '@utils/utils'
 
 interface IButtonGroup {
     handleDelete: () => void
@@ -152,6 +153,26 @@ const CustomChart: Component<ChartSettings> = (props) => {
         }
     }
 
+    const updateDataset = (
+        borderColor: string,
+        backgroundColor: string,
+        data: any[],
+        label: string,
+    ) => {
+        const newDataSet = {
+            label: label,
+            borderColor: borderColor,
+            backgroundColor: backgroundColor,
+            data: data,
+        }
+
+        setChartData(
+            produce((state) => {
+                if (state) state.datasets.push(newDataSet)
+            }),
+        )
+    }
+
     const updateChartData = () => {
         const data = {
             labels: chartRESTData().map((item) => item['object_label']),
@@ -188,8 +209,8 @@ const CustomChart: Component<ChartSettings> = (props) => {
                 if (object_data === null || object_label === null) {
                     // use the previous data if there is some
                     const previousData = chartRESTData()[chartRESTData().length - 1]
-                    object_data = previousData['object_data']
-                    object_label = previousData['object_label']
+                    object_data = previousData[object_data]
+                    object_label = previousData[object_label]
                 }
 
                 //console.log('[Get Target Data]: ', object_data, object_label)
@@ -220,7 +241,7 @@ const CustomChart: Component<ChartSettings> = (props) => {
     }
 
     createEffect(() => {
-        const { reset, pause, resume } = useInterval(props.interval, {
+        const { reset } = useInterval(props.interval, {
             controls: true,
             callback: getChartData,
         })
@@ -230,22 +251,7 @@ const CustomChart: Component<ChartSettings> = (props) => {
     })
 
     // TODO: Add support for multiple datasets
-    const onAddDatasetClick = () => {
-        setChartData((prev) => {
-            const datasets = prev.datasets
-            datasets.push(generateRandomDataset(prev.labels as string[], prev.datasets.length + 1))
-            return { ...prev, datasets }
-        })
-    }
-
-    // TODO: Add support for multiple datasets
-    const onRemoveDatasetClick = () => {
-        setChartData((prev) => {
-            const datasets = prev.datasets
-            datasets.pop()
-            return { ...prev, datasets }
-        })
-    }
+    const onRemoveDatasetClick = () => {}
 
     // TODO: Add support for changing size of chart
     const onDimensionsInput = (type: 'width' | 'height', event: any) => {
@@ -257,7 +263,7 @@ const CustomChart: Component<ChartSettings> = (props) => {
     }
 
     onMount(() => {
-        Chart.register(Title, Tooltip, Legend, TimeSeriesScale)
+        Chart.register(Title, Tooltip, Legend, Colors)
         console.debug('[Chart Ref]:', ref())
     })
 

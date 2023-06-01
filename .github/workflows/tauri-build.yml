@@ -28,6 +28,7 @@ jobs:
       fail-fast: false
       matrix:
         node-version: [18.x]
+        ## 
         platform: [windows-latest, macos-latest, ubuntu-latest]
         include:
           #- os: ubuntu-18.04
@@ -54,6 +55,7 @@ jobs:
             npm install -g pnpm
             npm install -g typescript
             cd app
+            pnpm fetch
             pnpm install
             echo "::endgroup::"
             echo "::group::build app"
@@ -116,7 +118,7 @@ jobs:
         id: tauri_build
         env:
           GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
-          ENABLE_CODE_SIGNING: ${{ env.APPLE_CERTIFICATE }}
+          #ENABLE_CODE_SIGNING: ${{ env.APPLE_CERTIFICATE }}
           #APPLE_CERTIFICATE: ${{ env.APPLE_CERTIFICATE }}
           #APPLE_CERTIFICATE_PASSWORD: ${{ env.APPLE_CERTIFICATE_PASSWORD }}
           #APPLE_SIGNING_IDENTITY: ${{ env.APPLE_SIGNING_IDENTITY }}
@@ -178,4 +180,3 @@ jobs:
         uses: geekyeggo/delete-artifact@v1
         with:
           name: production-files
-

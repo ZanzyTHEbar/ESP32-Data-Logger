@@ -1,4 +1,4 @@
-import { AppStoreChart, ChartSettings } from './interfaces'
+import { ChartSettings } from './interfaces'
 import type { ENotificationAction } from './enums'
 import type { JSXElement } from 'solid-js'
 
