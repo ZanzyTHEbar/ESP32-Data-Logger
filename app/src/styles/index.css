@@ -49,9 +49,8 @@
 
   .settings-button {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    color: theme('textColor.secondary');
     text-decoration: none;
-    background-color: transparent;
+    background-color: theme('backgroundColor.primary');
     outline: none;
     cursor: pointer;
     transition: color 0.3s;
@@ -67,11 +66,6 @@
 
   .settings-button:hover {
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-    color: theme('textColor.accent');
-  }
-
-  .settings-button:active {
-    color: theme('textColor.primary');
   }
 
   .settings-button:focus {
@@ -80,7 +74,7 @@
   }
 
   .settings-button[disabled] {
-    color: theme('colors.gray.400');
+    background-color: theme('colors.gray.400');
     cursor: not-allowed;
   }
 
