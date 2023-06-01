@@ -1,5 +1,5 @@
 .tooltip__content {
-    @apply z-50 max-w-[min(calc(100vw_-_16px),_180px)] border border-gray-300 rounded p-2 bg-quaternary text-white text-sm shadow-md origin-[var(--kb-tooltip-content-transform-origin)] animate-[contentHide_250ms_ease-in_forwards];
+    @apply z-50 max-w-[min(calc(100vw_-_16px),_180px)] border border-gray-300 rounded p-2 bg-secondary text-secondary text-sm shadow-md origin-[var(--kb-tooltip-content-transform-origin)] animate-[contentHide_250ms_ease-in_forwards];
 }
 
 .tooltip__content[data-expanded] {

@@ -19,7 +19,7 @@ const Input: Component<Props> = (props) => {
     }
 
     return (
-        <div class="flex grow rounded-xl flex-col pl-3 pr-3 pb-3 pt-3 bg-gray-100">
+        <div class="flex grow rounded-xl flex-col pl-3 pr-3 pb-3 pt-3 bg-secondary svg_color">
             <div class="flex justify-between pb-3">
                 <div class="flex items-center content-center">
                     <span class="items-center pr-1 pb-1 justify-center content-center">
@@ -31,7 +31,7 @@ const Input: Component<Props> = (props) => {
             <div>
                 <div class="flex justify-between pb-3">
                     <input
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        class="bg-secondary border border-primary text-primary text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         onChange={handleChange}
                         placeholder={props.placeholder}
                         type={props.type}
