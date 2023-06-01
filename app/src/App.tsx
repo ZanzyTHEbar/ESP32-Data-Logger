@@ -10,11 +10,10 @@ const AppRoutes = lazy(() => import('@routes/Routes'))
 
 //! TODO: Add a way for the user to define Y axis min and max values
 
-// TODO: Add a way for the user to change the theme
+// TODO: Implement support for multiple series in a chart
 // TODO: Add API Key setting for fetch requests
 // TODO: Add a way to set the API Key
 // TODO: Setup support for linux and macos
-// TODO: Implement support for multiple series in a chart
 
 //? Optional TODO's
 // TODO: Add support for Websockets
