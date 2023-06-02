@@ -1,11 +1,13 @@
-import { createContext, useContext, createMemo, type Component, Accessor } from 'solid-js'
+import { createContext, useContext, createMemo, type Component, type Accessor } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import type { Context } from '@static/types'
-import { UiStore } from '@src/static/types/interfaces'
+import { MenuOpen, UiStore } from '@src/static/types/interfaces'
 
 interface AppUIContext {
     connectedUserName: Accessor<string>
     showNotifications: Accessor<boolean | undefined>
+    menuOpenStatus: Accessor<MenuOpen | null | undefined>
+    setMenu: (menuOpen: MenuOpen | null) => void
     setConnectedUser: (userName: string) => void
 }
 
@@ -14,6 +16,7 @@ export const AppUIProvider: Component<Context> = (props) => {
     const defaultState: UiStore = {
         connectedUser: '',
         showNotifications: true,
+        menuOpen: null,
     }
 
     const [state, setState] = createStore<UiStore>(defaultState)
@@ -26,16 +29,27 @@ export const AppUIProvider: Component<Context> = (props) => {
         )
     }
 
+    const setMenu = (menuOpen: MenuOpen | null) => {
+        setState(
+            produce((s) => {
+                s.menuOpen = menuOpen || null
+            }),
+        )
+    }
+
     const uiState = createMemo(() => state)
 
     const connectedUserName = createMemo(() => uiState().connectedUser)
     const showNotifications = createMemo(() => uiState().showNotifications)
+    const menuOpenStatus = createMemo(() => uiState().menuOpen)
 
     return (
         <AppUIContext.Provider
             value={{
                 connectedUserName,
                 showNotifications,
+                menuOpenStatus,
+                setMenu,
                 setConnectedUser,
             }}>
             {props.children}

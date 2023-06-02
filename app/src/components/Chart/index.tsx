@@ -46,6 +46,14 @@ interface IButtonGroup {
     chart: ChartSettings
 }
 
+interface IChartDataSet {
+    label: string
+    data: any[]
+    backgroundColor: string[]
+    borderColor: string[]
+    borderWidth: number
+}
+
 const ButtonGroup = (props: IButtonGroup) => {
     const navigate = useNavigate()
 
@@ -121,6 +129,7 @@ const CustomChart: Component<ChartSettings> = (props) => {
     const { setRemoveChart, getCharts, downloadCSV, jsonToCSV } = useAppChartContext()
     const { useRequestHook, getRESTResponse } = useAppAPIContext()
     const [chartData, setChartData] = createSignal<ChartData>()
+    const [chartDataSet, setChartDataSet] = createSignal<IChartDataSet>()
     const [ref, setRef] = createSignal<HTMLCanvasElement | null>(null)
     const [chartConfig, setChartConfig] = createStore({
         width: 500,
@@ -162,17 +171,12 @@ const CustomChart: Component<ChartSettings> = (props) => {
         }
     }
 
-    const updateDataset = (
-        borderColor: string,
-        backgroundColor: string,
-        data: any[],
-        label: string,
-    ) => {
+    const updateDataset = (dataSet: IChartDataSet) => {
         const newDataSet = {
-            label: label,
-            borderColor: borderColor,
-            backgroundColor: backgroundColor,
-            data: data,
+            label: dataSet.label,
+            borderColor: dataSet.borderColor,
+            backgroundColor: dataSet.backgroundColor,
+            data: dataSet.data,
         }
 
         setChartData(

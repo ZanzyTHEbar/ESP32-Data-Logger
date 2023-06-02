@@ -68,12 +68,6 @@ const ButtonGroup = (props: IButtonGroup) => {
                 class="ml-auto bg-blue-700 hover:bg-blue-800 focus:outline-none text-white font-medium text-sm rounded-lg py-2.5 px-5 text-rounded mr-5 shadow-md hover:shadow-xl focus:bg-blue-600 transition duration-100 ease-in focus:shadow-inner">
                 {props.isEditing ? 'Save Changes' : 'Add Chart'}
             </button>
-            <input
-                type="checkbox"
-                onClick={() => props.handleSave()}
-                class="ml-auto bg-blue-700 hover:bg-blue-800 focus:outline-none text-white font-medium text-sm rounded-lg py-2.5 px-5 text-rounded mr-5 shadow-md hover:shadow-xl focus:bg-blue-600 transition duration-100 ease-in focus:shadow-inner">
-                DataSet
-            </input>
             <button
                 onClick={() => props.handleDeleteAll()}
                 class="ml-auto bg-blue-700 hover:bg-blue-800 focus:outline-none text-white font-medium text-sm rounded-lg py-2.5 px-5 text-rounded mr-5 shadow-md hover:shadow-xl focus:bg-blue-600 transition duration-100 ease-in focus:shadow-inner">

@@ -3,8 +3,8 @@ import { useAppContextMain } from './store/context/main'
 import { AppProvider } from '@store/context/app'
 
 const AppRoutes = lazy(() => import('@routes/Routes'))
-//const NewContextMenu = lazy(() => import('@components/NewMenu'))
-//const ExampleMenu = lazy(() => import('@components/NewMenu/DevTools'))
+const NewContextMenu = lazy(() => import('@components/NewMenu'))
+const DevTools = lazy(() => import('@components/NewMenu/DevTools'))
 //const ToastNotificationWindow = lazy(() => import('@components/Notifications'))
 
 //! TODO: Add a way for the user to define Y axis min and max values
@@ -23,6 +23,7 @@ const AppRoutes = lazy(() => import('@routes/Routes'))
 // TODO: Add support for MQTT
 
 function App() {
+    const ref = document.getElementById('titlebar')
     const { handleTitlebar, handleAppBoot } = useAppContextMain()
     onMount(() => {
         handleTitlebar(true)
@@ -33,10 +34,10 @@ function App() {
         <main class="App overflow-y-auto items-center">
             <AppProvider>
                 <AppRoutes />
-                {/* <NewContextMenu ref={ref} name="test">
-                    <ExampleMenu />
+                <NewContextMenu ref={ref} name="devtools">
+                    <DevTools />
                 </NewContextMenu>
-                <ToastNotificationWindow /> */}
+                {/* <ToastNotificationWindow /> */}
             </AppProvider>
         </main>
     )

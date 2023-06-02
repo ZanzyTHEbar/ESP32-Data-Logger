@@ -97,8 +97,6 @@ export interface ModalMenu {
 export interface AppStore {
     debugMode: DebugMode
     enableMDNS: boolean
-    scanForCamerasOnStartup: boolean
-    stopAlgoBackend: boolean
 }
 
 export interface AppStoreNotifications {
@@ -121,6 +119,7 @@ export interface AppStoreMdns {
 export interface UiStore {
     connectedUser: string
     showNotifications?: boolean
+    menuOpen: MenuOpen | null
 }
 
 export interface ChartSettings {

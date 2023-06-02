@@ -18,7 +18,7 @@ export default function AppRoutes() {
     //const { useMDNSScanner } = useAppMDNSContext()
     const { connectedUserName, setConnectedUser } = useAppUIContext()
     const { setAddChart, getCharts } = useAppChartContext()
-    const { /* setEnableMDNS, setDebugMode, */ getEnableMDNS, getDebugMode } = useAppContext()
+    const { /* setEnableMDNS */ setDebugMode, getEnableMDNS, getDebugMode } = useAppContext()
 
     onMount(() => {
         get('settings').then((settings) => {
@@ -27,6 +27,9 @@ export default function AppRoutes() {
                 const activeUserName =
                     typeof settings.user === 'string' ? settings.user : 'stranger'
                 setConnectedUser(activeUserName)
+
+                //* set the debug mode
+                setDebugMode(settings.debugMode)
 
                 //* Load charts from persistent store
                 if (settings.charts) {
