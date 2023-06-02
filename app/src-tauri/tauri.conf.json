@@ -143,7 +143,7 @@
             }
         },
         "security": {
-            "csp": "default-src blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self' img-src: 'self' asset: https://asset.localhost media-src stream: https://stream.localhost"
+            "csp": "default-src blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self' img-src: 'self' asset: https://asset.localhost; media-src stream: https://stream.localhost"
         },
         "updater": {
             "active": false,

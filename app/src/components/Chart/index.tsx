@@ -10,6 +10,15 @@ import {
     Title,
     Tooltip,
     Legend,
+    LineController,
+    LinearScale,
+    PointElement,
+    LineElement,
+    BarController,
+    CategoryScale,
+    BarElement,
+    PolarAreaController,
+    RadialLinearScale,
 } from 'chart.js'
 import { DefaultChart } from 'solid-chartjs'
 import {
@@ -263,7 +272,21 @@ const CustomChart: Component<ChartSettings> = (props) => {
     }
 
     onMount(() => {
-        Chart.register(Title, Tooltip, Legend, Colors)
+        Chart.register(
+            Title,
+            Tooltip,
+            Legend,
+            Colors,
+            LineController,
+            LineElement,
+            PointElement,
+            LinearScale,
+            BarController,
+            CategoryScale,
+            BarElement,
+            PolarAreaController,
+            RadialLinearScale,
+        )
         console.debug('[Chart Ref]:', ref())
     })
 
