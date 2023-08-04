@@ -52,11 +52,11 @@ export const AppChartProvider: Component<Context> = (props) => {
 
     const setAddChart = (chart: ChartSettings) => {
         setState(
-            produce((draft) => {
+            produce((s) => {
                 //* check for duplicates
-                const duplicate = draft.settings.find((item) => item.chart_id === chart.chart_id)
+                const duplicate = s.settings.find((item) => item.chart_id === chart.chart_id)
                 if (!duplicate) {
-                    draft.settings.push(chart)
+                    s.settings.push(chart)
                 }
             }),
         )
@@ -64,16 +64,18 @@ export const AppChartProvider: Component<Context> = (props) => {
 
     const setEditChart = (chart: ChartSettings) => {
         setState(
-            produce((draft) => {
+            produce((s) => {
                 //* check for chart in state
-                let prev_chart = draft.settings.find((item) => item.chart_id === chart.chart_id)
+                let prev_chart = s.settings.find(
+                    (item: { chart_id: string }) => item.chart_id === chart.chart_id,
+                )
                 if (prev_chart) {
                     //* push new chart and remove old one
                     prev_chart = chart
-                    draft.settings = draft.settings.filter(
+                    s.settings = s.settings.filter(
                         (item: { chart_id: string }) => item.chart_id !== chart.chart_id,
                     )
-                    draft.settings.push(prev_chart)
+                    s.settings.push(prev_chart)
                 }
             }),
         )
@@ -81,10 +83,10 @@ export const AppChartProvider: Component<Context> = (props) => {
 
     const setRemoveChart = (chart: ChartSettings | undefined) => {
         setState(
-            produce((draft) => {
+            produce((s) => {
                 //* remove chart from state
                 if (chart) {
-                    draft.settings = draft.settings.filter(
+                    s.settings = s.settings.filter(
                         (item: { chart_id: string }) => item.chart_id !== chart.chart_id,
                     )
                 }
@@ -94,17 +96,17 @@ export const AppChartProvider: Component<Context> = (props) => {
 
     const setRemoveAllCharts = () => {
         setState(
-            produce((draft) => {
+            produce((s) => {
                 //* remove all charts from state
-                draft.settings.splice(0, draft.settings.length)
+                s.settings.splice(0, s.settings.length)
             }),
         )
     }
 
     const setSelectedChart = (chart: ChartSettings) => {
         setState(
-            produce((draft) => {
-                draft.selectedChart = chart
+            produce((s) => {
+                s.selectedChart = chart
             }),
         )
     }
@@ -184,8 +186,8 @@ export const AppChartProvider: Component<Context> = (props) => {
 
     const resetSelectedChart = () => {
         setState(
-            produce((draft) => {
-                draft.selectedChart = {
+            produce((s) => {
+                s.selectedChart = {
                     ip: '',
                     endpoint: '',
                     title: '',

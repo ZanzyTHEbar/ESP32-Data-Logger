@@ -29,11 +29,7 @@ export default function AppRoutes() {
                 setConnectedUser(activeUserName)
 
                 //* Load charts from persistent store
-                if (settings.charts) {
-                    settings.charts.forEach((chart) => {
-                        setAddChart(chart)
-                    })
-                }
+                settings.charts?.forEach((chart) => setAddChart(chart))
             }
         })
     })

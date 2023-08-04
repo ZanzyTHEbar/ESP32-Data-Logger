@@ -18,4 +18,3 @@ export const clearObject = (value: ChartSettings) => {
         }
     }
 }
-
