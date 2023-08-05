@@ -19,8 +19,7 @@ const Header: Component<{ name: string }> = (props) => {
                         <button
                             onClick={() => {
                                 resetSelectedChart()
-                                if (location.pathname === '/') navigate('/settings')
-                                else navigate('/')
+                                navigate(location.pathname === '/' ? '/settings' : '/')
                             }}
                             class="settings-button ml-4 p-1 hover:bg-primary rounded-full py-3 px-4 mr-5 focus:bg-secondary transition duration-200 ease-in focus:shadow-inner">
                             <FaSolidGear />

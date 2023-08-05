@@ -18,7 +18,7 @@
         "tauri:clean": "cd src-tauri && cargo clean",
         "docs": "jsdoc -c jsdoc.conf.json",
         "lint": "eslint --ext .js,.ts,.jsx,.tsx src",
-        "format": "yarn run lint --fix & yarn prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+        "format": "pnpm run lint --fix & pnpm prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
         "update-deps": "pnpm up -Li",
         "typecheck": "tsc --noEmit"
     },

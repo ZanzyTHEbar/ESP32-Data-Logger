@@ -51,8 +51,6 @@ export const AppContextMainProvider: Component<MainContext> = (props) => {
     const getDetachConsole = createMemo(() => detachConsole)
     //#region Global Hooks
     const handleAppExit = async (main = false) => {
-        // TODO: call these before the app exits to shutdown gracefully
-
         await invoke('handle_save_window_state')
         console.log('[App Close]: saved window state')
 

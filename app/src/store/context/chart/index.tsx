@@ -8,11 +8,13 @@ interface AppChartContext {
     getCharts: Accessor<AppStoreChart>
     getSelectedChart: Accessor<ChartSettings | undefined>
     getSelectedChartId: Accessor<string | undefined>
+    getToggleDataSet: Accessor<boolean>
     setAddChart: (chart: ChartSettings) => void
     setRemoveChart: (chart: ChartSettings | undefined) => void
     setRemoveAllCharts: () => void
     setSelectedChart: (chart: ChartSettings) => void
     setEditChart: (chart: ChartSettings) => void
+    setToggleDataSet: (toggle: boolean) => void
     resetSelectedChart: () => void
     jsonToCSV: (data: object[]) => string
     downloadCSV: (data: string) => void
@@ -48,6 +50,7 @@ export const AppChartProvider: Component<Context> = (props) => {
             chart_id: '',
             cName: 'graphContainer',
         },
+        toggleDataSet: false,
     }
 
     const setAddChart = (chart: ChartSettings) => {
@@ -105,6 +108,14 @@ export const AppChartProvider: Component<Context> = (props) => {
         setState(
             produce((draft) => {
                 draft.selectedChart = chart
+            }),
+        )
+    }
+
+    const setToggleDataSet = (toggle: boolean) => {
+        setState(
+            produce((draft) => {
+                draft.toggleDataSet = toggle
             }),
         )
     }
@@ -206,6 +217,7 @@ export const AppChartProvider: Component<Context> = (props) => {
 
     const getSelectedChart = createMemo(() => getCharts().selectedChart)
     const getSelectedChartId = createMemo(() => getCharts().selectedChart?.chart_id)
+    const getToggleDataSet = createMemo(() => getCharts().toggleDataSet)
 
     return (
         <AppChartContext.Provider
@@ -213,11 +225,13 @@ export const AppChartProvider: Component<Context> = (props) => {
                 getCharts,
                 getSelectedChart,
                 getSelectedChartId,
+                getToggleDataSet,
                 setAddChart,
                 setRemoveChart,
                 setRemoveAllCharts,
                 setSelectedChart,
                 setEditChart,
+                setToggleDataSet,
                 resetSelectedChart,
                 jsonToCSV,
                 downloadCSV,

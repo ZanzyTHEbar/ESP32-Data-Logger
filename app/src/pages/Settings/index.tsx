@@ -2,6 +2,7 @@
 import { For, createSignal, onMount } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { createAsyncMemo } from 'solidjs-use'
+import { debug } from 'tauri-plugin-log-api'
 import Input from '@components/Inputs'
 import CustomTooltip from '@components/Tooltip'
 import { SettingsPageData } from '@static/SettingsPageData'
@@ -122,6 +123,7 @@ const Settings = () => {
         getSelectedChart,
         setSelectedChart,
         setEditChart,
+        getToggleDataSet,
     } = useAppChartContext()
     const [editing, setEditing] = createSignal(false)
     const [inputStore, setInputState] = createStore<ChartSettings>({
@@ -140,11 +142,10 @@ const Settings = () => {
     const inputState = createAsyncMemo(() => inputStore)
 
     onMount(() => {
-        //console.log('getSelectedChart()', getSelectedChart())
         if (getSelectedChart()) {
             const size = getSelectedChart()?.chart_id.length
             if (size! > 0) {
-                console.log('getSelectedChart()', getSelectedChart())
+                debug(`[Settings]: ${getSelectedChart()}`)
                 setEditing(true)
                 setInputState(getSelectedChart()!)
                 const inputs = document.querySelectorAll('input')

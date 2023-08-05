@@ -138,4 +138,5 @@ export interface ChartSettings {
 export interface AppStoreChart {
     settings: ChartSettings[]
     selectedChart?: ChartSettings
+    toggleDataSet: boolean
 }
